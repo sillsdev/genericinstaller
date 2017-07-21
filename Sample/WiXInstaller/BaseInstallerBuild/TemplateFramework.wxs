@@ -71,7 +71,7 @@
 	<Property Id='PromptToCloseProcesses' Value='$(var.ApplicationName)' />
 	<Property Id='PromptToCloseDisplayNames' Value='$(var.ApplicationName)' /> 
 
-	<CustomAction Id="SetFontValues"
+	<!--<CustomAction Id="SetFontValues"
 		Return="check"
 		Execute="immediate"
 		BinaryKey="MyCustomActionsDll"
@@ -81,7 +81,7 @@
 	<Property Id="CHARIS_INSTALLED" Value='False'/>
 	<Property Id="APPARATUS_INSTALLED" Value='False'/>
 	<Property Id="GALATIA_INSTALLED" Value='False'/>
-	<Property Id="EZRA_INSTALLED" Value='False'/>
+	<Property Id="EZRA_INSTALLED" Value='False'/>-->
 
 	
 	<CustomAction Id='SetDefDataFolder' Property='DEFDATAFOLDER' Value='[WindowsVolume]My $(var.ApplicationName) Data Folder' />
@@ -104,7 +104,7 @@
 	
 	<InstallExecuteSequence>
 		<Custom Action="CloseApplications" Before="AppSearch"></Custom>
-		<Custom Action="SetFontValues" After="AppSearch"></Custom>
+		<!--<Custom Action="SetFontValues" After="AppSearch"></Custom>-->
 		<Custom Action="DeleteRegistryVersionNumber" Before="RemoveRegistryValues">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
 	    <RemoveExistingProducts Before="InstallInitialize" />
         <Custom Action='AlreadyUpdated' After='FindRelatedProducts'>SELFFOUND</Custom>
@@ -206,7 +206,7 @@
 		</Component>
 	</DirectoryRef>
 
-	<DirectoryRef Id='FontsFolder'>
+	<!--<DirectoryRef Id='FontsFolder'>
 	  <Component Id='Font1' Guid='*' Permanent='yes'>
 		<Condition>DOULOS_INSTALLED="False"</Condition>
 		<File Id='DoulosFont' Source='..\resources\DoulosSIL-R.ttf' TrueType='yes'/>
@@ -263,7 +263,7 @@
 		<Condition>EZRA_INSTALLED="False"</Condition>
 		<File Id='SILEzraOTSR' Source='..\resources\SILEOTSR.ttf' TrueType='yes'/>
 	  </Component>
-	</DirectoryRef>
+	</DirectoryRef>-->
 	
 	<!-- A "typical" install will install featues of level 3 and below.  A "complete" install will install features of level 1000 and below.
 		 A "custom" install will display the tree view with items of value "3" and below selected by default. -->	
@@ -291,7 +291,7 @@
 			<ComponentRef Id='ApplicationShortcutMenu' />
 		</Feature>
 
-		<Feature Id='Fonts' Title='Related Fonts' Description='Installing fonts used by the application.' Level='3' AllowAdvertise="no" InstallDefault="source" Absent='allow' TypicalDefault="install" >
+		<!--<Feature Id='Fonts' Title='Related Fonts' Description='Installing fonts used by the application.' Level='3' AllowAdvertise="no" InstallDefault="source" Absent='allow' TypicalDefault="install" >
 		  <ComponentRef Id='Font1'/>
 		  <ComponentRef Id='Font2'/>
 		  <ComponentRef Id='Font3'/>
@@ -306,7 +306,7 @@
 		  <ComponentRef Id='Font12'/>
 		  <ComponentRef Id='Font13'/>
 		  <ComponentRef Id='Font14'/>
-		</Feature>
+		</Feature>-->
 	</Feature>
   </Product>
 </Wix>
