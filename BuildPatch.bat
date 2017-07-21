@@ -1,0 +1,1 @@
+NAnt.exe -buildfile:Sample.build BuildPatch

@@ -1,0 +1,9 @@
+BuildDir
+Sample/WiXInstaller/CustomActions/CustomActions/bin/
+Sample/WiXInstaller/CustomActions/CustomActions/obj/
+Sample/WiXInstaller/libs/
+Sample/WiXInstaller/resources/*.TTF
+Sample/bin/
+Sample/obj/
+msbuild.log
+storage
