@@ -35,7 +35,7 @@
 
 	<!-- ########################################################################################################## -->
 	<!-- ### CompGGS definition : Component Generation GUID Seed. It's a WiX thing...                           ### -->
-	<!-- ### Each product should have its own ComopGGS value.                                                   ### -->
+	<!-- ### Each product should have its own CompGGS value.                                                    ### -->
 	<!-- ########################################################################################################## -->
 	<property name="CompGGS" value="E1474B2A-054C-4791-AF85-9B20EBD17AE3" />
 

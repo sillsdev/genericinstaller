@@ -1,0 +1,4 @@
+TODO:
+- Update entry bats to call MSBuild (and set up vsvars)
+- slight format updates in (build->targets) files
+- 
