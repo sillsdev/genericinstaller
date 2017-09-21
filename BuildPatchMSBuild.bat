@@ -9,5 +9,5 @@ REM Run the next target only if the previous target succeeded
 (
 	MSBuild Sample.targets /t:DownloadBuildTasks
 ) && (
-	MSBuild Sample.targets %*
+	MSBuild Sample.targets /t:BuildPatch
 )

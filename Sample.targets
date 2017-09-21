@@ -1,7 +1,13 @@
-<?xml version="1.0"?>
-<Project DefaultTargets="BuildRelease" Ixmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="BuildRelease" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+	<UsingTask TaskName="DownloadFile" AssemblyFile="FwBuildTasks.dll"/>
+	<UsingTask TaskName="ForceDelete" AssemblyFile="FwBuildTasks.dll"/>
 
-	<UsingTask TaskName="DownloadFile" AssemblyFile="FwBuildTasks.dll" Condition="Exists('FwBuildTasks')"/>
+	<PropertyGroup>
+		<RootDir>$(MSBuildThisFileDirectory)</RootDir>
+		<MSBuildExtensionTargets>$(RootDir)/packages/MSBuild.Extension.Pack.1.9.0/build/net40/MSBuild.Extension.Pack.targets</MSBuildExtensionTargets>
+	</PropertyGroup>
+	<Import Project="$(MSBuildExtensionTargets)" Condition="Exists('$(MSBuildExtensionTargets)')"/>
 
 	<!-- ########################################################################################################## -->
 	<!-- ### Configuration properties - Review and edit these values as needed.                                 ### -->
@@ -15,7 +21,7 @@
 		<VersionSeg4>1</VersionSeg4>  <!-- each base build is revision 1. Don't change this.-->
 		<CopyrightYear>2017</CopyrightYear>
 		<Manufacturer>SIL International</Manufacturer>
-		<CertPath>../ia.p12</CertPath>
+		<CertPath>$(RootDir)/../ia.p12</CertPath> <!-- yes, this is outside the repository. BYOCertificate. -->
 	</PropertyGroup>
 
 	<!-- ########################################################################################################## -->
@@ -29,7 +35,9 @@
 	</PropertyGroup>
 
 	<!-- $(ProductName) 1.0.1.X ($(ProductName) build)-->
-	<!-- <property name="ProductIdGuid" value="E4789AE1-EE7A-4488-88E2-BD3B633DFA1E" /> -->
+	<!-- <PropertyGroup>
+	<! -	<ProductIdGuid>E4789AE1-EE7A-4488-88E2-BD3B633DFA1E</ProductIdGuid>
+	<! - </PropertyGroup> -->
 
 	<!-- ########################################################################################################## -->
 	<!-- ### UPGRADE CODE GUID definition : This value must be the same for every version of this product.      ### -->
@@ -52,19 +60,19 @@
 	<!-- ### Property definitions                                                                               ### -->
 	<!-- ########################################################################################################## -->
 	<PropertyGroup>
+		<!-- REVIEW (Hasso) 2017.09: what do we call each segment again? Major.Minor.(Build|Patch).(Revision|Build) -->
 		<MajorVersion>$(VersionSeg1).$(VersionSeg2)</MajorVersion>
 		<MinorVersion>$(MajorVersion).$(VersionSeg3)</MinorVersion>
 		<Revision>$(MinorVersion).$(VersionSeg4)</Revision>
-<!--	<MSBUILD>C:\Program Files (x86)\MSBuild\14.0\Bin\MsBuild.exe</MSBUILD>	-->
 		<CFG>release</CFG>
 		<Platform>x86</Platform>
 	</PropertyGroup>
 
 	<!-- Build Directories -->
 	<PropertyGroup>
-		<Installers.Base.Dir>./BuildDir</Installers.Base.Dir>
-		<Product.Build.Dir>$(Installers.Base.Dir)/$(ProductName) $(MajorVersion) Build</Product.Build.Dir>
-		<Product.BuildMaster.Dir>$(Installers.Base.Dir)/$(ProductName) Build Master</Product.BuildMaster.Dir>
+		<InstallersBaseDir>$(RootDir)/BuildDir</InstallersBaseDir>
+		<ProductBuildDir>$(InstallersBaseDir)/$(ProductName) $(MajorVersion) Build</ProductBuildDir>
+		<ProductBuildMasterDir>$(InstallersBaseDir)/$(ProductName) Build Master</ProductBuildMasterDir>
 	</PropertyGroup>
 
 	<!-- ########################################################################################################## -->
@@ -93,23 +101,22 @@
 		<CallTarget Targets="BuildProduct" />
 		<CallTarget Targets="MakeInstallBuildFolders" />
 		<CallTarget Targets="CopyFilesToInstall" />
-		<CallTarget Targets="WriteVersionFile" />
+		<CallTarget Targets="WriteVersionFile" Condition="Exists(MSBuildExtensionTargets)" />
 	</Target>
 
 	<Target Name="BuildProduct">
 		<CallTarget Targets="Clean" />
-		<CallTarget Targets="UpdateVersion" />
+		<CallTarget Targets="UpdateVersion" Condition="Exists($(MSBuildExtensionTargets))" />
 		<CallTarget Targets="ProductCompile" />
 	</Target>
 
 	<!-- ########################################################################################################## -->
 	<!-- ### Compile Targets                                                                                    ### -->
 	<!-- ########################################################################################################## -->
-<!-- REVIEW: better way to call MSBuild? Must see FLExBridge for example -->
 	<Target Name="ProductCompile">
-		<Exec Command="$(MSBUILD) $(ProductName).sln /Target:$(ProductName) /property:Configuration=$(CFG) /property:Platform=$(Platform) /property:AllowUnsafeBlocks=true /verbosity:quiet /fileLogger" />
-
-		<Exec Command="$(MSBUILD) ./$(ProductName)/WixInstaller/CustomActions/CustomActions.sln /Target:CustomActions /property:Configuration=$(CFG) /property:Platform=$(Platform) /verbosity:quiet" />
+		<!-- REVIEW (Hasso) 2017.09: would it be worth running these as exec instead to be able to specify verbosity? -->
+		<MSBuild Projects="$(ProductName).sln" Targets="$(ProductName)" Properties="Configuration=$(CFG);Platform=$(Platform);AllowUnsafeBlocks=true" />
+		<MSBuild Projects="$(ProductName)/WixInstaller/CustomActions/CustomActions.sln" Targets="CustomActions" Properties="Configuration=$(CFG);Platform=$(Platform)" />
 	</Target>
 
 	<!-- As new compile Targets are added, include the relative file path below so they can be cleaned -->
@@ -118,8 +125,8 @@
 			<ProjectsToClean Include="$(ProductName)"/>
 			<ProjectsToClean Include="$(ProductName)/WixInstaller/CustomActions/CustomActions"/>
 		</ItemGroup>
-		<ForceDelete Files="@(ProjectsToClean)/bin" />
-		<ForceDelete Files="@(ProjectsToClean)/obj" />
+		<ForceDelete Files="@(ProjectsToClean -> '%(Identity)/bin')" />
+		<ForceDelete Files="@(ProjectsToClean -> '%(Identity)/obj')" />
 	</Target>
 
 	<!-- ########################################################################################################## -->
@@ -127,50 +134,53 @@
 	<!-- ########################################################################################################## -->
 
 	<Target Name="CleanMasterOutputDir">
-		<ForceDelete Files="$(Product.BuildMaster.Dir)" />
+		<ForceDelete Files="$(ProductBuildMasterDir)" />
 	</Target>
 
 	<Target Name="MakeInstallBuildFolders">
-		<MakeDir Directories="$(Installers.Base.Dir)" Condition="!Exists('$(Installers.Base.Dir)')"/>  <!-- ./BuildDir -->
+		<MakeDir Directories="$(InstallersBaseDir)" Condition="!Exists('$(InstallersBaseDir)')"/>  <!-- ./BuildDir -->
 
-		<ForceDelete Files="$(Product.Build.Dir)" />	<!-- ./BuildDir/Sample 1.0 Build -->
+		<ForceDelete Files="$(ProductBuildDir)" />	<!-- ./BuildDir/Sample 1.0 Build -->
 
-		<!-- <Copy SourceFiles="$(Installers.Base.Dir)/$(ProductName) Build Master/**/*" DestinationFolder="$(Product.Build.Dir)"/> -->
+		<!-- <ItemGroup>
+		<! - 	<BuildMasterFiles Include="$(InstallersBaseDir)/$(ProductName) Build Master/**/*"/>
+		<! - </ItemGroup>
+		<! - <Copy SourceFiles="@(BuildMasterFiles)" DestinationFolder="$(ProductBuildDir)"/> -->
 	</Target>
 
 	<Target Name="CopyFilesToInstall">
-		<CallTarget Targets="CopyFilesToInstallation1" />
-		<CallTarget Targets="CopyFilesToInstallation2" />
-	</Target>
-
-	<Target Name="CopyFilesToInstallation1">
-		<Attrib ReadOnly="false" Files="$(Product.Build.Dir)/**/*"/>
-
 		<!-- copy in new stuff -->
-		<Copy SourceFiles="$(ProductName)/bin/$(Platform)/$(CFG)/**/*" DestinationFolder="$(Product.Build.Dir)/objects/$(ProductName)"/>
-		<Copy SourceFiles="$(ProductName) Data Folder/**/*" DestinationFolder="$(Product.Build.Dir)/objects/$(ProductName) Data Folder"/>
-	</Target>
-
-	<Target Name="CopyFilesToInstallation2" >
-		<Attrib ReadOnly="false" Files="$(Product.Build.Dir)/objects/**/*"/>
+		<ItemGroup>
+			<BinFiles Include="$(RootDir)/$(ProductName)/bin/$(Platform)/$(CFG)/**/*"/>
+			<DataFiles Include="$(RootDir)/$(ProductName) Data Folder/**/*"/>
+		</ItemGroup>
+		<Copy SourceFiles="@(BinFiles)" OverwriteReadonlyFiles="true" DestinationFolder="$(ProductBuildDir)/objects/$(ProductName)"/>
+		<Copy SourceFiles="@(DataFiles)" OverwriteReadonlyFiles="true" DestinationFolder="$(ProductBuildDir)/objects/$(ProductName) Data Folder"/>
 	</Target>
 
 	<Target Name="CopyBuildToMaster" >
-		<Copy SourceFiles="$(Product.Build.Dir)/Objects/**/*" DestinationFolder=""/>
+		<ItemGroup>
+			<ObjectFiles Include="$(ProductBuildDir)/Objects/**/*"/>
+		</ItemGroup>
+		<Copy SourceFiles="@(ObjectFiles)" DestinationFolder="$(ProductBuildMasterDir)"/>
 	</Target>
 
 	<Target Name="GetDotNetFiles" >
 		<PropertyGroup>
-			<WixLibsDir>./$(ProductName)/WixInstaller/libs</WixLibsDir>
+			<WixLibsDir>$(RootDir)/$(ProductName)/WixInstaller/libs</WixLibsDir>
 		</PropertyGroup>
-		<DownloadFile Address="http://go.microsoft.com/fwlink/?LinkId=322115" LocalFilename="NDP451-KB2858728-x86-x64-AllOS-ENU.exe"
-			DownloadsDir="$(WixLibsDir)" Condition="!Exists('$(WixLibsDir)/NDP451-KB2858728-x86-x64-AllOS-ENU.exe"/> <!-- .net 4.5.1 -->
+		<DownloadFile Address="http://go.microsoft.com/fwlink/?LinkId=322115"
+			LocalFilename="$(WixLibsDir)/NDP451-KB2858728-x86-x64-AllOS-ENU.exe"
+			Condition="!Exists('$(WixLibsDir)/NDP451-KB2858728-x86-x64-AllOS-ENU.exe')"/> <!-- .net 4.5.1 -->
 		<DownloadFile Address="https://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe"
-			DownloadsDir="$(WixLibsDir)" Condition="!Exists('$(WixLibsDir)/vcredist_x86.exe"/>		<!-- VisualC++ 10 runtime -->
+			LocalFilename="$(WixLibsDir)/vcredist_x86.exe"
+			Condition="!Exists('$(WixLibsDir)/vcredist_x86.exe')"/>			<!-- VisualC++ 10 runtime -->
 		<DownloadFile Address="https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe"
-			DownloadsDir="$(WixLibsDir)" Condition="!Exists('$(WixLibsDir)/vcredist_2012_x86.exe"/>	<!-- VisualC++ 11 runtime -->
+			LocalFilename="$(WixLibsDir)/vcredist_2012_x86.exe"
+			Condition="!Exists('$(WixLibsDir)/vcredist_2012_x86.exe')"/>	<!-- VisualC++ 11 runtime -->
 		<DownloadFile Address="http://download.microsoft.com/download/0/5/6/056dcda9-d667-4e27-8001-8a0c6971d6b1/vcredist_x86.exe"
-			DownloadsDir="$(WixLibsDir)" Condition="!Exists('$(WixLibsDir)/vcredist_2013_x86.exe"/>	<!-- VisualC++ 12 runtime -->
+			LocalFilename="$(WixLibsDir)/vcredist_2013_x86.exe"
+			Condition="!Exists('$(WixLibsDir)/vcredist_2013_x86.exe')"/>	<!-- VisualC++ 12 runtime -->
 	</Target>
 
 	<!-- ########################################################################################################## -->
@@ -179,10 +189,10 @@
 	
 	<PropertyGroup>
 		<FwBuildTasksUrl>https://github.com/sillsdev/FieldWorks/raw/master/Build/FwBuildTasks.dll</FwBuildTasksUrl>
-		<FwBuildTasksPath>$(MSBuildThisFileDirectory)/FwBuildTasks.dll</FwBuildTasksPath>
+		<FwBuildTasksPath>$(RootDir)/FwBuildTasks.dll</FwBuildTasksPath>
 	</PropertyGroup>
 
-	<Target Name="DownloadBuildTasks">
+	<Target Name="DownloadBuildTasks" Condition="!Exists($(FwBuildTasksPath))">
 		<DownloadFileOnWindows Address="$(FwBuildTasksUrl)" OutputFilename="$(FwBuildTasksPath)" Condition="'$(OS)' == 'Windows_NT'" />
 		<Exec Command="wget -O $(FwBuildTasksPath) $(FwBuildTasksUrl) || curl -o $(FwBuildTasksPath) -L $(FwBuildTasksUrl)" Condition="'$(OS)' != 'Windows_NT'" />
 	</Target>
@@ -207,7 +217,7 @@
 				{
 					OutputFilename = Path.GetFullPath(OutputFilename);
 
-					Log.LogMessage(string.Format("Downloading {0}...", Path.GetFilename(OutputFilename)));
+					Log.LogMessage(string.Format("Downloading {0}...", Path.GetFileName(OutputFilename)));
 					using (var webClient = new WebClient())
 					{
 						webClient.DownloadFile(Address, OutputFilename);
@@ -228,13 +238,19 @@
 	<!-- ### Version numbering Targets                                                                          ### -->
 	<!-- ########################################################################################################## -->
 
-	<Target Name="UpdateVersion">
-		<version buildtype="Increment" />
+	<Target Name="UpdateVersion" Condition="Exists($(MSBuildExtensionTargets))">
+		<!-- NAnt has a task (version) that reads the full version from the file ./build.number, increment the 3rd
+			and 4th segments (build and revision, respectively), and write them back to the file; MSBuild does not.
+			NAnt has a task to generate the Assembly Info file; MSBuild does not.
+			MSBuild Community Tasks or Extension Pack have rough equivalents of both; feel free to NuGet the appropriate
+			packages and use them if desired. -->
+		<!-- version buildtype="Increment" / -->
 		<PropertyGroup>
+			<!-- buildnumber.build>1</buildnumber.build -->
 			<Revision>$(MinorVersion).$(buildnumber.build)</Revision>
 		</PropertyGroup>
 
-		<asminfo output="$(ProductName)/CommonVersionInfo.cs" language="CSharp">
+		<!-- asminfo output="$(ProductName)/CommonVersionInfo.cs" language="CSharp">
 			<imports>
 				<import namespace="System.Reflection" />
 				<import namespace="System.Runtime.CompilerServices" />
@@ -243,14 +259,14 @@
 				<attribute type="AssemblyVersion" value='"$(Revision)"' asis="true" />
 				<attribute type="AssemblyFileVersion" value='"$(Revision)"' asis="true" />
 			</attributes>
-		</asminfo>
+		</asminfo -->
 	</Target>
 
-	<Target Name="WriteVersionFile">
+	<Target Name="WriteVersionFile" Condition="Exists($(MSBuildExtensionTargets))">
 		<PropertyGroup>
 			<Revision>$(MinorVersion).$(buildnumber.build)</Revision>
 		</PropertyGroup>
-		<WriteLinesToFile Overwrite="true" File="$(Product.Build.Dir)/objects/$(ProductName)/CurrentVersion.number" Lines="$(Revision)"/>
+		<WriteLinesToFile Overwrite="true" File="$(ProductBuildDir)/objects/$(ProductName)/CurrentVersion.number" Lines="$(Revision)"/>
 	</Target>
 
 	<Target Name="ResetBuildNumberFile">
@@ -266,37 +282,43 @@
 	<!-- ########################################################################################################## -->
 
 	<Target Name="ReadCertPassFile">
-		<loadfile file="certpass.txt" property="CertPass" />
+		<ReadLinesFromFile File="certpass.txt">
+			<Output TaskParameter="Lines" ItemName="CertPass" />
+		</ReadLinesFromFile>
 	</Target>
 
 	<Target Name="BuildProductBaseMsi">
 		<CallTarget Targets="ReadCertPassFile" />
 		<PropertyGroup>
 			<MsiFile>$(ProductName)_$(Revision).msi</MsiFile>
+			<BaseBuildDir>$(RootDir)/$(ProductName)/WixInstaller/BaseInstallerBuild</BaseBuildDir>
+			<BaseBuildArgs><![CDATA["$(ProductName)" $(VersionSeg1) $(VersionSeg2) $(VersionSeg3) $(VersionSeg4) $(ProductIdGuid) $(UpgradeCodeGuid) "$(ProductBuildDir)/Objects/$(ProductName)" "$(ProductBuildDir)/Objects/$(ProductName) Data Folder" "$(CertPath)" "$(CertPass)" $(CopyrightYear) "$(Manufacturer)"]]></BaseBuildArgs>
 		</PropertyGroup>
-		<Exec WorkingDirectory="./$(ProductName)/WixInstaller/BaseInstallerBuild" Command="buildBaseInstaller.bat $(ProductName) $(VersionSeg1) $(VersionSeg2) $(VersionSeg3) $(VersionSeg4) $(ProductIdGuid) $(UpgradeCodeGuid) ../../../$(Product.Build.Dir)/Objects/$(ProductName) ../../../$(Product.Build.Dir)/Objects/$(ProductName) Data Folder $(CertPath) &quot;$(CertPass)&quot; $(CopyrightYear) $(Manufacturer)" />
+		<Exec WorkingDirectory="$(BaseBuildDir)" Command="buildBaseInstaller.bat $(BaseBuildArgs)" />
 
-		<move todir="$(Installers.Base.Dir)" >
-			<fileset basedir="./$(ProductName)/WixInstaller/BaseInstallerBuild">
-				<include name="**/$(ProductName)_*.exe" />
-				<include name="**/$(ProductName)_*.msi" />
-			</fileset>
-		</move>
+		<ItemGroup>
+			<InstallerFiles Include="$(BaseBuildDir)/**/$(ProductName)_*.exe"/>
+			<InstallerFiles Include="$(BaseBuildDir)/**/$(ProductName)_*.msi"/>
+		</ItemGroup>
+		<Move SourceFiles="@(InstallerFiles)" DestinationFolder="$(InstallersBaseDir)"/>
 	</Target>
 
 	<Target Name="BuildProductPatchMsp">
 		<CallTarget Targets="ReadCertPassFile" />
-		<loadfile file="$(Product.BuildMaster.Dir)/Objects/$(ProductName)/CurrentVersion.number" property="BaseVersion" />
+		<ReadLinesFromFile File="$(ProductBuildMasterDir)/Objects/$(ProductName)/CurrentVersion.number">
+			<Output TaskParameter="Lines" ItemName="BaseVersion" />
+		</ReadLinesFromFile>
 		<PropertyGroup>
 			<MspFile>$(ProductName)_$(Revision).msp</MspFile>
+			<PatchDir>$(RootDir)/$(ProductName)/WixInstaller/CreateUpdatePatch</PatchDir>
+			<PatchArgs><![CDATA["$(ProductName)" $(BaseVersion) $(Revision) "$(ProductBuildMasterDir)/Objects/$(ProductName)" "$(ProductBuildDir)/Objects/$(ProductName)" "$(ProductBuildMasterDir)/Objects/$(ProductName) Data Folder" "$(ProductBuildDir)/Objects/$(ProductName) Data Folder" $(ProductIdGuid) $(UpgradeCodeGuid) $(CompGGS) "$(CertPath)" "$(CertPass)" "$(Manufacturer)"]]></PatchArgs>
 		</PropertyGroup>
 
-		<Exec WorkingDirectory="./$(ProductName)/WixInstaller/CreateUpdatePatch" Command="buildPatch.bat $(ProductName) $(BaseVersion) $(Revision) ../../../$(Product.BuildMaster.Dir)/Objects/$(ProductName) ../../../$(Product.Build.Dir)/Objects/$(ProductName) ../../../$(Product.BuildMaster.Dir)/Objects/$(ProductName) Data Folder ../../../$(Product.Build.Dir)/Objects/$(ProductName) Data Folder $(ProductIdGuid) $(UpgradeCodeGuid) $(CompGGS) $(CertPath) &quot;$(CertPass)&quot; $(Manufacturer)" />
+		<Exec WorkingDirectory="$(PatchDir)" Command="buildPatch.bat $(PatchArgs)"/>
 
-		<move todir="$(Installers.Base.Dir)" >
-			<fileset basedir="./$(ProductName)/WixInstaller/CreateUpdatePatch">
-				<include name="**/*.msp" />
-			</fileset>
-		</move>
+		<ItemGroup>
+			<PatchFiles Include="$(PatchDir)/**/*.msp"/>
+		</ItemGroup>
+		<Move SourceFiles="" DestinationFolder="$(InstallersBaseDir)"/>
 	</Target>
 </Project>
