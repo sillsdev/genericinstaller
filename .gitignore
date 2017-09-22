@@ -1,8 +1,12 @@
+*.dll
+build.number
 BuildDir
+msbuild.log
+Sample/bin/
+Sample/obj/
+Sample/WiXInstaller/BaseInstallerBuild/*.exe
+Sample/WiXInstaller/BaseInstallerBuild/*.msi
 Sample/WiXInstaller/CustomActions/CustomActions/bin/
 Sample/WiXInstaller/CustomActions/CustomActions/obj/
 Sample/WiXInstaller/resources/*.TTF
-Sample/bin/
-Sample/obj/
-msbuild.log
 storage

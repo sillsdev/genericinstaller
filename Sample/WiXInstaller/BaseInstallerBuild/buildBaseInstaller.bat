@@ -71,12 +71,13 @@ insignia -ab engine.exe %AppName%_%Version%_Online.exe -o %AppName%_%Version%_On
 signtool.exe sign /f %CERTPATH% /p %CERTPASS% %AppName%_%Version%_Online.exe
 
 @REM Sign the offline installer.
+@echo off
+echo signing and cleaning up...
 insignia -ib %AppName%_%Version%_Offline.exe -o engine.exe
 signtool.exe sign /f %CERTPATH% /p %CERTPASS% engine.exe
 insignia -ab engine.exe %AppName%_%Version%_Offline.exe -o %AppName%_%Version%_Offline.exe
 signtool.exe sign /f %CERTPATH% /p %CERTPASS% %AppName%_%Version%_Offline.exe
 
-@echo off
 REM Cleanup debris from this build
 DEL *.wixobj
 DEL *.wixpdb
