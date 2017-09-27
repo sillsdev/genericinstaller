@@ -40,8 +40,6 @@ for /f "tokens=1,2,3,4 delims=/." %%a in ("%BaseVersion%") do set bmaj=%%a&set b
 
 for /f "tokens=1,2,3,4 delims=/." %%a in ("%PatchVersion%") do set pmaj=%%a&set pmin=%%b&set pbuild=%%c&set prev=%%d
 
-cd %AppName%/WixInstaller/CreateUpdatePatch/
-
 @echo on
 @REM Harvest the Paratext MASTER application
 heat.exe dir %MASTERBUILDDIR% -cg HarvestedAppFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr APPFOLDER -var var.MASTERBUILDDIR -out ./Master/AppHarvest.wxs

@@ -254,10 +254,7 @@
         <property name="MsiFile" value="${ProductName}_${Revision}.msi" />
 		<exec program="buildBaseInstaller.bat" basedir="./${ProductName}/WixInstaller/BaseInstallerBuild" >
 			<arg value="${ProductName}" />
-			<arg value="${VersionSeg1}" />
-			<arg value="${VersionSeg2}" />
-			<arg value="${VersionSeg3}" />
-			<arg value="${VersionSeg4}" />
+			<arg value="${VersionSeg1}.${VersionSeg2}.${VersionSeg3}.${VersionSeg4}" />
 			<arg value="${ProductIdGuid}" />
 			<arg value="${UpgradeCodeGuid}" />
 			<arg value="../../../${Product.Build.Dir}/Objects/${ProductName}" />

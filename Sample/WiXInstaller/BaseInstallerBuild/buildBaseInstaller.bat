@@ -3,17 +3,11 @@
 REM Command line arguments and defined properties.
 SET AppName=%1
 SHIFT
-SET Major=%1
-SHIFT
-SET Minor=%1
-SHIFT
-SET Build=%1
-SHIFT
-SET Revision=%1
+SET Version=%1
 SHIFT
 
-REM Version is all four parts of the version number
-SET Version=%Major%.%Minor%.%Build%.%Revision%
+REM Parse version numbers into pieces
+for /f "tokens=1,2,3,4 delims=/." %%a in ("%Version%") do set Major=%%a&set Minor=%%b&set Build=%%c&set Revision=%%d
 REM Truncated version is the first three parts of the version number
 SET TRUNCATEDVERSION=%Major%.%Minor%.%Build%
 
@@ -39,8 +33,6 @@ SHIFT
 SET CopyrightYear=%1
 SHIFT
 SET Manufacturer=%1
-
-cd %AppName%/WixInstaller/BaseInstallerBuild/
 
 @echo on
 @REM Harvest (heat) the application and data files.

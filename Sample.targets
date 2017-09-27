@@ -291,7 +291,7 @@
 		<PropertyGroup>
 			<MsiFile>$(ProductName)_$(Revision).msi</MsiFile>
 			<BaseBuildDir>$(RootDir)/$(ProductName)/WixInstaller/BaseInstallerBuild</BaseBuildDir>
-			<BaseBuildArgs><![CDATA["$(ProductName)" $(VersionSeg1) $(VersionSeg2) $(VersionSeg3) $(VersionSeg4) $(ProductIdGuid) $(UpgradeCodeGuid) "$(ProductBuildDir)/Objects/$(ProductName)" "$(ProductBuildDir)/Objects/$(ProductName) Data Folder" "$(CertPath)" "@(CertPass)" $(CopyrightYear) "$(Manufacturer)"]]></BaseBuildArgs>
+			<BaseBuildArgs><![CDATA["$(ProductName)" $(VersionSeg1).$(VersionSeg2).$(VersionSeg3).$(VersionSeg4) $(ProductIdGuid) $(UpgradeCodeGuid) "$(ProductBuildDir)/Objects/$(ProductName)" "$(ProductBuildDir)/Objects/$(ProductName) Data Folder" "$(CertPath)" "@(CertPass)" $(CopyrightYear) "$(Manufacturer)"]]></BaseBuildArgs>
 		</PropertyGroup>
 		<Exec WorkingDirectory="$(BaseBuildDir)" Command="buildBaseInstaller.bat $(BaseBuildArgs)" />
 
