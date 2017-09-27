@@ -282,17 +282,16 @@
 	<!-- ########################################################################################################## -->
 
 	<Target Name="ReadCertPassFile">
-		<ReadLinesFromFile File="certpass.txt">
+		<ReadLinesFromFile File="$(RootDir)/certpass.txt">
 			<Output TaskParameter="Lines" ItemName="CertPass" />
 		</ReadLinesFromFile>
 	</Target>
 
-	<Target Name="BuildProductBaseMsi">
-		<CallTarget Targets="ReadCertPassFile" />
+	<Target Name="BuildProductBaseMsi" DependsOnTargets="ReadCertPassFile">
 		<PropertyGroup>
 			<MsiFile>$(ProductName)_$(Revision).msi</MsiFile>
 			<BaseBuildDir>$(RootDir)/$(ProductName)/WixInstaller/BaseInstallerBuild</BaseBuildDir>
-			<BaseBuildArgs><![CDATA["$(ProductName)" $(VersionSeg1) $(VersionSeg2) $(VersionSeg3) $(VersionSeg4) $(ProductIdGuid) $(UpgradeCodeGuid) "$(ProductBuildDir)/Objects/$(ProductName)" "$(ProductBuildDir)/Objects/$(ProductName) Data Folder" "$(CertPath)" "$(CertPass)" $(CopyrightYear) "$(Manufacturer)"]]></BaseBuildArgs>
+			<BaseBuildArgs><![CDATA["$(ProductName)" $(VersionSeg1) $(VersionSeg2) $(VersionSeg3) $(VersionSeg4) $(ProductIdGuid) $(UpgradeCodeGuid) "$(ProductBuildDir)/Objects/$(ProductName)" "$(ProductBuildDir)/Objects/$(ProductName) Data Folder" "$(CertPath)" "@(CertPass)" $(CopyrightYear) "$(Manufacturer)"]]></BaseBuildArgs>
 		</PropertyGroup>
 		<Exec WorkingDirectory="$(BaseBuildDir)" Command="buildBaseInstaller.bat $(BaseBuildArgs)" />
 
@@ -303,15 +302,14 @@
 		<Move SourceFiles="@(InstallerFiles)" DestinationFolder="$(InstallersBaseDir)"/>
 	</Target>
 
-	<Target Name="BuildProductPatchMsp">
-		<CallTarget Targets="ReadCertPassFile" />
+	<Target Name="BuildProductPatchMsp" DependsOnTargets="ReadCertPassFile">
 		<ReadLinesFromFile File="$(ProductBuildMasterDir)/Objects/$(ProductName)/CurrentVersion.number">
 			<Output TaskParameter="Lines" ItemName="BaseVersion" />
 		</ReadLinesFromFile>
 		<PropertyGroup>
 			<MspFile>$(ProductName)_$(Revision).msp</MspFile>
 			<PatchDir>$(RootDir)/$(ProductName)/WixInstaller/CreateUpdatePatch</PatchDir>
-			<PatchArgs><![CDATA["$(ProductName)" $(BaseVersion) $(Revision) "$(ProductBuildMasterDir)/Objects/$(ProductName)" "$(ProductBuildDir)/Objects/$(ProductName)" "$(ProductBuildMasterDir)/Objects/$(ProductName) Data Folder" "$(ProductBuildDir)/Objects/$(ProductName) Data Folder" $(ProductIdGuid) $(UpgradeCodeGuid) $(CompGGS) "$(CertPath)" "$(CertPass)" "$(Manufacturer)"]]></PatchArgs>
+			<PatchArgs><![CDATA["$(ProductName)" @(BaseVersion) $(Revision) "$(ProductBuildMasterDir)/Objects/$(ProductName)" "$(ProductBuildDir)/Objects/$(ProductName)" "$(ProductBuildMasterDir)/Objects/$(ProductName) Data Folder" "$(ProductBuildDir)/Objects/$(ProductName) Data Folder" $(ProductIdGuid) $(UpgradeCodeGuid) $(CompGGS) "$(CertPath)" "@(CertPass)" "$(Manufacturer)"]]></PatchArgs>
 		</PropertyGroup>
 
 		<Exec WorkingDirectory="$(PatchDir)" Command="buildPatch.bat $(PatchArgs)"/>
