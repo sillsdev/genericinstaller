@@ -26,11 +26,11 @@ SHIFT
 SET COMPGGS=%1
 SHIFT
 
+SET Manufacturer=%1
+SHIFT
 SET CERTPATH=%1
 SHIFT
 SET CERTPASS=%1
-SHIFT
-SET Manufacturer=%1
 
 SET Baseline=%AppName%Patch
 SET Family=%Baseline%Family
