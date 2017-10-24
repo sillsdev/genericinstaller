@@ -66,8 +66,6 @@ candle.exe -dAppName=%AppName% -dVersionNumber=%PatchVersion% -dProductCode=%PRO
 light.exe patch.wixobj
 pyro.exe patch.wixmsp -out %AppName%_%PatchVersion%.msp -t %Baseline% patch.wixmst
 
-@echo off
-echo signing and cleaning up...
 signtool.exe sign /f %CERTPATH% /p %CERTPASS% %AppName%_%PatchVersion%.msp
 
 

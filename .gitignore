@@ -1,1 +1,6 @@
 *.dll
+*.exe
+*.msi
+bin/
+obj/
+.vs

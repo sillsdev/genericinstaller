@@ -10,7 +10,7 @@
 			UpgradeCode='$(var.UpgradeCode)'
 			Tag='$(var.ApplicationName)Bundle'
 			IconSourceFile='..\resources\Installer.ico'			
-			Copyright='Copyright© $(var.Year), $(var.Manufacturer)'
+			Copyright='Copyright © $(var.Year), $(var.Manufacturer)'
 			Manufacturer='$(var.Manufacturer)'>
 
 			<bal:Condition Message="XP is no longer supported."> (VersionNT &gt;= v6.0) </bal:Condition>
