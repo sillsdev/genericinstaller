@@ -41,20 +41,20 @@ for /f "tokens=1,2,3,4 delims=/." %%a in ("%BaseVersion%") do set bmaj=%%a&set b
 for /f "tokens=1,2,3,4 delims=/." %%a in ("%PatchVersion%") do set pmaj=%%a&set pmin=%%b&set pbuild=%%c&set prev=%%d
 
 @echo on
-@REM Harvest the Paratext MASTER application
+@REM Harvest the MASTER application
 heat.exe dir %MASTERBUILDDIR% -cg HarvestedAppFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr APPFOLDER -var var.MASTERBUILDDIR -out ./Master/AppHarvest.wxs
 heat.exe dir %MASTERDATADIR% -cg HarvestedDataFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr DATAFOLDER -var var.MASTERDATADIR -out ./Master/DataHarvest.wxs
 
-@REM Build the No-UI msi containing the paratext MASTER files
+@REM Build the No-UI msi containing the MASTER files
 candle.exe -dApplicationName=%AppName% -dMajorVersion=%bmaj% -dMinorVersion=%bmin% -dManufacturer=%Manufacturer% -dVersionNumber=%BaseVersion% -dMASTERBUILDDIR=%MASTERBUILDDIR% -dMASTERDATADIR=%MASTERDATADIR% -dUpgradeCode=%UPGRADECODEGUID% -dProductCode=%PRODUCTIDGUID% -dCompGGS=%COMPGGS% -out ./Master/ ./Master/AppNoUi.wxs ./Master/AppHarvest.wxs ./Master/DataHarvest.wxs
 light.exe ./Master/AppNoUi.wixobj ./Master/AppHarvest.wixobj ./Master/DataHarvest.wixobj -ext WixUtilExtension.dll -sw1076 -out ./Master/%AppName%_%BaseVersion%.msi
 
 
-@REM Harvest the Paratext UPDATE application
+@REM Harvest the UPDATE application
 heat.exe dir %UPDATEBUILDDIR% -cg HarvestedAppFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr APPFOLDER -var var.UPDATEBUILDDIR -out ./Update/AppHarvest.wxs
 heat.exe dir %UPDATEDATADIR% -cg HarvestedDataFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr DATAFOLDER -var var.UPDATEDATADIR -out ./Update/DataHarvest.wxs
 
-@REM Build the No-UI msi containing the paratext UPDATE files
+@REM Build the No-UI msi containing the UPDATE files
 candle.exe -dApplicationName=%AppName% -dMajorVersion=%pmaj% -dMinorVersion=%pmin% -dManufacturer=%Manufacturer% -dVersionNumber=%PatchVersion% -dBaseVersionNumber=%BaseVersion% -dUPDATEBUILDDIR=%UPDATEBUILDDIR% -dUPDATEDATADIR=%UPDATEDATADIR% -dUpgradeCode=%UPGRADECODEGUID% -dProductCode=%PRODUCTIDGUID% -dCompGGS=%COMPGGS% -out ./Update/ ./Update/AppNoUi.wxs ./Update/AppHarvest.wxs ./Update/DataHarvest.wxs 
 light.exe ./Update/AppNoUi.wixobj ./Update/AppHarvest.wixobj ./Update/DataHarvest.wixobj -ext WixUtilExtension.dll -sw1076 -out ./Update/%AppName%_%PatchVersion%.msi
 
