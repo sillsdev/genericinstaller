@@ -14,10 +14,10 @@
 			Manufacturer='$(var.Manufacturer)'>
 		<bal:Condition Message="XP is no longer supported."> (VersionNT &gt;= v6.0) </bal:Condition>
 		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
-			<Payload SourceFile="TemplateLicense.htm" />
+			<Payload SourceFile="License.htm" />
 		</BootstrapperApplicationRef>
 		<!--<RelatedBundle Id='$(var.UpgradeCode)' Action='Detect'/>-->
-		<WixVariable Id="WixStdbaLicenseUrl" Value="TemplateLicense.htm" />
+		<WixVariable Id="WixStdbaLicenseUrl" Value="License.htm" />
 		<WixVariable Id="WixStdbaLogo" Value="..\resources\bundle_background.bmp" />
 		<WixVariable Id="WixStdbaThemeXml" Value="TemplateBundleTheme.xml" />
 		<WixVariable Id="WixStdbaThemeWxl" Value="TemplateBundleTheme.wxl" />

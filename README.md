@@ -29,7 +29,7 @@ See https://github.com/sillsdev/genericinstaller-sample for a sample use.
 	i.	You may need to extensively change the targets `Clean` and `CopyFilesToInstallation1` to work with your project, using the proper CFG and Platform properties.
 
 	j.	The target `UpdateVersion` will need to set the correct version number in your AssemblyInfo file.
-5)	Put your licensing information in the file `BaseInstallerBuild/TemplateLicense.htm`, but do not check your changes in to the genericinstaller repository (see Working with Templates below).
+5)	Put your licensing information in the file `BaseInstallerBuild/License.htm`, but do not check your changes in to the genericinstaller repository (see Working with Templates below).
 6)	In the `resources` folder there are several graphics files used by the installer. Customize these as you wish but do not change the names or dimensions of the images, nor check them in to the genericinstaller repository (see Working with Templates below).
 7)	Open a command prompt and run the Build*Base.bat file to build your installer. The installer will be created in the BuildDir folder in your repository if all goes well.
 
