@@ -8,7 +8,7 @@
 			Name='$(var.ApplicationName) $(var.TruncatedVersion)'
 			Version='$(var.VersionNumber)'
 			UpgradeCode='$(var.UpgradeCode)'
-			Tag='$(var.ApplicationName)Bundle'
+			Tag='$(var.SafeApplicationName)Bundle'
 			IconSourceFile='..\resources\Installer.ico'
 			Copyright='Copyright © $(var.Year), $(var.Manufacturer)'
 			Manufacturer='$(var.Manufacturer)'>
@@ -37,7 +37,7 @@
 					DisplayInternalUI='yes'
 					ForcePerMachine='yes'
 					InstallCondition='1'
-					SourceFile='$(var.ApplicationName)_$(var.VersionNumber).msi'
+					SourceFile='$(var.SafeApplicationName)_$(var.VersionNumber).msi'
 					Visible='yes'
 					Vital='yes'>
 			</MsiPackage>

@@ -61,14 +61,14 @@
 		Execute="immediate"
 		BinaryKey="MyCustomActionsDll"
 		DllEntry="DeleteVersionNumberFromRegistry"  />
-	<Property Id='REGISTRYVERSIONKEY' Value='$(var.ApplicationName)\\Version' />
+	<Property Id='REGISTRYVERSIONKEY' Value='$(var.SafeApplicationName)\\Version' />
 
 	<CustomAction Id="CloseApplications"
 		Return="check"
 		BinaryKey="MyCustomActionsDll"
 		DllEntry="ClosePrompt"  />
 	<!-- The following two properties can be comma separted lists, but they must have the same number of items. -->
-	<Property Id='PromptToCloseProcesses' Value='$(var.ApplicationName)' />
+	<Property Id='PromptToCloseProcesses' Value='$(var.SafeApplicationName)' />
 	<Property Id='PromptToCloseDisplayNames' Value='$(var.ApplicationName)' /> 
 
 	<!--<CustomAction Id="SetFontValues"
@@ -84,14 +84,14 @@
 	<Property Id="EZRA_INSTALLED" Value='False'/>-->
 
 	
-	<CustomAction Id='SetDefDataFolder' Property='DEFDATAFOLDER' Value='[WindowsVolume]My $(var.ApplicationName) Data Folder' />
+	<CustomAction Id='SetDefDataFolder' Property='DEFDATAFOLDER' Value='[WindowsVolume]My $(var.SafeApplicationName) Data Folder' />
 	<Property Id="DATAFOLDERFOUND" Value="unset" />	
 	<CustomAction Id="VerifyDataPath"
 		Return="check"
 		Execute="immediate"
 		BinaryKey="MyCustomActionsDll"
 		DllEntry="VerifyDataDirPath"  />
-	<Property Id='REGISTRYKEY' Value='$(var.ApplicationName)\\$(var.MajorVersion)' />
+	<Property Id='REGISTRYKEY' Value='$(var.SafeApplicationName)\\$(var.MajorVersion)' />
 	<Property Id='REGISTRYVALUENAME' Value='DataDir' />
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
@@ -126,13 +126,13 @@
 	<WixVariable Id="WixUIBannerBmp" Value="..\resources\bannrbmp.bmp" />
 	<WixVariable Id="WixUIDialogBmp" Value="..\resources\MsiBackground.bmp" />
 			
-	<SetProperty Id="APPFOLDER" Value="[ProgramFilesFolder]$(var.ApplicationName) $(var.MajorVersion)\" Before="AppSearch">not APPFOLDER</SetProperty>
+	<SetProperty Id="APPFOLDER" Value="[ProgramFilesFolder]$(var.SafeApplicationName)$(var.MajorVersion)\" Before="AppSearch">not APPFOLDER</SetProperty>
 
 	<Property Id="APPFOLDER">
-	  <RegistrySearch Id='RegistryAppFolder' Root='HKLM' Key='SOFTWARE\$(var.ApplicationName)\$(var.MajorVersion)' Name='Program_Files_Directory_$(var.ApplicationName)' Type='directory'/>
+	  <RegistrySearch Id='RegistryAppFolder' Root='HKLM' Key='SOFTWARE\$(var.SafeApplicationName)\$(var.MajorVersion)' Name='Program_Files_Directory_$(var.SafeApplicationName)' Type='directory'/>
 	</Property>
 	<Property Id="APPFOLDERFOUND" Value='NotFound'>
-	  <RegistrySearch Id='RegistryAppBool' Root='HKLM' Key='SOFTWARE\$(var.ApplicationName)\$(var.MajorVersion)' Name='Program_Files_Directory_$(var.ApplicationName)' Type='raw'/>
+	  <RegistrySearch Id='RegistryAppBool' Root='HKLM' Key='SOFTWARE\$(var.SafeApplicationName)\$(var.MajorVersion)' Name='Program_Files_Directory_$(var.SafeApplicationName)' Type='raw'/>
 	</Property>
 
 	<SetProperty Id="EXPLANATIONTEXT" After="AppSearch" Value="Since this is an upgrade of an existing $(var.ApplicationName) $(var.MajorVersion) installation, you can't change the location of the data folder.">
@@ -159,7 +159,7 @@
 				<RemoveFolder Id="DesktopFolder" On="uninstall"/>
 				<RegistryValue
 					Root="HKCU"
-					Key="Software\$(var.ApplicationName)$(var.MajorVersion)"
+					Key="Software\$(var.SafeApplicationName)$(var.MajorVersion)"
 					Name="installed"
 					Type="integer"
 					Value="1"
@@ -168,17 +168,17 @@
 		</Directory>
 
 		<Directory Id='ProgramFilesFolder'>
-			<Directory Id='APPFOLDER' Name='$(var.ApplicationName) $(var.MajorVersion)'>
+			<Directory Id='APPFOLDER' Name='$(var.SafeApplicationName)$(var.MajorVersion)'>
 						
 				<Component Id='RegKeyValues' Guid='*'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\$(var.ApplicationName)\$(var.MajorVersion)'>
-					<RegistryValue Name="Program_Files_Directory_$(var.ApplicationName)" Type='string' Value='[APPFOLDER]'/>
-					<RegistryValue Name="$(var.ApplicationName)Version" Type='string' Value='$(var.VersionNumber)'/>
+				  <RegistryKey Root='HKLM' Key='SOFTWARE\$(var.SafeApplicationName)\$(var.MajorVersion)'>
+					<RegistryValue Name="Program_Files_Directory_$(var.SafeApplicationName)" Type='string' Value='[APPFOLDER]'/>
+					<RegistryValue Name="$(var.SafeApplicationName)Version" Type='string' Value='$(var.VersionNumber)'/>
 				  </RegistryKey>
 				</Component>
 
 				<Component Id='RegKeySettingsDir' Guid='*' Permanent='yes'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\$(var.ApplicationName)\$(var.MajorVersion)'>
+				  <RegistryKey Root='HKLM' Key='SOFTWARE\$(var.SafeApplicationName)\$(var.MajorVersion)'>
 					<RegistryValue Name="Settings_Directory" Type='string' Value='[DATAFOLDER]'/>
 				  </RegistryKey>
 				</Component>
@@ -199,10 +199,10 @@
 			<Shortcut Id="ApplicationStartMenuShortcut" 
                   Name="$(var.ApplicationName) $(var.MajorVersion)"
 				  Description="$(var.ApplicationName) $(var.MajorVersion)"
-                  Target="[APPFOLDER]$(var.ApplicationName).exe"
+                  Target="[APPFOLDER]$(var.SafeApplicationName).exe"
                   WorkingDirectory="APPFOLDER"
 				  Icon="Application_Icon.ico"/>
-			<RegistryValue Root="HKCU" Key="Software\Microsoft\$(var.ApplicationName) $(var.MajorVersion)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+			<RegistryValue Root="HKCU" Key="Software\Microsoft\$(var.SafeApplicationName)$(var.MajorVersion)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
 		</Component>
 	</DirectoryRef>
 

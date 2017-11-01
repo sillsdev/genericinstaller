@@ -37,7 +37,7 @@
 					DisplayInternalUI='yes'
 					ForcePerMachine='yes'
 					InstallCondition='1'
-					SourceFile='$(var.ApplicationName)_$(var.VersionNumber).msi'
+					SourceFile='$(var.SafeApplicationName)_$(var.VersionNumber).msi'
 					Visible='yes'
 					Vital='yes'>
 			</MsiPackage>
