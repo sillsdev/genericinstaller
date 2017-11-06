@@ -84,7 +84,7 @@
 	<Property Id="EZRA_INSTALLED" Value='False'/>-->
 
 	
-	<CustomAction Id='SetDefDataFolder' Property='DEFDATAFOLDER' Value='[WindowsVolume]My $(var.SafeApplicationName) Data Folder' />
+	<CustomAction Id='SetDefDataFolder' Property='DEFDATAFOLDER' Value='[WindowsVolume]My$(var.SafeApplicationName)DataFolder' />
 	<Property Id="DATAFOLDERFOUND" Value="unset" />	
 	<CustomAction Id="VerifyDataPath"
 		Return="check"

@@ -108,10 +108,12 @@
 
     <String Id="InstallDirDlg_Title" Overridable="yes"><!-- _locID_text="InstallDirDlg_Title" _locComment="InstallDirDlg_Title" -->[DISPLAYNAME] Installer</String>
     <String Id="InstallDirDlgChange" Overridable="yes"><!-- _locID_text="InstallDirDlgChange" _locComment="InstallDirDlgChange" -->&amp;Change...</String>
+    <String Id="InstallDirDlgChange2" Overridable="yes"><!-- _locID_text="InstallDirDlgChange2" _locComment="InstallDirDlgChange2" -->C&amp;hange...</String>
     <String Id="InstallDirDlgTitle" Overridable="yes"><!-- _locID_text="InstallDirDlgTitle" _locComment="InstallDirDlgTitle" -->{\WixUI_Font_Title_White}Destination Folders</String>
     <String Id="InstallDirDlgDescription" Overridable="yes"><!-- _locID_text="InstallDirDlgDescription" _locComment="InstallDirDlgDescription" -->{\WixUI_Font_Normal_White}Click Next to install to the default folders or click Change to choose a folder.</String>
     <String Id="InstallDirDlgBannerBitmap" Overridable="yes"><!-- _locID_text="InstallDirDlgBannerBitmap" _locComment="InstallDirDlgBannerBitmap" -->WixUI_Bmp_Banner</String>
     <String Id="InstallDirDlgFolderLabel" Overridable="yes"><!-- _locID_text="InstallDirDlgFolderLabel" _locComment="InstallDirDlgFolderLabel" -->[DISPLAYNAME] program folder:</String>
+    <String Id="InstallDirDlgDataFolderLabel" Overridable="yes"><!-- _locID_text="InstallDirDlgDataFolderLabel" _locComment="InstallDirDlgDataFolderLabel" -->[DISPLAYNAME] data folder:</String>
 
     <String Id="InstallScopeDlg_Title" Overridable="yes"><!-- _locID_text="InstallScopeDlg_Title" _locComment="InstallScopeDlg_Title" -->[DISPLAYNAME] Installer</String>
     <String Id="InstallScopeDlgBannerBitmap" Overridable="yes"><!-- _locID_text="InstallScopeDlgBannerBitmap" _locComment="InstallScopeDlgBannerBitmap" -->WixUI_Bmp_Banner</String>
