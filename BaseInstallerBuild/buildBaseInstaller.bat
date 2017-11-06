@@ -76,4 +76,3 @@ DEL *.wixpdb
 DEL engine.exe
 DEL AppHarvest.wxs
 DEL DataHarvest.wxs
-COPY /Y TemplateLicense.htm License.htm

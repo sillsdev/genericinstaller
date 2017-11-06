@@ -36,8 +36,7 @@ See https://github.com/sillsdev/genericinstaller-sample for a sample use.
 ### Working with Templates:
 This installer template is designed to be customizable with your own logos, license, etc., but customizing templates in shared locations is inconsiderate. Instead, your options include:
  - creating your own fork or branch of this repository (depending on whether you belong to the sillsdev organization)
- - keeping the customized items in your product's main repository and copying them on top of the template items as a build step
-Note: we expect you will change the license; therefore, the base build script resets the License.htm file at the end of each build as a convenience to developers (REVIEW (Hasso) 2017.11: how convenient is this, really? 
+ - keeping the customized items in your product's main repository and copying them on top of the template items as a build step (remember not to check them in)	
 
 ### Work TODO:
  - Add a choose components window in MSI UI?
