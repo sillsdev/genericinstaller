@@ -3,4 +3,4 @@
 *.msi
 bin/
 obj/
-.vs
+.vs/

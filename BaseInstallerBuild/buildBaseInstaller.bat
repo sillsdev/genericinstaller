@@ -1,5 +1,5 @@
 @echo off
-cd
+
 REM Command line arguments and defined properties.
 SET AppName=%1
 SHIFT
@@ -76,4 +76,3 @@ DEL *.wixpdb
 DEL engine.exe
 DEL AppHarvest.wxs
 DEL DataHarvest.wxs
-COPY /Y TemplateLicense.htm License.htm
