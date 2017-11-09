@@ -1,6 +1,4 @@
 @echo off
-REM Change the value below for the installer you wish to build.
-REM ideally this number is obtained dynamically from the build process.
 
 SET AppName=%1
 SHIFT
