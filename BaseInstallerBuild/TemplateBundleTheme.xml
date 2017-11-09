@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Theme xmlns="http://wixtoolset.org/schemas/thmutil/2010">
     <Window Width="494" Height="390" HexStyle="100a0000" FontId="0">#(loc.Caption)</Window>
-    <!-- <Font Id="0" Height="-12" Weight="500" Foreground="000000" Background="FFFFFF">Segoe UI</Font>
-    <Font Id="1" Height="-24" Weight="500" Foreground="000000">Segoe UI</Font>
-    <Font Id="2" Height="-22" Weight="500" Foreground="666666">Segoe UI</Font>
-    <Font Id="3" Height="-12" Weight="500" Foreground="000000" Background="FFFFFF">Segoe UI</Font>
-    <Font Id="4" Height="-12" Weight="500" Foreground="ff0000" Background="FFFFFF" Underline="yes">Segoe UI</Font>
-	-->
     <Font Id="0" Height="-12" Weight="500" Foreground="000000" Background="FFFFFF">Segoe UI</Font>
     <Font Id="1" Height="-32" Weight="500" Foreground="FFFFFF">Segoe UI</Font>
     <Font Id="2" Height="-22" Weight="500" Foreground="666666">Segoe UI</Font>
@@ -16,8 +10,6 @@
     <Font Id="6" Height="-14" Weight="500" Foreground="fdf1af" Background="3d2004" Underline="yes">Segoe UI</Font>
     <Font Id="7" Height="-13" Weight="500" Foreground="FFFFFF" Background="3d2004">Segoe UI</Font>
 	
-    <!--<Text X="80" Y="11" Width="-11" Height="64" FontId="1" Visible="yes" DisablePrefix="yes">#(loc.Title)</Text>-->
-
     <Page Name="Help">
         <Text X="11" Y="80" Width="-11" Height="30" FontId="2" DisablePrefix="yes">#(loc.HelpHeader)</Text>
         <Text X="11" Y="112" Width="-11" Height="-35" FontId="3" DisablePrefix="yes">#(loc.HelpText)</Text>
@@ -26,10 +18,7 @@
     <Page Name="Install">
 		<Image X="0" Y="0" Width="494" Height="301" ImageFile="logo.png" Visible="yes"/>
         <Text X="0" Y="140" Width="494" Height="40" FontId="1" Center="yes">#(loc.InstallHeader)</Text>
-        <!--<Text X="0" Y="151" Width="494" Height="30" FontId="3">#(loc.InstallMessage)</Text>-->
 		<Hypertext Name="EulaHyperlink" X="40" Y="206" Width="449" Height="20" TabStop="yes" FontId="7" HideWhenDisabled="yes">#(loc.InstallLicenseLinkText)</Hypertext>
-		<!--<Text X="0" Y="206" Width="150" Height="17" FontId="3">#(loc.InstallLicenseTextA)</Text>
-		<Hyperlink Name="EulaHyperlink" X="151" Y="206" Width="150" Height="17" FontId="4" HoverFontId="6" SelectedFontId="4">#(loc.InstallLicenseHyperText)</Hyperlink>
 		<Text X="301" Y="206" Width="150" Height="17" FontId="3">#(loc.InstallLicenseTextB)</Text>-->
         <Checkbox Name="EulaAcceptCheckbox" X="40" Y="240" Width="13" Height="13" TabStop="yes" FontId="3" HideWhenDisabled="yes"></Checkbox>
 		<Text X="64" Y="237" Width="246" Height="20" FontId="3">#(loc.InstallAcceptCheckbox)</Text>
@@ -47,11 +36,9 @@
     </Page>
     <Page Name="Progress">
 		<Image X="0" Y="0" Width="494" Height="301" ImageFile="logo.png"/>
-        <!--<Text X="0" Y="140" Width="494" Height="45" FontId="1" DisablePrefix="yes" Center="yes">#(loc.ProgressHeader)</Text>-->
         <Text X="11" Y="200" Width="70" Height="17" FontId="3" DisablePrefix="yes">#(loc.ProgressLabel)</Text>
         <Text Name="OverallProgressPackageText" X="85" Y="200" Width="-11" Height="17" FontId="3" DisablePrefix="yes">#(loc.OverallProgressPackageText)</Text>
         <Progressbar Name="OverallCalculatedProgressbar" X="11" Y="224" Width="-11" Height="15" />
-        <!--<Button Name="ProgressCancelButton" X="-11" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.ProgressCancelButton)</Button>-->
     </Page>
     <Page Name="Modify">
 		<Image X="0" Y="0" Width="494" Height="301" ImageFile="logo.png"/>
@@ -72,7 +59,6 @@
 		<Image X="0" Y="0" Width="494" Height="301" ImageFile="logo.png"/>
         <Text X="0" Y="200" Width="494" Height="45" FontId="1" DisablePrefix="yes" Center="yes">#(loc.FailureHeader)</Text>
         <Hypertext Name="FailureLogFileLink" X="11" Y="200" Width="-11" Height="80" FontId="3" TabStop="yes" HideWhenDisabled="yes">#(loc.FailureHyperlinkLogText)</Hypertext>		
-        <!--<Hypertext Name="FailureMessageText" X="22" Y="163" Width="-11" Height="51" FontId="3" TabStop="yes" HideWhenDisabled="yes" />-->
         <Text Name="FailureRestartText" X="-11" Y="280" Width="400" Height="20" FontId="3" HideWhenDisabled="yes" DisablePrefix="yes">#(loc.FailureRestartText)</Text>
         <Button Name="FailureRestartButton" X="-91" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0" HideWhenDisabled="yes">#(loc.FailureRestartButton)</Button>
         <Button Name="FailureCloseButton" X="-11" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.FailureCloseButton)</Button>

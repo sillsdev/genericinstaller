@@ -1,69 +1,59 @@
 <?xml version="1.0"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" 
-	xmlns:bal="http://schemas.microsoft.com/wix/BalExtension" 
-	xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
-   	xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
-	xmlns:dep="http://schemas.microsoft.com/wix/DependencyExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+		xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+		xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+		xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension"
+		xmlns:dep="http://schemas.microsoft.com/wix/DependencyExtension">
 	<Bundle
-			Name='$(var.ApplicationName) $(var.TruncatedVersion)' 			
+			Name='$(var.ApplicationName) $(var.TruncatedVersion)'
 			Version='$(var.VersionNumber)'
 			UpgradeCode='$(var.UpgradeCode)'
 			Tag='$(var.ApplicationName)'
-			IconSourceFile='..\resources\Installer.ico'			
-			Copyright='Copyright© $(var.Year), $(var.Manufacturer)'
+			IconSourceFile='..\resources\Installer.ico'
+			Copyright='Copyright © $(var.Year), $(var.Manufacturer)'
 			Manufacturer='$(var.Manufacturer)'>
-
 		<bal:Condition Message="XP is no longer supported."> (VersionNT &gt;= v6.0) </bal:Condition>
-		
 		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
-			<Payload SourceFile="TemplateLicense.htm" />
-		</BootstrapperApplicationRef>	
-		
+			<Payload SourceFile="License.htm" />
+		</BootstrapperApplicationRef>
 		<!--<RelatedBundle Id='$(var.UpgradeCode)' Action='Detect'/>-->
-		
-		<WixVariable Id="WixStdbaLicenseUrl" Value="TemplateLicense.htm" />
+		<WixVariable Id="WixStdbaLicenseUrl" Value="License.htm" />
 		<WixVariable Id="WixStdbaLogo" Value="..\resources\bundle_background.bmp" />
 		<WixVariable Id="WixStdbaThemeXml" Value="TemplateBundleTheme.xml" />
 		<WixVariable Id="WixStdbaThemeWxl" Value="TemplateBundleTheme.wxl" />
-		
 		<Chain>
 			<PackageGroupRef Id="NetFx451Webz" />
 			<PackageGroupRef Id="redist_vc10" />
 			<PackageGroupRef Id="redist_vc11" />
 			<PackageGroupRef Id="redist_vc12" />
-			<RollbackBoundary /> 
+			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
-        </Chain>
-    </Bundle>
-	  
+		</Chain>
+	</Bundle>
 	<Fragment Id='AppFragment'>
 		<PackageGroup Id='AppPackageGroup'>
 			<MsiPackage Id='AppMsiPackage'
-				DisplayName='$(var.ApplicationName) $(var.VersionNumber)'
-				DisplayInternalUI='yes'
-				ForcePerMachine='yes'
-				InstallCondition='1'
-				SourceFile='$(var.ApplicationName)_$(var.VersionNumber).msi'
-				Visible='yes'
-				Vital='yes'>
+					DisplayName='$(var.ApplicationName) $(var.VersionNumber)'
+					DisplayInternalUI='yes'
+					ForcePerMachine='yes'
+					InstallCondition='1'
+					SourceFile='$(var.SafeApplicationName)_$(var.VersionNumber).msi'
+					Visible='yes'
+					Vital='yes'>
 			</MsiPackage>
 		</PackageGroup>
 	</Fragment>
-	  	  
 	<?define NetFx451MinRelease = 378675?>
 	<?define NetFx451WebLink =  http://go.microsoft.com/fwlink/?LinkId=322115 ?>
 	<?define NetFx451RedistLink = http://go.microsoft.com/fwlink/?LinkId=322116 ?>
 	<?define NetFx451EulaLink = http://go.microsoft.com/fwlink/?LinkID=260867 ?>
-
 	<Fragment>
 		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45FullVersion" />
 		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45x64FullVersion" Win64="yes" />
-
 		<Property Id="PACKAGEPROP" Value="NetFx451Web" />
 		<Property Id="PREREQPROP" Value="$(var.NetFx451EulaLink)" />
 		<WixVariable Id="WixMbaPrereqPackageId" Value="[PACKAGEPROP]" Overridable="yes"/>
 		<WixVariable Id="WixMbaPrereqLicenseUrl" Value="[PREREQPROP]"  Overridable="yes"/>
-
 		<PackageGroup Id="NetFx451Webz">
 			<ExePackage
 				InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx451FullWebLog].html"
@@ -85,8 +75,8 @@
 					Version="4.5.50938.18408"
 					ProductName="Microsoft .NET Framework 4.5.1"
 					Description="Microsoft .NET Framework 4.5.1 Setup"
-					CertificatePublicKey="A260A870BE1145ED71E2BB5AA19463A4FE9DCC41" 
-					CertificateThumbprint="108E2BA23632620C427C570B6D9DB51AC31387FE" 
+					CertificatePublicKey="A260A870BE1145ED71E2BB5AA19463A4FE9DCC41"
+					CertificateThumbprint="108E2BA23632620C427C570B6D9DB51AC31387FE"
 					Hash="4CBEA1E408DB5B423E130931B9478972E6798431"/>
 				<ExitCode Behavior="forceReboot" Value="1641" />
 				<ExitCode Behavior="forceReboot" Value="3010" />
@@ -96,20 +86,17 @@
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
-
 	<?define VC10RedistWebLink =  https://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe ?>
 	<?define VC11RedistWebLink =  https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe ?>
 	<?define VC12RedistWebLink =  http://download.microsoft.com/download/0/5/6/056dcda9-d667-4e27-8001-8a0c6971d6b1/vcredist_x86.exe ?>
-
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
                      Variable="CPP2010Redist"
                      Value="Installed"
                      Result="value"/>
-
 		<PackageGroup Id="redist_vc10">
-			<ExePackage Id="vc10" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"                  
+			<ExePackage Id="vc10" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vcredist_x86.exe"
 				  DownloadUrl="$(var.VC10RedistWebLink)"
                   InstallCommand="/quiet /norestart"
@@ -122,17 +109,15 @@
 					Hash="372d9c1670343d3fb252209ba210d4dc4d67d358"/>
 			</ExePackage>
 		</PackageGroup>
-	</Fragment>	
-	
+	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x86"
                      Variable="CPP2011Redist"
                      Value="Installed"
                      Result="value"/>
-
 		<PackageGroup Id="redist_vc11">
-		<ExePackage Id="vc11" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+			<ExePackage Id="vc11" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vcredist_x86.exe"
 				  DownloadUrl="$(var.VC11RedistWebLink)"
                   InstallCommand="/quiet /norestart"
@@ -145,17 +130,15 @@
 					Hash="96b377a27ac5445328cbaae210fc4f0aaa750d3f"/>
 			</ExePackage>
 		</PackageGroup>
-	</Fragment>	
-	
+	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\12.0\VC\Runtimes\x86"
                      Variable="CPP2012Redist"
                      Value="Installed"
                      Result="value"/>
-
 		<PackageGroup Id="redist_vc12">
-		<ExePackage Id="vc12" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+			<ExePackage Id="vc12" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vcredist_x86.exe"
 				  DownloadUrl="$(var.VC12RedistWebLink)"
                   InstallCommand="/quiet /norestart"
@@ -168,5 +151,5 @@
 					Hash="2a07a32330d5131665378836d542478d3e7bd137"/>
 			</ExePackage>
 		</PackageGroup>
-	</Fragment>		
+	</Fragment>
 </Wix>

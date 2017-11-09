@@ -20,7 +20,7 @@ See https://github.com/sillsdev/genericinstaller-sample for a sample use.
 
 	e.	Edit the CertPath to point to your code signing certificate file.
 
-	f.	Generate a GUID for each new base release installer that is built. Note that each base installer must increment the third part of the version number. It is up to you to define the new number (VersionSeg3) and generate a product id GUID for it. Patch updates will automatically increment the fourth number.
+	f.	Generate a GUID for each new base release installer that is built. Note that each base installer must increment the third part of the version number. It is up to you to define the new number (VersionSeg3) and generate a product id GUID for it. Patch updates will automatically increment the fourth number (automatic version bumping is not fully implemented for MSBuild).
 
 	g.	If you are making a first build of a product that will be upgraded in the future, then generate a new UpgradeCodeGuid and a new CompGGS GUID. **Do not use the GUID's that come by default in this file.**
 
@@ -29,14 +29,18 @@ See https://github.com/sillsdev/genericinstaller-sample for a sample use.
 	i.	You may need to extensively change the targets `Clean` and `CopyFilesToInstallation1` to work with your project, using the proper CFG and Platform properties.
 
 	j.	The target `UpdateVersion` will need to set the correct version number in your AssemblyInfo file.
-5)	Put your licensing information in the file `BaseInstallerBuild/TemplateLicense.htm`
-6)	In the `resources` folder there are several graphics files used by the installer. Customize these as you wish but do not change the names or dimensions of the images, nor check them in to the genericinstaller repository (see TODO below).
-7)	Open a command prompt and run the Build*Base.bat file to build your installer. The installer will be created in the BuildDir folder if all goes well.
+5)	Put your licensing information in the file `BaseInstallerBuild/License.htm`, but do not check your changes in to the genericinstaller repository (see Working with Templates below).
+6)	In the `resources` folder there are several graphics files used by the installer. Customize these as you wish but do not change the names or dimensions of the images, nor check them in to the genericinstaller repository (see Working with Templates below).
+7)	Open a command prompt and run the Build*Base.bat file to build your installer. The installer will be created in the BuildDir folder in your repository if all goes well.
+
+### Working with Templates:
+This installer template is designed to be customizable with your own logos, license, etc., but customizing templates in shared locations is inconsiderate. Instead, your options include:
+ - creating your own fork or branch of this repository (depending on whether you belong to the sillsdev organization)
+ - keeping the customized items in your product's main repository and copying them on top of the template items as a build step (remember not to check them in)	
 
 ### Work TODO:
  - Add a choose components window in MSI UI?
  - Add a choose components window in Bundle UI?
- - Move `resources` into the supermodule!
 
 #### Note
 One of John Hatton’s big issues was that inevitably projects need to “downgrade” a file in the installation. Perhaps a new version of a dll was included, but it is unstable. How does the product installer move backwards to a more stable version? The current installer project under “Sample” can build a base installer that removes the “KeyPath” attributes from harvested files during the heat.exe process. This allows a later base installer to overwrite the higher versioned file with a lower versioned file. Patch files do NOT have this capability. The “KeyPath” hack results in an error during the patch creation process.
