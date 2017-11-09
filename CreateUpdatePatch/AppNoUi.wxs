@@ -1,10 +1,4 @@
 <?xml version="1.0"?>
-
-<!-- This file is used for creating a BASE product installation.
-	 In other words this is for Paratext 8.0 only.
-	 Every other Paratext 8.X.Y.Z will be a Major Upgrade, Minor Upgrade, or Small Update of this installation.
-			Previously hardcoded Product Id='7DF4AEC5-44FF-4B2F-BC92-3C60B187BA86'
--->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
   <Product  Name='$(var.ApplicationName) $(var.MajorVersion) Packages'
