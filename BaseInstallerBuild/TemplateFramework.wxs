@@ -1,54 +1,54 @@
 <?xml version="1.0"?>
 
-<!-- This file is used for creating a BASE product installation.  
-	 In other words this is for Paratext 8.0 only.  
+<!-- This file is used for creating a BASE product installation.
+	 In other words this is for Paratext 8.0 only.
 	 Every other Paratext 8.X.Y.Z will be a Major Upgrade, Minor Upgrade, or Small Update of this installation.
-			Previously hardcoded Product Id='7DF4AEC5-44FF-4B2F-BC92-3C60B187BA86' 
+			Previously hardcoded Product Id='7DF4AEC5-44FF-4B2F-BC92-3C60B187BA86'
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
-  <Product  Name='$(var.ApplicationName) $(var.MajorVersion) Packages' 
-			Id='$(var.ProductCode)' 
+  <Product Name='$(var.ApplicationName) $(var.MajorVersion) Packages'
+			Id='$(var.ProductCode)'
 			UpgradeCode='$(var.UpgradeCode)'
-			Language='1033' 
-			Codepage='1252' 
-			Version='$(var.VersionNumber)' 
+			Language='1033'
+			Codepage='1252'
+			Version='$(var.VersionNumber)'
 			Manufacturer='$(var.Manufacturer)'>
-			
-    <Package Id='*' 
-			Keywords='Installer' 
-			Description="$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion) Installer"
-			Comments='comments' 
-			Manufacturer='$(var.Manufacturer)'
-			InstallerVersion='300' 
-			Languages='1033' 
-			Compressed='yes' 
-			SummaryCodepage='1252' 
-			InstallPrivileges='elevated' 
-			InstallScope='perMachine'/>
-		
-  
-    <Upgrade Id='$(var.UpgradeCode)'>
-      <UpgradeVersion OnlyDetect='yes' Property='SELFFOUND'
-        Minimum='$(var.VersionNumber)' IncludeMinimum='yes' 
-		Maximum='$(var.VersionNumber)' IncludeMaximum='yes'/>
-      <UpgradeVersion OnlyDetect='yes' Property='NEWERFOUND'
-        Minimum='$(var.VersionNumber)' IncludeMinimum='no' />
-	  <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND'
-        Minimum='0.0.0' IncludeMinimum='yes'
-        Maximum='$(var.VersionNumber)' IncludeMaximum='no' />
-    </Upgrade>
 
-    <Icon Id="Installer_Icon.ico" SourceFile="..\resources\Installer.ico" />
-    <Icon Id="Application_Icon.ico" SourceFile="..\resources\App.ico" />
+	<Package Id='*'
+			Keywords='Installer'
+			Description="$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion) Installer"
+			Comments='comments'
+			Manufacturer='$(var.Manufacturer)'
+			InstallerVersion='300'
+			Languages='1033'
+			Compressed='yes'
+			SummaryCodepage='1252'
+			InstallPrivileges='elevated'
+			InstallScope='perMachine'/>
+
+	<Upgrade Id='$(var.UpgradeCode)'>
+	  <UpgradeVersion OnlyDetect='yes' Property='SELFFOUND'
+		Minimum='$(var.VersionNumber)' IncludeMinimum='yes'
+		Maximum='$(var.VersionNumber)' IncludeMaximum='yes'/>
+	  <UpgradeVersion OnlyDetect='yes' Property='NEWERFOUND'
+		Minimum='$(var.VersionNumber)' IncludeMinimum='no' />
+	  <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND'
+		Minimum='0.0.0' IncludeMinimum='yes'
+		Maximum='$(var.VersionNumber)' IncludeMaximum='no' />
+	</Upgrade>
+
+	<Icon Id="Installer_Icon.ico" SourceFile="..\resources\Installer.ico" />
+	<Icon Id="Application_Icon.ico" SourceFile="..\resources\App.ico" />
 	<Property Id="BUNDLE_ID_GUID" Value='DefaultValue'/>
 	<Property Id="FULL_VERSION_NUMBER" Value='$(var.VersionNumber)'/>
 	<Property Id="ARPPRODUCTICON" Value="Installer_Icon.ico" />
 	<Property Id='ARPNOREMOVE'>1</Property>
 	<Property Id="DISPLAYNAME" Value="$(var.ApplicationName) $(var.MajorVersion)" />
-	
-	<Binary Id="MyCustomActionsDll" 
-		SourceFile="../CustomActions/CustomActions/bin/Release/CustomActions.CA.dll" />			
+	<?include ../Common/Overrides.wxi?>
+
+	<Binary Id="MyCustomActionsDll"
+		SourceFile="../CustomActions/CustomActions/bin/Release/CustomActions.CA.dll" />
 
 	<CustomAction Id="CheckApplicationPath"
 		Return="check"
@@ -69,7 +69,7 @@
 		DllEntry="ClosePrompt"  />
 	<!-- The following two properties can be comma separted lists, but they must have the same number of items. -->
 	<Property Id='PromptToCloseProcesses' Value='$(var.SafeApplicationName)' />
-	<Property Id='PromptToCloseDisplayNames' Value='$(var.ApplicationName)' /> 
+	<Property Id='PromptToCloseDisplayNames' Value='$(var.ApplicationName)' />
 
 	<!--<CustomAction Id="SetFontValues"
 		Return="check"
@@ -83,35 +83,35 @@
 	<Property Id="GALATIA_INSTALLED" Value='False'/>
 	<Property Id="EZRA_INSTALLED" Value='False'/>-->
 
-	
+
 	<CustomAction Id='SetDefDataFolder' Property='DEFDATAFOLDER' Value='[WindowsVolume]My$(var.SafeApplicationName)DataFolder' />
-	<Property Id="DATAFOLDERFOUND" Value="unset" />	
+	<Property Id="DATAFOLDERFOUND" Value="unset" />
 	<CustomAction Id="VerifyDataPath"
 		Return="check"
 		Execute="immediate"
 		BinaryKey="MyCustomActionsDll"
 		DllEntry="VerifyDataDirPath"  />
-	<Property Id='REGISTRYKEY' Value='$(var.SafeApplicationName)\\$(var.MajorVersion)' />
-	<Property Id='REGISTRYVALUENAME' Value='DataDir' />
+	<SetProperty Id='REGISTRYKEY' Value='$(var.SafeApplicationName)\\$(var.MajorVersion)'  Before="AppSearch">not REGISTRYKEY</SetProperty>
+	<SetProperty Id='APPFOLDERREGSZNAME' Value='Program_Files_Directory_$(var.SafeApplicationName)'  Before="AppSearch">not APPFOLDERREGSZNAME</SetProperty>
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
 
-	
+
 	<CustomAction Id='AlreadyUpdated' Error='Version [ProductVersion] of $(var.ApplicationName) is already installed.' />
-    <CustomAction Id='NoDowngrade' Error='A later version of $(var.ApplicationName) is already installed.' />
+	<CustomAction Id='NoDowngrade' Error='A later version of $(var.ApplicationName) is already installed.' />
 	<CustomAction Id='CheckUpgradeValue' Property='ISUPGRADE' Value='True' />
 	<CustomAction Id='CheckPatchValue' Property='ISPATCH' Value='True' />
-	
+
 	<InstallExecuteSequence>
 		<Custom Action="CloseApplications" Before="AppSearch"></Custom>
 		<!--<Custom Action="SetFontValues" After="AppSearch"></Custom>-->
 		<Custom Action="DeleteRegistryVersionNumber" Before="RemoveRegistryValues">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
-	    <RemoveExistingProducts Before="InstallInitialize" />
-        <Custom Action='AlreadyUpdated' After='FindRelatedProducts'>SELFFOUND</Custom>
-        <Custom Action='NoDowngrade' After='FindRelatedProducts'>NEWERFOUND</Custom>		
+		<RemoveExistingProducts Before="InstallInitialize" />
+		<Custom Action='AlreadyUpdated' After='FindRelatedProducts'>SELFFOUND</Custom>
+		<Custom Action='NoDowngrade' After='FindRelatedProducts'>NEWERFOUND</Custom>
 		<Custom Action="CheckPatchValue" Before="CheckUpgradeValue">PATCHNEWSUMMARYSUBJECT="Small Update Patch"</Custom>
 		<Custom Action="CheckUpgradeValue" After="InstallFinalize">PREVIOUSFOUND</Custom>
-	</InstallExecuteSequence> 
+	</InstallExecuteSequence>
 
 	<InstallUISequence>
 		<Custom Action="SetDefDataFolder" After="FindRelatedProducts"></Custom>
@@ -119,33 +119,33 @@
 		<Custom Action="UseDefDataFolder" After="AppSearch">NOT REGDATAFOLDER</Custom>
 		<Custom Action="UseRegDataFolder" After="AppSearch">REGDATAFOLDER</Custom>
 	</InstallUISequence>
-	
+
 	<Media Id='1' Cabinet='AppTemplate.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
-    <Property Id='DiskPrompt' Value="$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion) Installation [1]" />
-	
+	<Property Id='DiskPrompt' Value="$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion) Installation [1]" />
+
 	<WixVariable Id="WixUIBannerBmp" Value="..\resources\bannrbmp.bmp" />
 	<WixVariable Id="WixUIDialogBmp" Value="..\resources\MsiBackground.bmp" />
-			
+
 	<SetProperty Id="APPFOLDER" Value="[ProgramFilesFolder]$(var.SafeApplicationName)$(var.MajorVersion)\" Before="AppSearch">not APPFOLDER</SetProperty>
 
 	<Property Id="APPFOLDER">
-	  <RegistrySearch Id='RegistryAppFolder' Root='HKLM' Key='SOFTWARE\$(var.SafeApplicationName)\$(var.MajorVersion)' Name='Program_Files_Directory_$(var.SafeApplicationName)' Type='directory'/>
+	  <RegistrySearch Id='RegistryAppFolder' Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Name='[APPFOLDERREGSZNAME]' Type='directory'/>
 	</Property>
 	<Property Id="APPFOLDERFOUND" Value='NotFound'>
-	  <RegistrySearch Id='RegistryAppBool' Root='HKLM' Key='SOFTWARE\$(var.SafeApplicationName)\$(var.MajorVersion)' Name='Program_Files_Directory_$(var.SafeApplicationName)' Type='raw'/>
+	  <RegistrySearch Id='RegistryAppBool' Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Name='[APPFOLDERREGSZNAME]' Type='raw'/>
 	</Property>
 
 	<SetProperty Id="EXPLANATIONTEXT" After="AppSearch" Value="Since this is an upgrade of an existing $(var.ApplicationName) $(var.MajorVersion) installation, you can't change the location of the data folder.">
 		<![CDATA[DATAFOLDERFOUND = "AlreadyExisting"]]>
 	</SetProperty>
-		
+
 	<Property Id="WIXUI_INSTALLDIR" Value="APPFOLDER" />
-	<Property Id='WIXUI_PROJECTSDIR' Value='DATAFOLDER'/>	
-	
+	<Property Id='WIXUI_PROJECTSDIR' Value='DATAFOLDER'/>
+
   	<UIRef Id='WixUI_TemplateDialogFlow'/>
 	<UIRef Id="WixUI_ErrorProgressText" />
 
-    <Directory Id='TARGETDIR' Name='SourceDir'>
+	<Directory Id='TARGETDIR' Name='SourceDir'>
 		<Directory Id='DATAFOLDER' Name='.' />
 		<Directory Id='FontsFolder'/>
 		<Directory Id="DesktopFolder" Name="Desktop">
@@ -169,38 +169,38 @@
 
 		<Directory Id='ProgramFilesFolder'>
 			<Directory Id='APPFOLDER' Name='$(var.SafeApplicationName)$(var.MajorVersion)'>
-						
+
 				<Component Id='RegKeyValues' Guid='*'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\$(var.SafeApplicationName)\$(var.MajorVersion)'>
-					<RegistryValue Name="Program_Files_Directory_$(var.SafeApplicationName)" Type='string' Value='[APPFOLDER]'/>
+				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
+					<RegistryValue Name="[APPFOLDERREGSZNAME]" Type='string' Value='[APPFOLDER]'/>
 					<RegistryValue Name="$(var.SafeApplicationName)Version" Type='string' Value='$(var.VersionNumber)'/>
 				  </RegistryKey>
 				</Component>
 
 				<Component Id='RegKeySettingsDir' Guid='*' Permanent='yes'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\$(var.SafeApplicationName)\$(var.MajorVersion)'>
+				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
 					<RegistryValue Name="Settings_Directory" Type='string' Value='[DATAFOLDER]'/>
 				  </RegistryKey>
 				</Component>
-			
+
 				<Component Id='AppIcon' Guid='*'>
-				  <File Id='AppIconFile' Name='App.ico' Source='..\resources\App.ico' KeyPath='yes'/>		  
+				  <File Id='AppIconFile' Name='App.ico' Source='..\resources\App.ico' KeyPath='yes'/>
 				</Component>
-				
-				<Component Id='Vapor' Guid='3C4B8E68-6147-482F-B7ED-17C485024AEF' KeyPath='yes'/>				
+
+				<Component Id='Vapor' Guid='3C4B8E68-6147-482F-B7ED-17C485024AEF' KeyPath='yes'/>
 			</Directory>
-		</Directory>	 
+		</Directory>
 
  		<Directory Id="ProgramMenuFolder"/>
-    </Directory>		
+	</Directory>
 
 	<DirectoryRef Id="ProgramMenuFolder">
 		<Component Id="ApplicationShortcutMenu" Guid="*">
-			<Shortcut Id="ApplicationStartMenuShortcut" 
-                  Name="$(var.ApplicationName) $(var.MajorVersion)"
+			<Shortcut Id="ApplicationStartMenuShortcut"
+				  Name="$(var.ApplicationName) $(var.MajorVersion)"
 				  Description="$(var.ApplicationName) $(var.MajorVersion)"
-                  Target="[APPFOLDER]$(var.SafeApplicationName).exe"
-                  WorkingDirectory="APPFOLDER"
+				  Target="[APPFOLDER]$(var.SafeApplicationName).exe"
+				  WorkingDirectory="APPFOLDER"
 				  Icon="Application_Icon.ico"/>
 			<RegistryValue Root="HKCU" Key="Software\Microsoft\$(var.SafeApplicationName)$(var.MajorVersion)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
 		</Component>
@@ -264,29 +264,29 @@
 		<File Id='SILEzraOTSR' Source='..\resources\SILEOTSR.ttf' TrueType='yes'/>
 	  </Component>
 	</DirectoryRef>-->
-	
+
 	<!-- A "typical" install will install featues of level 3 and below.  A "complete" install will install features of level 1000 and below.
-		 A "custom" install will display the tree view with items of value "3" and below selected by default. -->	
+		 A "custom" install will display the tree view with items of value "3" and below selected by default. -->
 	<Feature Id='Complete' Title='$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion)' Description='The complete package.'
 		Display='expand' Level='1' AllowAdvertise="no" InstallDefault="source" Absent='disallow' >
 			<ComponentRef Id='Vapor'/>
-		
+
 		<Feature Id='Application' Title='Main Application' Description='The main executable, libraries, and registry settings.' Level='1' ConfigurableDirectory='APPFOLDER' AllowAdvertise="no" InstallDefault="source" Absent='disallow' TypicalDefault="install" >
 			<ComponentGroupRef Id="HarvestedAppFiles" />
 			<ComponentRef Id='RegKeyValues'/>
 			<ComponentRef Id='RegKeySettingsDir'/>
 			<ComponentRef Id='AppIcon'/>
 		</Feature>
-		
-		<Feature Id='DataFiles' Title='Default Data' Description='Default data files distributed with the application.' 
+
+		<Feature Id='DataFiles' Title='Default Data' Description='Default data files distributed with the application.'
 			Level='1' ConfigurableDirectory='DATAFOLDER' AllowAdvertise="no" InstallDefault="source" Absent='allow' TypicalDefault="install" >
 		  <ComponentGroupRef Id="HarvestedDataFiles" />
 		</Feature>
-	
+
 		<Feature Id='DesktopShortcut' Title='Desktop Shortuct' Description='Creates a shortcut on the desktop.' Level='3' ConfigurableDirectory='APPFOLDER' AllowAdvertise="no" InstallDefault="source" Absent='allow' TypicalDefault="install" >
 			<ComponentRef Id='ApplicationShortcutDesktop'/>
 		</Feature>
-		
+
 		<Feature Id='MenuShortcut' Title='Start Menu Shortuct' Description='Creates a shortcut in the Start menu.' Level='3' ConfigurableDirectory='APPFOLDER' AllowAdvertise="no" InstallDefault="source" Absent='allow' TypicalDefault="install" >
 			<ComponentRef Id='ApplicationShortcutMenu' />
 		</Feature>

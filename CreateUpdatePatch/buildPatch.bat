@@ -1,6 +1,4 @@
 @echo off
-REM Change the value below for the installer you wish to build.
-REM ideally this number is obtained dynamically from the build process.
 
 SET AppName=%1
 SHIFT
@@ -48,7 +46,7 @@ heat.exe dir %MASTERBUILDDIR% -cg HarvestedAppFiles -ag -scom -sreg -sfrag -srd 
 heat.exe dir %MASTERDATADIR% -cg HarvestedDataFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr DATAFOLDER -var var.MASTERDATADIR -out ./Master/DataHarvest.wxs
 
 @REM Build the No-UI msi containing the MASTER files
-candle.exe -dApplicationName=%AppName% -dSafeApplicationName=%SafeAppName% -dMajorVersion=%bmaj% -dMinorVersion=%bmin% -dManufacturer=%Manufacturer% -dVersionNumber=%BaseVersion% -dMASTERBUILDDIR=%MASTERBUILDDIR% -dMASTERDATADIR=%MASTERDATADIR% -dUpgradeCode=%UPGRADECODEGUID% -dProductCode=%PRODUCTIDGUID% -dCompGGS=%COMPGGS% -out ./Master/ ./Master/AppNoUi.wxs ./Master/AppHarvest.wxs ./Master/DataHarvest.wxs
+candle.exe -dApplicationName=%AppName% -dSafeApplicationName=%SafeAppName% -dMajorVersion=%bmaj% -dMinorVersion=%bmin% -dManufacturer=%Manufacturer% -dVersionNumber=%BaseVersion% -dMASTERBUILDDIR=%MASTERBUILDDIR% -dMASTERDATADIR=%MASTERDATADIR% -dUpgradeCode=%UPGRADECODEGUID% -dProductCode=%PRODUCTIDGUID% -dCompGGS=%COMPGGS% -out ./Master/ ./AppNoUi.wxs ./Master/AppHarvest.wxs ./Master/DataHarvest.wxs
 light.exe ./Master/AppNoUi.wixobj ./Master/AppHarvest.wixobj ./Master/DataHarvest.wixobj -ext WixUtilExtension.dll -sw1076 -out ./Master/%SafeAppName%_%BaseVersion%.msi
 
 
@@ -57,7 +55,7 @@ heat.exe dir %UPDATEBUILDDIR% -cg HarvestedAppFiles -ag -scom -sreg -sfrag -srd 
 heat.exe dir %UPDATEDATADIR% -cg HarvestedDataFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr DATAFOLDER -var var.UPDATEDATADIR -out ./Update/DataHarvest.wxs
 
 @REM Build the No-UI msi containing the UPDATE files
-candle.exe -dApplicationName=%AppName% -dSafeApplicationName=%SafeAppName% -dMajorVersion=%pmaj% -dMinorVersion=%pmin% -dManufacturer=%Manufacturer% -dVersionNumber=%PatchVersion% -dBaseVersionNumber=%BaseVersion% -dUPDATEBUILDDIR=%UPDATEBUILDDIR% -dUPDATEDATADIR=%UPDATEDATADIR% -dUpgradeCode=%UPGRADECODEGUID% -dProductCode=%PRODUCTIDGUID% -dCompGGS=%COMPGGS% -out ./Update/ ./Update/AppNoUi.wxs ./Update/AppHarvest.wxs ./Update/DataHarvest.wxs 
+candle.exe -dApplicationName=%AppName% -dSafeApplicationName=%SafeAppName% -dMajorVersion=%pmaj% -dMinorVersion=%pmin% -dManufacturer=%Manufacturer% -dVersionNumber=%PatchVersion% -dBaseVersionNumber=%BaseVersion% -dUPDATEBUILDDIR=%UPDATEBUILDDIR% -dUPDATEDATADIR=%UPDATEDATADIR% -dUpgradeCode=%UPGRADECODEGUID% -dProductCode=%PRODUCTIDGUID% -dCompGGS=%COMPGGS% -out ./Update/ ./AppNoUi.wxs ./Update/AppHarvest.wxs ./Update/DataHarvest.wxs 
 light.exe ./Update/AppNoUi.wixobj ./Update/AppHarvest.wixobj ./Update/DataHarvest.wixobj -ext WixUtilExtension.dll -sw1076 -out ./Update/%SafeAppName%_%PatchVersion%.msi
 
 @REM Create the transform between Master and Update
