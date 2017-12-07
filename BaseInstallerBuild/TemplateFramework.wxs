@@ -94,6 +94,7 @@
 	<SetProperty Id='REGISTRYKEY' Value='$(var.SafeApplicationName)\\$(var.MajorVersion)'  Before="AppSearch">not REGISTRYKEY</SetProperty>
 	<SetProperty Id='APPFOLDERREGSZNAME' Value='Program_Files_Directory_$(var.SafeApplicationName)'  Before="AppSearch">not APPFOLDERREGSZNAME</SetProperty>
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
+	<CustomAction Id='UseOvrDataFolder' Property='DATAFOLDER' Value='[OVRDATAFOLDER]' /> <!-- from Overrides.wxi -->
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
 
 
@@ -116,7 +117,11 @@
 	<InstallUISequence>
 		<Custom Action="SetDefDataFolder" After="FindRelatedProducts"></Custom>
 		<Custom Action="VerifyDataPath" After="SetDefDataFolder"></Custom>
-		<Custom Action="UseDefDataFolder" After="AppSearch">NOT REGDATAFOLDER</Custom>
+		<Custom Action="UseDefAppFolder" Before="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
+		<Custom Action="UseOvrAppFolder" Before="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
+		<Custom Action="UseRegAppFolder" Before="AppSearch">REGAPPFOLDER</Custom>
+		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
+		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
 		<Custom Action="UseRegDataFolder" After="AppSearch">REGDATAFOLDER</Custom>
 	</InstallUISequence>
 
@@ -126,9 +131,12 @@
 	<WixVariable Id="WixUIBannerBmp" Value="..\resources\bannrbmp.bmp" />
 	<WixVariable Id="WixUIDialogBmp" Value="..\resources\MsiBackground.bmp" />
 
-	<SetProperty Id="APPFOLDER" Value="[ProgramFilesFolder]$(var.SafeApplicationName)$(var.MajorVersion)\" Before="AppSearch">not APPFOLDER</SetProperty>
+	<SetProperty Id="DEFAPPFOLDER" Value="[ProgramFilesFolder]$(var.SafeApplicationName)$(var.MajorVersion)\" Before="AppSearch">not DEFAPPFOLDER</SetProperty>
+	<CustomAction Id='UseDefAppFolder' Property='APPFOLDER' Value='[DEFAPPFOLDER]' />
+	<CustomAction Id='UseOvrAppFolder' Property='APPFOLDER' Value='[OVRAPPFOLDER]' /> <!-- from Overrides.wxi -->
+	<CustomAction Id='UseRegAppFolder' Property='APPFOLDER' Value='[REGAPPFOLDER]' />
 
-	<Property Id="APPFOLDER">
+	<Property Id="REGAPPFOLDER">
 	  <RegistrySearch Id='RegistryAppFolder' Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Name='[APPFOLDERREGSZNAME]' Type='directory'/>
 	</Property>
 	<Property Id="APPFOLDERFOUND" Value='NotFound'>
