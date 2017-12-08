@@ -105,6 +105,7 @@
 
 	<InstallExecuteSequence>
 		<Custom Action="CloseApplications" Before="AppSearch"></Custom>
+		<Custom Action="YourAppBefore" Before="AppSearch"/>
 		<!--<Custom Action="SetFontValues" After="AppSearch"></Custom>-->
 		<Custom Action="DeleteRegistryVersionNumber" Before="RemoveRegistryValues">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
 		<RemoveExistingProducts Before="InstallInitialize" />
@@ -112,6 +113,7 @@
 		<Custom Action='NoDowngrade' After='FindRelatedProducts'>NEWERFOUND</Custom>
 		<Custom Action="CheckPatchValue" Before="CheckUpgradeValue">PATCHNEWSUMMARYSUBJECT="Small Update Patch"</Custom>
 		<Custom Action="CheckUpgradeValue" After="InstallFinalize">PREVIOUSFOUND</Custom>
+		<Custom Action="YourAppAfter" After="InstallFinalize"/>
 	</InstallExecuteSequence>
 
 	<InstallUISequence>

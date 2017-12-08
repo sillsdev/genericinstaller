@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Include/>
+<Include>
+	<CustomAction Id="YourAppBefore" Property="NULL" Value=""/>
+	<CustomAction Id="YourAppAfter" Property="NULL" Value=""/>
+</Include>
