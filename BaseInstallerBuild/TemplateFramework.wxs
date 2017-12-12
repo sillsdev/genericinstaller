@@ -315,6 +315,7 @@
 		  <ComponentRef Id='Font13'/>
 		  <ComponentRef Id='Font14'/>
 		</Feature>-->
+		<?include ../Common/CustomFeatures.wxi?>
 	</Feature>
   </Product>
 </Wix>
