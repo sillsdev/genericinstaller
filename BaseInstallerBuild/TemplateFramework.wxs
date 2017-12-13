@@ -210,6 +210,11 @@
 				  Target="[APPFOLDER]$(var.SafeApplicationName).exe"
 				  WorkingDirectory="APPFOLDER"
 				  Icon="Application_Icon.ico"/>
+			<Shortcut Id="UninstallProduct"
+				  Name="Uninstall $(var.ApplicationName)"
+				  Target="[SystemFolder]msiexec.exe"
+				  Arguments="/x [ProductCode]"
+				  Description="Uninstalls $(var.ApplicationName)" />
 			<RegistryValue Root="HKCU" Key="Software\Microsoft\$(var.SafeApplicationName)$(var.MajorVersion)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
 		</Component>
 	</DirectoryRef>
