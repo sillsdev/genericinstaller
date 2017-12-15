@@ -193,6 +193,11 @@
 
 				<Component Id='AppIcon' Guid='*'>
 				  <File Id='AppIconFile' Name='App.ico' Source='..\resources\App.ico' KeyPath='yes'/>
+				  <Shortcut Id="UninstallProduct"
+					  Name="Uninstall $(var.ApplicationName)"
+					  Target="[SystemFolder]msiexec.exe"
+					  Arguments="/x [ProductCode]"
+					  Description="Uninstalls $(var.ApplicationName)" />
 				</Component>
 
 				<Component Id='Vapor' Guid='3C4B8E68-6147-482F-B7ED-17C485024AEF' KeyPath='yes'/>
@@ -210,7 +215,7 @@
 				  Target="[APPFOLDER]$(var.SafeApplicationName).exe"
 				  WorkingDirectory="APPFOLDER"
 				  Icon="Application_Icon.ico"/>
-			<Shortcut Id="UninstallProduct"
+			<Shortcut Id="UninstallShortcut"
 				  Name="Uninstall $(var.ApplicationName)"
 				  Target="[SystemFolder]msiexec.exe"
 				  Arguments="/x [ProductCode]"
