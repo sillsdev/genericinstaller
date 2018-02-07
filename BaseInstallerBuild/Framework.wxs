@@ -150,7 +150,7 @@
 	<Property Id="WIXUI_INSTALLDIR" Value="APPFOLDER" />
 	<Property Id='WIXUI_PROJECTSDIR' Value='DATAFOLDER'/>
 
-  	<UIRef Id='WixUI_TemplateDialogFlow'/>
+  	<UIRef Id='WixUI_DialogFlow'/>
 	<UIRef Id="WixUI_ErrorProgressText" />
 
 	<Directory Id='TARGETDIR' Name='SourceDir'>

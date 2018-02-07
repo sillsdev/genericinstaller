@@ -19,8 +19,8 @@
 		<!--<RelatedBundle Id='$(var.UpgradeCode)' Action='Detect'/>-->
 		<WixVariable Id="WixStdbaLicenseUrl" Value="License.htm" />
 		<WixVariable Id="WixStdbaLogo" Value="..\resources\bundle_background.bmp" />
-		<WixVariable Id="WixStdbaThemeXml" Value="TemplateBundleTheme.xml" />
-		<WixVariable Id="WixStdbaThemeWxl" Value="TemplateBundleTheme.wxl" />
+		<WixVariable Id="WixStdbaThemeXml" Value="BundleTheme.xml" />
+		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
 			<PackageGroupRef Id="NetFx451Webz" />
 			<PackageGroupRef Id="redist_vc10" />

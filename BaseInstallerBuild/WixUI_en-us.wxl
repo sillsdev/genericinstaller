@@ -268,129 +268,129 @@
 
     <String Id="ProgressTextInstallValidate" Overridable="yes"><!-- _locID_text="ProgressTextInstallValidate" _locComment="ProgressTextInstallValidate" -->Validating install</String>
     <String Id="ProgressTextInstallFiles" Overridable="yes"><!-- _locID_text="ProgressTextInstallFiles" _locComment="ProgressTextInstallFiles" -->Copying new files</String>
-    <String Id="ProgressTextInstallFilesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextInstallFilesTemplate" _locComment="ProgressTextInstallFilesTemplate" -->File: [1],  Directory: [9],  Size: [6]</String>
+    <String Id="ProgressTextInstallFiles" Overridable="yes"><!-- _locID_text="ProgressTextInstallFiles" _locComment="ProgressTextInstallFiles" -->File: [1],  Directory: [9],  Size: [6]</String>
     <String Id="ProgressTextInstallAdminPackage" Overridable="yes"><!-- _locID_text="ProgressTextInstallAdminPackage" _locComment="ProgressTextInstallAdminPackage" -->Copying network install files</String>
-    <String Id="ProgressTextInstallAdminPackageTemplate" Overridable="yes"><!-- _locID_text="ProgressTextInstallAdminPackageTemplate" _locComment="ProgressTextInstallAdminPackageTemplate" -->File: [1], Directory: [9], Size: [6]</String>
+    <String Id="ProgressTextInstallAdminPackage" Overridable="yes"><!-- _locID_text="ProgressTextInstallAdminPackage" _locComment="ProgressTextInstallAdminPackage" -->File: [1], Directory: [9], Size: [6]</String>
     <String Id="ProgressTextFileCost" Overridable="yes"><!-- _locID_text="ProgressTextFileCost" _locComment="ProgressTextFileCost" -->Computing space requirements</String>
     <String Id="ProgressTextCostInitialize" Overridable="yes"><!-- _locID_text="ProgressTextCostInitialize" _locComment="ProgressTextCostInitialize" -->Computing space requirements</String>
     <String Id="ProgressTextCostFinalize" Overridable="yes"><!-- _locID_text="ProgressTextCostFinalize" _locComment="ProgressTextCostFinalize" -->Computing space requirements</String>
     <String Id="ProgressTextCreateShortcuts" Overridable="yes"><!-- _locID_text="ProgressTextCreateShortcuts" _locComment="ProgressTextCreateShortcuts" -->Creating shortcuts</String>
-    <String Id="ProgressTextCreateShortcutsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextCreateShortcutsTemplate" _locComment="ProgressTextCreateShortcutsTemplate" -->Shortcut: [1]</String>
+    <String Id="ProgressTextCreateShortcuts" Overridable="yes"><!-- _locID_text="ProgressTextCreateShortcuts" _locComment="ProgressTextCreateShortcuts" -->Shortcut: [1]</String>
     <String Id="ProgressTextPublishComponents" Overridable="yes"><!-- _locID_text="ProgressTextPublishComponents" _locComment="ProgressTextPublishComponents" -->Publishing Qualified Components</String>
-    <String Id="ProgressTextPublishComponentsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextPublishComponentsTemplate" _locComment="ProgressTextPublishComponentsTemplate" -->Component ID: [1], Qualifier: [2]</String>
+    <String Id="ProgressTextPublishComponents" Overridable="yes"><!-- _locID_text="ProgressTextPublishComponents" _locComment="ProgressTextPublishComponents" -->Component ID: [1], Qualifier: [2]</String>
     <String Id="ProgressTextPublishFeatures" Overridable="yes"><!-- _locID_text="ProgressTextPublishFeatures" _locComment="ProgressTextPublishFeatures" -->Publishing Product Features</String>
-    <String Id="ProgressTextPublishFeaturesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextPublishFeaturesTemplate" _locComment="ProgressTextPublishFeaturesTemplate" -->Feature: [1]</String>
+    <String Id="ProgressTextPublishFeatures" Overridable="yes"><!-- _locID_text="ProgressTextPublishFeatures" _locComment="ProgressTextPublishFeatures" -->Feature: [1]</String>
     <String Id="ProgressTextPublishProduct" Overridable="yes"><!-- _locID_text="ProgressTextPublishProduct" _locComment="ProgressTextPublishProduct" -->Publishing product information</String>
     <String Id="ProgressTextRegisterClassInfo" Overridable="yes"><!-- _locID_text="ProgressTextRegisterClassInfo" _locComment="ProgressTextRegisterClassInfo" -->Registering Class servers</String>
-    <String Id="ProgressTextRegisterClassInfoTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRegisterClassInfoTemplate" _locComment="ProgressTextRegisterClassInfoTemplate" -->Class Id: [1]</String>
+    <String Id="ProgressTextRegisterClassInfo" Overridable="yes"><!-- _locID_text="ProgressTextRegisterClassInfo" _locComment="ProgressTextRegisterClassInfo" -->Class Id: [1]</String>
     <String Id="ProgressTextRegisterExtensionInfo" Overridable="yes"><!-- _locID_text="ProgressTextRegisterExtensionInfo" _locComment="ProgressTextRegisterExtensionInfo" -->Registering extension servers</String>
-    <String Id="ProgressTextRegisterExtensionInfoTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRegisterExtensionInfoTemplate" _locComment="ProgressTextRegisterExtensionInfoTemplate" -->Extension: [1]</String>
+    <String Id="ProgressTextRegisterExtensionInfo" Overridable="yes"><!-- _locID_text="ProgressTextRegisterExtensionInfo" _locComment="ProgressTextRegisterExtensionInfo" -->Extension: [1]</String>
     <String Id="ProgressTextRegisterMIMEInfo" Overridable="yes"><!-- _locID_text="ProgressTextRegisterMIMEInfo" _locComment="ProgressTextRegisterMIMEInfo" -->Registering MIME info</String>
-    <String Id="ProgressTextRegisterMIMEInfoTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRegisterMIMEInfoTemplate" _locComment="ProgressTextRegisterMIMEInfoTemplate" -->MIME Content Type: [1], Extension: [2]</String>
+    <String Id="ProgressTextRegisterMIMEInfo" Overridable="yes"><!-- _locID_text="ProgressTextRegisterMIMEInfo" _locComment="ProgressTextRegisterMIMEInfo" -->MIME Content Type: [1], Extension: [2]</String>
     <String Id="ProgressTextRegisterProgIdInfo" Overridable="yes"><!-- _locID_text="ProgressTextRegisterProgIdInfo" _locComment="ProgressTextRegisterProgIdInfo" -->Registering program identifiers</String>
-    <String Id="ProgressTextRegisterProgIdInfoTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRegisterProgIdInfoTemplate" _locComment="ProgressTextRegisterProgIdInfoTemplate" -->ProgId: [1]</String>
+    <String Id="ProgressTextRegisterProgIdInfo" Overridable="yes"><!-- _locID_text="ProgressTextRegisterProgIdInfo" _locComment="ProgressTextRegisterProgIdInfo" -->ProgId: [1]</String>
     <String Id="ProgressTextAllocateRegistrySpace" Overridable="yes"><!-- _locID_text="ProgressTextAllocateRegistrySpace" _locComment="ProgressTextAllocateRegistrySpace" -->Allocating registry space</String>
-    <String Id="ProgressTextAllocateRegistrySpaceTemplate" Overridable="yes"><!-- _locID_text="ProgressTextAllocateRegistrySpaceTemplate" _locComment="ProgressTextAllocateRegistrySpaceTemplate" -->Free space: [1]</String>
+    <String Id="ProgressTextAllocateRegistrySpace" Overridable="yes"><!-- _locID_text="ProgressTextAllocateRegistrySpace" _locComment="ProgressTextAllocateRegistrySpace" -->Free space: [1]</String>
     <String Id="ProgressTextAppSearch" Overridable="yes"><!-- _locID_text="ProgressTextAppSearch" _locComment="ProgressTextAppSearch" -->Searching for installed applications</String>
-    <String Id="ProgressTextAppSearchTemplate" Overridable="yes"><!-- _locID_text="ProgressTextAppSearchTemplate" _locComment="ProgressTextAppSearchTemplate" -->Property: [1], Signature: [2]</String>
+    <String Id="ProgressTextAppSearch" Overridable="yes"><!-- _locID_text="ProgressTextAppSearch" _locComment="ProgressTextAppSearch" -->Property: [1], Signature: [2]</String>
     <String Id="ProgressTextBindImage" Overridable="yes"><!-- _locID_text="ProgressTextBindImage" _locComment="ProgressTextBindImage" -->Binding executables</String>
-    <String Id="ProgressTextBindImageTemplate" Overridable="yes"><!-- _locID_text="ProgressTextBindImageTemplate" _locComment="ProgressTextBindImageTemplate" -->File: [1]</String>
+    <String Id="ProgressTextBindImage" Overridable="yes"><!-- _locID_text="ProgressTextBindImage" _locComment="ProgressTextBindImage" -->File: [1]</String>
     <String Id="ProgressTextCCPSearch" Overridable="yes"><!-- _locID_text="ProgressTextCCPSearch" _locComment="ProgressTextCCPSearch" -->Searching for qualifying products</String>
     <String Id="ProgressTextCreateFolders" Overridable="yes"><!-- _locID_text="ProgressTextCreateFolders" _locComment="ProgressTextCreateFolders" -->Creating folders</String>
-    <String Id="ProgressTextCreateFoldersTemplate" Overridable="yes"><!-- _locID_text="ProgressTextCreateFoldersTemplate" _locComment="ProgressTextCreateFoldersTemplate" -->Folder: [1]</String>
+    <String Id="ProgressTextCreateFolders" Overridable="yes"><!-- _locID_text="ProgressTextCreateFolders" _locComment="ProgressTextCreateFolders" -->Folder: [1]</String>
     <String Id="ProgressTextDeleteServices" Overridable="yes"><!-- _locID_text="ProgressTextDeleteServices" _locComment="ProgressTextDeleteServices" -->Deleting services</String>
-    <String Id="ProgressTextDeleteServicesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextDeleteServicesTemplate" _locComment="ProgressTextDeleteServicesTemplate" -->Service: [1]</String>
+    <String Id="ProgressTextDeleteServices" Overridable="yes"><!-- _locID_text="ProgressTextDeleteServices" _locComment="ProgressTextDeleteServices" -->Service: [1]</String>
     <String Id="ProgressTextDuplicateFiles" Overridable="yes"><!-- _locID_text="ProgressTextDuplicateFiles" _locComment="ProgressTextDuplicateFiles" -->Creating duplicate files</String>
-    <String Id="ProgressTextDuplicateFilesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextDuplicateFilesTemplate" _locComment="ProgressTextDuplicateFilesTemplate" -->File: [1],  Directory: [9],  Size: [6]</String>
+    <String Id="ProgressTextDuplicateFiles" Overridable="yes"><!-- _locID_text="ProgressTextDuplicateFiles" _locComment="ProgressTextDuplicateFiles" -->File: [1],  Directory: [9],  Size: [6]</String>
     <String Id="ProgressTextFindRelatedProducts" Overridable="yes"><!-- _locID_text="ProgressTextFindRelatedProducts" _locComment="ProgressTextFindRelatedProducts" -->Searching for related applications</String>
-    <String Id="ProgressTextFindRelatedProductsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextFindRelatedProductsTemplate" _locComment="ProgressTextFindRelatedProductsTemplate" -->Found application: [1]</String>
+    <String Id="ProgressTextFindRelatedProducts" Overridable="yes"><!-- _locID_text="ProgressTextFindRelatedProducts" _locComment="ProgressTextFindRelatedProducts" -->Found application: [1]</String>
     <String Id="ProgressTextInstallODBC" Overridable="yes"><!-- _locID_text="ProgressTextInstallODBC" _locComment="ProgressTextInstallODBC" -->Installing ODBC components</String>
     <String Id="ProgressTextInstallServices" Overridable="yes"><!-- _locID_text="ProgressTextInstallServices" _locComment="ProgressTextInstallServices" -->Installing new services</String>
-    <String Id="ProgressTextInstallServicesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextInstallServicesTemplate" _locComment="ProgressTextInstallServicesTemplate" -->Service: [2]</String>
+    <String Id="ProgressTextInstallServices" Overridable="yes"><!-- _locID_text="ProgressTextInstallServices" _locComment="ProgressTextInstallServices" -->Service: [2]</String>
     <String Id="ProgressTextLaunchConditions" Overridable="yes"><!-- _locID_text="ProgressTextLaunchConditions" _locComment="ProgressTextLaunchConditions" -->Evaluating launch conditions</String>
     <String Id="ProgressTextMigrateFeatureStates" Overridable="yes"><!-- _locID_text="ProgressTextMigrateFeatureStates" _locComment="ProgressTextMigrateFeatureStates" -->Migrating feature states from related applications</String>
-    <String Id="ProgressTextMigrateFeatureStatesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextMigrateFeatureStatesTemplate" _locComment="ProgressTextMigrateFeatureStatesTemplate" -->Application: [1]</String>
+    <String Id="ProgressTextMigrateFeatureStates" Overridable="yes"><!-- _locID_text="ProgressTextMigrateFeatureStates" _locComment="ProgressTextMigrateFeatureStates" -->Application: [1]</String>
     <String Id="ProgressTextMoveFiles" Overridable="yes"><!-- _locID_text="ProgressTextMoveFiles" _locComment="ProgressTextMoveFiles" -->Moving files</String>
-    <String Id="ProgressTextMoveFilesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextMoveFilesTemplate" _locComment="ProgressTextMoveFilesTemplate" -->File: [1],  Directory: [9],  Size: [6]</String>
+    <String Id="ProgressTextMoveFiles" Overridable="yes"><!-- _locID_text="ProgressTextMoveFiles" _locComment="ProgressTextMoveFiles" -->File: [1],  Directory: [9],  Size: [6]</String>
     <String Id="ProgressTextPatchFiles" Overridable="yes"><!-- _locID_text="ProgressTextPatchFiles" _locComment="ProgressTextPatchFiles" -->Patching files</String>
-    <String Id="ProgressTextPatchFilesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextPatchFilesTemplate" _locComment="ProgressTextPatchFilesTemplate" -->File: [1],  Directory: [2],  Size: [3]</String>
+    <String Id="ProgressTextPatchFiles" Overridable="yes"><!-- _locID_text="ProgressTextPatchFiles" _locComment="ProgressTextPatchFiles" -->File: [1],  Directory: [2],  Size: [3]</String>
     <String Id="ProgressTextProcessComponents" Overridable="yes"><!-- _locID_text="ProgressTextProcessComponents" _locComment="ProgressTextProcessComponents" -->Updating component registration</String>
     <String Id="ProgressTextRegisterComPlus" Overridable="yes"><!-- _locID_text="ProgressTextRegisterComPlus" _locComment="ProgressTextRegisterComPlus" -->Registering COM+ Applications and Components</String>
-    <String Id="ProgressTextRegisterComPlusTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRegisterComPlusTemplate" _locComment="ProgressTextRegisterComPlusTemplate" -->AppId: [1]{{, AppType: [2], Users: [3], RSN: [4]}}</String>
+    <String Id="ProgressTextRegisterComPlus" Overridable="yes"><!-- _locID_text="ProgressTextRegisterComPlus" _locComment="ProgressTextRegisterComPlus" -->AppId: [1]{{, AppType: [2], Users: [3], RSN: [4]}}</String>
     <String Id="ProgressTextRegisterFonts" Overridable="yes"><!-- _locID_text="ProgressTextRegisterFonts" _locComment="ProgressTextRegisterFonts" -->Registering fonts</String>
-    <String Id="ProgressTextRegisterFontsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRegisterFontsTemplate" _locComment="ProgressTextRegisterFontsTemplate" -->Font: [1]</String>
+    <String Id="ProgressTextRegisterFonts" Overridable="yes"><!-- _locID_text="ProgressTextRegisterFonts" _locComment="ProgressTextRegisterFonts" -->Font: [1]</String>
     <String Id="ProgressTextRegisterProduct" Overridable="yes"><!-- _locID_text="ProgressTextRegisterProduct" _locComment="ProgressTextRegisterProduct" -->Registering product</String>
-    <String Id="ProgressTextRegisterProductTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRegisterProductTemplate" _locComment="ProgressTextRegisterProductTemplate" -->[1]</String>
+    <String Id="ProgressTextRegisterProduct" Overridable="yes"><!-- _locID_text="ProgressTextRegisterProduct" _locComment="ProgressTextRegisterProduct" -->[1]</String>
     <String Id="ProgressTextRegisterTypeLibraries" Overridable="yes"><!-- _locID_text="ProgressTextRegisterTypeLibraries" _locComment="ProgressTextRegisterTypeLibraries" -->Registering type libraries</String>
-    <String Id="ProgressTextRegisterTypeLibrariesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRegisterTypeLibrariesTemplate" _locComment="ProgressTextRegisterTypeLibrariesTemplate" -->LibID: [1]</String>
+    <String Id="ProgressTextRegisterTypeLibraries" Overridable="yes"><!-- _locID_text="ProgressTextRegisterTypeLibraries" _locComment="ProgressTextRegisterTypeLibraries" -->LibID: [1]</String>
     <String Id="ProgressTextRegisterUser" Overridable="yes"><!-- _locID_text="ProgressTextRegisterUser" _locComment="ProgressTextRegisterUser" -->Registering user</String>
-    <String Id="ProgressTextRegisterUserTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRegisterUserTemplate" _locComment="ProgressTextRegisterUserTemplate" -->[1]</String>
+    <String Id="ProgressTextRegisterUser" Overridable="yes"><!-- _locID_text="ProgressTextRegisterUser" _locComment="ProgressTextRegisterUser" -->[1]</String>
     <String Id="ProgressTextRemoveDuplicateFiles" Overridable="yes"><!-- _locID_text="ProgressTextRemoveDuplicateFiles" _locComment="ProgressTextRemoveDuplicateFiles" -->Removing duplicated files</String>
-    <String Id="ProgressTextRemoveDuplicateFilesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRemoveDuplicateFilesTemplate" _locComment="ProgressTextRemoveDuplicateFilesTemplate" -->File: [1], Directory: [9]</String>
+    <String Id="ProgressTextRemoveDuplicateFiles" Overridable="yes"><!-- _locID_text="ProgressTextRemoveDuplicateFiles" _locComment="ProgressTextRemoveDuplicateFiles" -->File: [1], Directory: [9]</String>
     <String Id="ProgressTextRemoveEnvironmentStrings" Overridable="yes"><!-- _locID_text="ProgressTextRemoveEnvironmentStrings" _locComment="ProgressTextRemoveEnvironmentStrings" -->Updating environment strings</String>
-    <String Id="ProgressTextRemoveEnvironmentStringsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRemoveEnvironmentStringsTemplate" _locComment="ProgressTextRemoveEnvironmentStringsTemplate" -->Name: [1], Value: [2], Action [3]</String>
+    <String Id="ProgressTextRemoveEnvironmentStrings" Overridable="yes"><!-- _locID_text="ProgressTextRemoveEnvironmentStrings" _locComment="ProgressTextRemoveEnvironmentStrings" -->Name: [1], Value: [2], Action [3]</String>
     <String Id="ProgressTextRemoveExistingProducts" Overridable="yes"><!-- _locID_text="ProgressTextRemoveExistingProducts" _locComment="ProgressTextRemoveExistingProducts" -->Removing applications</String>
-    <String Id="ProgressTextRemoveExistingProductsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRemoveExistingProductsTemplate" _locComment="ProgressTextRemoveExistingProductsTemplate" -->Application: [1], Command line: [2]</String>
+    <String Id="ProgressTextRemoveExistingProducts" Overridable="yes"><!-- _locID_text="ProgressTextRemoveExistingProducts" _locComment="ProgressTextRemoveExistingProducts" -->Application: [1], Command line: [2]</String>
     <String Id="ProgressTextRemoveFiles" Overridable="yes"><!-- _locID_text="ProgressTextRemoveFiles" _locComment="ProgressTextRemoveFiles" -->Removing files</String>
-    <String Id="ProgressTextRemoveFilesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRemoveFilesTemplate" _locComment="ProgressTextRemoveFilesTemplate" -->File: [1], Directory: [9]</String>
+    <String Id="ProgressTextRemoveFiles" Overridable="yes"><!-- _locID_text="ProgressTextRemoveFiles" _locComment="ProgressTextRemoveFiles" -->File: [1], Directory: [9]</String>
     <String Id="ProgressTextRemoveFolders" Overridable="yes"><!-- _locID_text="ProgressTextRemoveFolders" _locComment="ProgressTextRemoveFolders" -->Removing folders</String>
-    <String Id="ProgressTextRemoveFoldersTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRemoveFoldersTemplate" _locComment="ProgressTextRemoveFoldersTemplate" -->Folder: [1]</String>
+    <String Id="ProgressTextRemoveFolders" Overridable="yes"><!-- _locID_text="ProgressTextRemoveFolders" _locComment="ProgressTextRemoveFolders" -->Folder: [1]</String>
     <String Id="ProgressTextRemoveIniValues" Overridable="yes"><!-- _locID_text="ProgressTextRemoveIniValues" _locComment="ProgressTextRemoveIniValues" -->Removing INI files entries</String>
-    <String Id="ProgressTextRemoveIniValuesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRemoveIniValuesTemplate" _locComment="ProgressTextRemoveIniValuesTemplate" -->File: [1],  Section: [2],  Key: [3], Value: [4]</String>
+    <String Id="ProgressTextRemoveIniValues" Overridable="yes"><!-- _locID_text="ProgressTextRemoveIniValues" _locComment="ProgressTextRemoveIniValues" -->File: [1],  Section: [2],  Key: [3], Value: [4]</String>
     <String Id="ProgressTextRemoveODBC" Overridable="yes"><!-- _locID_text="ProgressTextRemoveODBC" _locComment="ProgressTextRemoveODBC" -->Removing ODBC components</String>
     <String Id="ProgressTextRemoveRegistryValues" Overridable="yes"><!-- _locID_text="ProgressTextRemoveRegistryValues" _locComment="ProgressTextRemoveRegistryValues" -->Removing system registry values</String>
-    <String Id="ProgressTextRemoveRegistryValuesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRemoveRegistryValuesTemplate" _locComment="ProgressTextRemoveRegistryValuesTemplate" -->Key: [1], Name: [2]</String>
+    <String Id="ProgressTextRemoveRegistryValues" Overridable="yes"><!-- _locID_text="ProgressTextRemoveRegistryValues" _locComment="ProgressTextRemoveRegistryValues" -->Key: [1], Name: [2]</String>
     <String Id="ProgressTextRemoveShortcuts" Overridable="yes"><!-- _locID_text="ProgressTextRemoveShortcuts" _locComment="ProgressTextRemoveShortcuts" -->Removing shortcuts</String>
-    <String Id="ProgressTextRemoveShortcutsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRemoveShortcutsTemplate" _locComment="ProgressTextRemoveShortcutsTemplate" -->Shortcut: [1]</String>
+    <String Id="ProgressTextRemoveShortcuts" Overridable="yes"><!-- _locID_text="ProgressTextRemoveShortcuts" _locComment="ProgressTextRemoveShortcuts" -->Shortcut: [1]</String>
     <String Id="ProgressTextRMCCPSearch" Overridable="yes"><!-- _locID_text="ProgressTextRMCCPSearch" _locComment="ProgressTextRMCCPSearch" -->Searching for qualifying products</String>
     <String Id="ProgressTextSelfRegModules" Overridable="yes"><!-- _locID_text="ProgressTextSelfRegModules" _locComment="ProgressTextSelfRegModules" -->Registering modules</String>
-    <String Id="ProgressTextSelfRegModulesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextSelfRegModulesTemplate" _locComment="ProgressTextSelfRegModulesTemplate" -->File: [1], Folder: [2]</String>
+    <String Id="ProgressTextSelfRegModules" Overridable="yes"><!-- _locID_text="ProgressTextSelfRegModules" _locComment="ProgressTextSelfRegModules" -->File: [1], Folder: [2]</String>
     <String Id="ProgressTextSelfUnregModules" Overridable="yes"><!-- _locID_text="ProgressTextSelfUnregModules" _locComment="ProgressTextSelfUnregModules" -->Unregistering modules</String>
-    <String Id="ProgressTextSelfUnregModulesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextSelfUnregModulesTemplate" _locComment="ProgressTextSelfUnregModulesTemplate" -->File: [1], Folder: [2]</String>
+    <String Id="ProgressTextSelfUnregModules" Overridable="yes"><!-- _locID_text="ProgressTextSelfUnregModules" _locComment="ProgressTextSelfUnregModules" -->File: [1], Folder: [2]</String>
     <String Id="ProgressTextSetODBCFolders" Overridable="yes"><!-- _locID_text="ProgressTextSetODBCFolders" _locComment="ProgressTextSetODBCFolders" -->Initializing ODBC directories</String>
     <String Id="ProgressTextStartServices" Overridable="yes"><!-- _locID_text="ProgressTextStartServices" _locComment="ProgressTextStartServices" -->Starting services</String>
-    <String Id="ProgressTextStartServicesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextStartServicesTemplate" _locComment="ProgressTextStartServicesTemplate" -->Service: [1]</String>
+    <String Id="ProgressTextStartServices" Overridable="yes"><!-- _locID_text="ProgressTextStartServices" _locComment="ProgressTextStartServices" -->Service: [1]</String>
     <String Id="ProgressTextStopServices" Overridable="yes"><!-- _locID_text="ProgressTextStopServices" _locComment="ProgressTextStopServices" -->Stopping services</String>
-    <String Id="ProgressTextStopServicesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextStopServicesTemplate" _locComment="ProgressTextStopServicesTemplate" -->Service: [1]</String>
+    <String Id="ProgressTextStopServices" Overridable="yes"><!-- _locID_text="ProgressTextStopServices" _locComment="ProgressTextStopServices" -->Service: [1]</String>
     <String Id="ProgressTextUnpublishComponents" Overridable="yes"><!-- _locID_text="ProgressTextUnpublishComponents" _locComment="ProgressTextUnpublishComponents" -->Unpublishing Qualified Components</String>
-    <String Id="ProgressTextUnpublishComponentsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnpublishComponentsTemplate" _locComment="ProgressTextUnpublishComponentsTemplate" -->Component ID: [1], Qualifier: [2]</String>
+    <String Id="ProgressTextUnpublishComponents" Overridable="yes"><!-- _locID_text="ProgressTextUnpublishComponents" _locComment="ProgressTextUnpublishComponents" -->Component ID: [1], Qualifier: [2]</String>
     <String Id="ProgressTextUnpublishFeatures" Overridable="yes"><!-- _locID_text="ProgressTextUnpublishFeatures" _locComment="ProgressTextUnpublishFeatures" -->Unpublishing Product Features</String>
-    <String Id="ProgressTextUnpublishFeaturesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnpublishFeaturesTemplate" _locComment="ProgressTextUnpublishFeaturesTemplate" -->Feature: [1]</String>
+    <String Id="ProgressTextUnpublishFeatures" Overridable="yes"><!-- _locID_text="ProgressTextUnpublishFeatures" _locComment="ProgressTextUnpublishFeatures" -->Feature: [1]</String>
     <String Id="ProgressTextUnregisterClassInfo" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterClassInfo" _locComment="ProgressTextUnregisterClassInfo" -->Unregister Class servers</String>
-    <String Id="ProgressTextUnregisterClassInfoTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterClassInfoTemplate" _locComment="ProgressTextUnregisterClassInfoTemplate" -->Class Id: [1]</String>
+    <String Id="ProgressTextUnregisterClassInfo" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterClassInfo" _locComment="ProgressTextUnregisterClassInfo" -->Class Id: [1]</String>
     <String Id="ProgressTextUnregisterComPlus" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterComPlus" _locComment="ProgressTextUnregisterComPlus" -->Unregistering COM+ Applications and Components</String>
-    <String Id="ProgressTextUnregisterComPlusTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterComPlusTemplate" _locComment="ProgressTextUnregisterComPlusTemplate" -->AppId: [1]{{, AppType: [2]}}</String>
+    <String Id="ProgressTextUnregisterComPlus" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterComPlus" _locComment="ProgressTextUnregisterComPlus" -->AppId: [1]{{, AppType: [2]}}</String>
     <String Id="ProgressTextUnregisterExtensionInfo" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterExtensionInfo" _locComment="ProgressTextUnregisterExtensionInfo" -->Unregistering extension servers</String>
-    <String Id="ProgressTextUnregisterExtensionInfoTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterExtensionInfoTemplate" _locComment="ProgressTextUnregisterExtensionInfoTemplate" -->Extension: [1]</String>
+    <String Id="ProgressTextUnregisterExtensionInfo" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterExtensionInfo" _locComment="ProgressTextUnregisterExtensionInfo" -->Extension: [1]</String>
     <String Id="ProgressTextUnregisterFonts" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterFonts" _locComment="ProgressTextUnregisterFonts" -->Unregistering fonts</String>
-    <String Id="ProgressTextUnregisterFontsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterFontsTemplate" _locComment="ProgressTextUnregisterFontsTemplate" -->Font: [1]</String>
+    <String Id="ProgressTextUnregisterFonts" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterFonts" _locComment="ProgressTextUnregisterFonts" -->Font: [1]</String>
     <String Id="ProgressTextUnregisterMIMEInfo" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterMIMEInfo" _locComment="ProgressTextUnregisterMIMEInfo" -->Unregistering MIME info</String>
-    <String Id="ProgressTextUnregisterMIMEInfoTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterMIMEInfoTemplate" _locComment="ProgressTextUnregisterMIMEInfoTemplate" -->MIME Content Type: [1], Extension: [2]</String>
+    <String Id="ProgressTextUnregisterMIMEInfo" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterMIMEInfo" _locComment="ProgressTextUnregisterMIMEInfo" -->MIME Content Type: [1], Extension: [2]</String>
     <String Id="ProgressTextUnregisterProgIdInfo" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterProgIdInfo" _locComment="ProgressTextUnregisterProgIdInfo" -->Unregistering program identifiers</String>
-    <String Id="ProgressTextUnregisterProgIdInfoTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterProgIdInfoTemplate" _locComment="ProgressTextUnregisterProgIdInfoTemplate" -->ProgId: [1]</String>
+    <String Id="ProgressTextUnregisterProgIdInfo" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterProgIdInfo" _locComment="ProgressTextUnregisterProgIdInfo" -->ProgId: [1]</String>
     <String Id="ProgressTextUnregisterTypeLibraries" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterTypeLibraries" _locComment="ProgressTextUnregisterTypeLibraries" -->Unregistering type libraries</String>
-    <String Id="ProgressTextUnregisterTypeLibrariesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterTypeLibrariesTemplate" _locComment="ProgressTextUnregisterTypeLibrariesTemplate" -->LibID: [1]</String>
+    <String Id="ProgressTextUnregisterTypeLibraries" Overridable="yes"><!-- _locID_text="ProgressTextUnregisterTypeLibraries" _locComment="ProgressTextUnregisterTypeLibraries" -->LibID: [1]</String>
     <String Id="ProgressTextWriteEnvironmentStrings" Overridable="yes"><!-- _locID_text="ProgressTextWriteEnvironmentStrings" _locComment="ProgressTextWriteEnvironmentStrings" -->Updating environment strings</String>
-    <String Id="ProgressTextWriteEnvironmentStringsTemplate" Overridable="yes"><!-- _locID_text="ProgressTextWriteEnvironmentStringsTemplate" _locComment="ProgressTextWriteEnvironmentStringsTemplate" -->Name: [1], Value: [2], Action [3]</String>
+    <String Id="ProgressTextWriteEnvironmentStrings" Overridable="yes"><!-- _locID_text="ProgressTextWriteEnvironmentStrings" _locComment="ProgressTextWriteEnvironmentStrings" -->Name: [1], Value: [2], Action [3]</String>
     <String Id="ProgressTextWriteIniValues" Overridable="yes"><!-- _locID_text="ProgressTextWriteIniValues" _locComment="ProgressTextWriteIniValues" -->Writing INI files values</String>
-    <String Id="ProgressTextWriteIniValuesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextWriteIniValuesTemplate" _locComment="ProgressTextWriteIniValuesTemplate" -->File: [1],  Section: [2],  Key: [3], Value: [4]</String>
+    <String Id="ProgressTextWriteIniValues" Overridable="yes"><!-- _locID_text="ProgressTextWriteIniValues" _locComment="ProgressTextWriteIniValues" -->File: [1],  Section: [2],  Key: [3], Value: [4]</String>
     <String Id="ProgressTextWriteRegistryValues" Overridable="yes"><!-- _locID_text="ProgressTextWriteRegistryValues" _locComment="ProgressTextWriteRegistryValues" -->Writing system registry values</String>
-    <String Id="ProgressTextWriteRegistryValuesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextWriteRegistryValuesTemplate" _locComment="ProgressTextWriteRegistryValuesTemplate" -->Key: [1], Name: [2], Value: [3]</String>
+    <String Id="ProgressTextWriteRegistryValues" Overridable="yes"><!-- _locID_text="ProgressTextWriteRegistryValues" _locComment="ProgressTextWriteRegistryValues" -->Key: [1], Name: [2], Value: [3]</String>
     <String Id="ProgressTextAdvertise" Overridable="yes"><!-- _locID_text="ProgressTextAdvertise" _locComment="ProgressTextAdvertise" -->Advertising application</String>
     <String Id="ProgressTextGenerateScript" Overridable="yes"><!-- _locID_text="ProgressTextGenerateScript" _locComment="ProgressTextGenerateScript" -->Generating script operations for action:</String>
-    <String Id="ProgressTextGenerateScriptTemplate" Overridable="yes"><!-- _locID_text="ProgressTextGenerateScriptTemplate" _locComment="ProgressTextGenerateScriptTemplate" -->[1]</String>
+    <String Id="ProgressTextGenerateScript" Overridable="yes"><!-- _locID_text="ProgressTextGenerateScript" _locComment="ProgressTextGenerateScript" -->[1]</String>
     <String Id="ProgressTextInstallSFPCatalogFile" Overridable="yes"><!-- _locID_text="ProgressTextInstallSFPCatalogFile" _locComment="ProgressTextInstallSFPCatalogFile" -->Installing system catalog</String>
-    <String Id="ProgressTextInstallSFPCatalogFileTemplate" Overridable="yes"><!-- _locID_text="ProgressTextInstallSFPCatalogFileTemplate" _locComment="ProgressTextInstallSFPCatalogFileTemplate" -->File: [1],  Dependencies: [2]</String>
+    <String Id="ProgressTextInstallSFPCatalogFile" Overridable="yes"><!-- _locID_text="ProgressTextInstallSFPCatalogFile" _locComment="ProgressTextInstallSFPCatalogFile" -->File: [1],  Dependencies: [2]</String>
     <String Id="ProgressTextMsiPublishAssemblies" Overridable="yes"><!-- _locID_text="ProgressTextMsiPublishAssemblies" _locComment="ProgressTextMsiPublishAssemblies" -->Publishing assembly information</String>
-    <String Id="ProgressTextMsiPublishAssembliesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextMsiPublishAssembliesTemplate" _locComment="ProgressTextMsiPublishAssembliesTemplate" -->Application Context:[1], Assembly Name:[2]</String>
+    <String Id="ProgressTextMsiPublishAssemblies" Overridable="yes"><!-- _locID_text="ProgressTextMsiPublishAssemblies" _locComment="ProgressTextMsiPublishAssemblies" -->Application Context:[1], Assembly Name:[2]</String>
     <String Id="ProgressTextMsiUnpublishAssemblies" Overridable="yes"><!-- _locID_text="ProgressTextMsiUnpublishAssemblies" _locComment="ProgressTextMsiUnpublishAssemblies" -->Unpublishing assembly information</String>
-    <String Id="ProgressTextMsiUnpublishAssembliesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextMsiUnpublishAssembliesTemplate" _locComment="ProgressTextMsiUnpublishAssembliesTemplate" -->Application Context:[1], Assembly Name:[2]</String>
+    <String Id="ProgressTextMsiUnpublishAssemblies" Overridable="yes"><!-- _locID_text="ProgressTextMsiUnpublishAssemblies" _locComment="ProgressTextMsiUnpublishAssemblies" -->Application Context:[1], Assembly Name:[2]</String>
     <String Id="ProgressTextRollback" Overridable="yes"><!-- _locID_text="ProgressTextRollback" _locComment="ProgressTextRollback" -->Rolling back action:</String>
-    <String Id="ProgressTextRollbackTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRollbackTemplate" _locComment="ProgressTextRollbackTemplate" -->[1]</String>
+    <String Id="ProgressTextRollback" Overridable="yes"><!-- _locID_text="ProgressTextRollback" _locComment="ProgressTextRollback" -->[1]</String>
     <String Id="ProgressTextRollbackCleanup" Overridable="yes"><!-- _locID_text="ProgressTextRollbackCleanup" _locComment="ProgressTextRollbackCleanup" -->Removing backup files</String>
-    <String Id="ProgressTextRollbackCleanupTemplate" Overridable="yes"><!-- _locID_text="ProgressTextRollbackCleanupTemplate" _locComment="ProgressTextRollbackCleanupTemplate" -->File: [1]</String>
+    <String Id="ProgressTextRollbackCleanup" Overridable="yes"><!-- _locID_text="ProgressTextRollbackCleanup" _locComment="ProgressTextRollbackCleanup" -->File: [1]</String>
     <String Id="ProgressTextUnmoveFiles" Overridable="yes"><!-- _locID_text="ProgressTextUnmoveFiles" _locComment="ProgressTextUnmoveFiles" -->Removing moved files</String>
-    <String Id="ProgressTextUnmoveFilesTemplate" Overridable="yes"><!-- _locID_text="ProgressTextUnmoveFilesTemplate" _locComment="ProgressTextUnmoveFilesTemplate" -->File: [1], Directory: [9]</String>
+    <String Id="ProgressTextUnmoveFiles" Overridable="yes"><!-- _locID_text="ProgressTextUnmoveFiles" _locComment="ProgressTextUnmoveFiles" -->File: [1], Directory: [9]</String>
     <String Id="ProgressTextUnpublishProduct" Overridable="yes"><!-- _locID_text="ProgressTextUnpublishProduct" _locComment="ProgressTextUnpublishProduct" -->Unpublishing product information</String>
 
     <String Id="Error0" Overridable="yes"><!-- _locID_text="Error0" _locComment="Error0" -->{{Fatal error: }}</String>
