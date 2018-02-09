@@ -10,7 +10,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <UI>
-            <Dialog Id="TemplateProgressDlg" Width="370" Height="270" Title="!(loc.ProgressDlg_Title)" Modeless="yes">
+            <Dialog Id="GIProgressDlg" Width="370" Height="270" Title="!(loc.ProgressDlg_Title)" Modeless="yes">
                 <!--<Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Default="yes" Cancel="yes" Text="!(loc.WixUICancel)">
                     <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
                 </Control>-->
@@ -60,7 +60,7 @@
             </Dialog>
 
             <InstallUISequence>
-                <Show Dialog="TemplateProgressDlg" Before="ExecuteAction" Overridable="yes" />
+                <Show Dialog="GIProgressDlg" Before="ExecuteAction" Overridable="yes" />
             </InstallUISequence>
         </UI>
     </Fragment>
