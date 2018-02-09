@@ -19,7 +19,6 @@
 		<Image X="0" Y="0" Width="494" Height="301" ImageFile="logo.png" Visible="yes"/>
         <Text X="0" Y="140" Width="494" Height="40" FontId="1" Center="yes">#(loc.InstallHeader)</Text>
 		<Hypertext Name="EulaHyperlink" X="40" Y="206" Width="449" Height="20" TabStop="yes" FontId="7" HideWhenDisabled="yes">#(loc.InstallLicenseLinkText)</Hypertext>
-		<Text X="301" Y="206" Width="150" Height="17" FontId="3">#(loc.InstallLicenseTextB)</Text>-->
         <Checkbox Name="EulaAcceptCheckbox" X="40" Y="240" Width="13" Height="13" TabStop="yes" FontId="3" HideWhenDisabled="yes"></Checkbox>
 		<Text X="64" Y="237" Width="246" Height="20" FontId="3">#(loc.InstallAcceptCheckbox)</Text>
 		<Text X="11" Y="-17" Width="246" Height="17" FontId="5">#(loc.InstallVersion)</Text>
