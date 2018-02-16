@@ -23,9 +23,7 @@
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
 			<PackageGroupRef Id="Netfx451" />
-			<PackageGroupRef Id="redist_vc10" />
-			<PackageGroupRef Id="redist_vc11" />
-			<PackageGroupRef Id="redist_vc12" />
+			<PackageGroupRef Id="vcredists" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
 		</Chain>
@@ -56,6 +54,23 @@
 				<ExitCode Behavior="error" Value="5100" />
 				<ExitCode Behavior="error" Value="1603" />
 				<ExitCode Behavior="success" Value="0" />
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	
+	<?if $(sys.BUILDARCH)="x86"?>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\8.0\VC\VCRedist\x86"
+                     Variable="CPP2008Redist"
+                     Value="Installed"
+                     Result="value"/>
+		<PackageGroup Id="redist_vc8">
+			<ExePackage Id="vc8" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+				  Name="vcredist_2008_x86.exe"
+				  SourceFile="..\libs\vcredist_2008_x86.exe"
+                  InstallCommand="/Q /norestart"
+				  DetectCondition="CPP2008Redist">
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -101,4 +116,99 @@
                   />
 		</PackageGroup>
 	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
+                     Variable="CPP2015Redist"
+                     Value="Installed"
+                     Result="value"/>
+		<PackageGroup Id="redist_vc15">
+			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+				  Name="vcredist_x86.exe"
+				  SourceFile="..\libs\vcredist_2015_x86.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2015Redist">
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
+	<?elseif $(sys.BUILDARCH)="x64"?>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\8.0\VC\VCRedist\x64"
+                     Variable="CPP2008Redist"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<PackageGroup Id="redist_vc8">
+			<ExePackage Id="vc8" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2008_x64.exe"
+                  InstallCommand="/Q /norestart"
+				  DetectCondition="CPP2008Redist"
+                  />
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
+                     Variable="CPP2010Redist"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<PackageGroup Id="redist_vc10">
+			<ExePackage Id="vc10" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2010Redist"
+                  />
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
+                     Variable="CPP2011Redist"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<PackageGroup Id="redist_vc11">
+			<ExePackage Id="vc11" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2012_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2011Redist"
+                  />
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\12.0\VC\Runtimes\x64"
+                     Variable="CPP2012Redist"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<PackageGroup Id="redist_vc12">
+			<ExePackage Id="vc12" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2013_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2012Redist"
+                  />
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                     Variable="CPP2015Redist"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<PackageGroup Id="redist_vc15">
+			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2015_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2015Redist"
+                  />
+		</PackageGroup>
+	</Fragment>
+	<?else?>
+		<?error Unsupported value of sys.BUILDARCH=$(sys.BUILDARCH)?>
+	<?endif?>
+	<?include ../Common/Redistributables.wxi?>
 </Wix>
