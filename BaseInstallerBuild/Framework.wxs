@@ -1,4 +1,9 @@
 <?xml version="1.0"?>
+<?if $(sys.BUILDARCH) = x64 ?>
+<?define PFDir = ProgramFiles64Folder?>
+<?else?>
+<?define PFDir = ProgramFilesFolder?>
+<?endif?>
 
 <!-- This file is used for creating a BASE product installation.
 	 In other words this is for Paratext 8.0 only.
@@ -131,7 +136,7 @@
 	<WixVariable Id="WixUIBannerBmp" Value="..\resources\bannrbmp.bmp" />
 	<WixVariable Id="WixUIDialogBmp" Value="..\resources\MsiBackground.bmp" />
 
-	<SetProperty Id="DEFAPPFOLDER" Value="[ProgramFilesFolder]$(var.SafeApplicationName)$(var.MajorVersion)\" Before="AppSearch">not DEFAPPFOLDER</SetProperty>
+	<SetProperty Id="DEFAPPFOLDER" Value="[$(var.PFDir)]$(var.SafeApplicationName)$(var.MajorVersion)\" Before="AppSearch">not DEFAPPFOLDER</SetProperty>
 	<CustomAction Id='UseDefAppFolder' Property='APPFOLDER' Value='[DEFAPPFOLDER]' />
 	<CustomAction Id='UseOvrAppFolder' Property='APPFOLDER' Value='[OVRAPPFOLDER]' /> <!-- from Overrides.wxi -->
 	<CustomAction Id='UseRegAppFolder' Property='APPFOLDER' Value='[REGAPPFOLDER]' />
@@ -174,10 +179,8 @@
 					KeyPath="yes"/>
 			</Component>
 		</Directory>
-
-		<Directory Id='ProgramFilesFolder'>
+		<Directory Id='$(var.PFDir)' SourceName="Program Files">
 			<Directory Id='APPFOLDER' Name='$(var.SafeApplicationName)$(var.MajorVersion)'>
-
 				<Component Id='RegKeyValues' Guid='*'>
 				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
 					<RegistryValue Name="[APPFOLDERREGSZNAME]" Type='string' Value='[APPFOLDER]'/>
