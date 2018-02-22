@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Include/>
+<Include>
+	<!-- the app's registry key (under HKLM) -->
+	<!--Property Id="REGISTRYKEY" Value="SIL\$(var.ApplicationName)\9W"/-->
+	<!-- the name of registry value containing the installation directory (APPFOLDER) -->
+	<!--Property Id="APPFOLDERREGSZNAME" Value="InstallationDir"/-->
+	<!-- the name of registry value containing the user data directory (APPFOLDER) -->
+	<!--Property Id="DATAFOLDERREGSZNAME" Value="DataDir"/-->
+	<!-- the folder in which the app is installed -->
+	<!--SetProperty Id="OVRAPPFOLDER" Value="[ProgramFilesFolder]\SIL\$(var.SafeApplicationName)$(var.MajorVersion)\" Before="AppSearch"/-->
+	<!-- the folder in which the user's data will be kept (the user will be able to change this) -->
+	<!--SetProperty Id="OVRDATAFOLDER" Value="[PersonalFolder]\My$(var.SafeApplicationName)Files" Before="AppSearch"/-->
+
+	<!-- Install a merge module -->
+	<!--DirectoryRef Id='APPFOLDER'>
+		<Merge Id="ChorusMergeModule" Language="1033" SourceFile="..\..\..\lib\Release\ChorusMergeModule.msm" DiskId="1"/>
+	</DirectoryRef-->
+</Include>
