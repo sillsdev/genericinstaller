@@ -98,6 +98,7 @@
 		DllEntry="VerifyDataDirPath"  />
 	<SetProperty Id='REGISTRYKEY' Value='$(var.SafeApplicationName)\\$(var.MajorVersion)'  Before="AppSearch">not REGISTRYKEY</SetProperty>
 	<SetProperty Id='APPFOLDERREGSZNAME' Value='Program_Files_Directory_$(var.SafeApplicationName)'  Before="AppSearch">not APPFOLDERREGSZNAME</SetProperty>
+	<SetProperty Id='DATAFOLDERREGSZNAME' Value='Settings_Directory'  Before="AppSearch">not DATAFOLDERREGSZNAME</SetProperty>
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
 	<CustomAction Id='UseOvrDataFolder' Property='DATAFOLDER' Value='[OVRDATAFOLDER]' /> <!-- from Overrides.wxi -->
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
@@ -190,7 +191,7 @@
 
 				<Component Id='RegKeySettingsDir' Guid='*' Permanent='yes'>
 				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
-					<RegistryValue Name="Settings_Directory" Type='string' Value='[DATAFOLDER]'/>
+					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]'/>
 				  </RegistryKey>
 				</Component>
 
@@ -222,107 +223,18 @@
 		</Component>
 	</DirectoryRef>
 
-	<!--<DirectoryRef Id='FontsFolder'>
-	  <Component Id='Font1' Guid='*' Permanent='yes'>
-		<Condition>DOULOS_INSTALLED="False"</Condition>
-		<File Id='DoulosFont' Source='..\resources\DoulosSIL-R.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font2' Guid='*' Permanent='yes'>
-		<Condition>SBLHEB_INSTALLED="False"</Condition>
-		<File Id='HebrewFont' Source='..\resources\SBL_Hbrw.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font3' Guid='*' Permanent='yes'>
-		<Condition>CHARIS_INSTALLED="False"</Condition>
-		<File Id='CharisBoldFont' Source='..\resources\CharisSIL-B.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font4' Guid='*' Permanent='yes'>
-		<Condition>CHARIS_INSTALLED="False"</Condition>
-		<File Id='CharisBoldItalicFont' Source='..\resources\CharisSIL-BI.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font5' Guid='*' Permanent='yes'>
-		<Condition>CHARIS_INSTALLED="False"</Condition>
-		<File Id='CharisItalicFont' Source='..\resources\CharisSIL-I.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font6' Guid='*' Permanent='yes'>
-		<Condition>CHARIS_INSTALLED="False"</Condition>
-		<File Id='CharisFont' Source='..\resources\CharisSIL-R.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font7' Guid='*' Permanent='yes'>
-		<Condition>APPARATUS_INSTALLED="False"</Condition>
-		<File Id='ApparatusFont' Source='..\resources\AppSILR.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font8' Guid='*' Permanent='yes'>
-		<Condition>APPARATUS_INSTALLED="False"</Condition>
-		<File Id='ApparatusBoldFont' Source='..\resources\AppSILB.TTF' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font9' Guid='*' Permanent='yes'>
-		<Condition>APPARATUS_INSTALLED="False"</Condition>
-		<File Id='ApparatusItalicFont' Source='..\resources\AppSILI.TTF' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font10' Guid='*' Permanent='yes'>
-		<Condition>APPARATUS_INSTALLED="False"</Condition>
-		<File Id='ApparatusItalicBoldFont' Source='..\resources\AppSILBI.TTF' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font11' Guid='*' Permanent='yes'>
-		<Condition>GALATIA_INSTALLED="False"</Condition>
-		<File Id='GalatiaSIL' Source='..\resources\GalSILR.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font12' Guid='*' Permanent='yes'>
-		<Condition>GALATIA_INSTALLED="False"</Condition>
-		<File Id='GalatiaSILBold' Source='..\resources\GalSILB.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font13' Guid='*' Permanent='yes'>
-		<Condition>EZRA_INSTALLED="False"</Condition>
-		<File Id='SILEzraOT' Source='..\resources\SILEOT.ttf' TrueType='yes'/>
-	  </Component>
-	  <Component Id='Font14' Guid='*' Permanent='yes'>
-		<Condition>EZRA_INSTALLED="False"</Condition>
-		<File Id='SILEzraOTSR' Source='..\resources\SILEOTSR.ttf' TrueType='yes'/>
-	  </Component>
-	</DirectoryRef>-->
+	<?include ../Common/CustomComponents.wxi?>
 
 	<!-- A "typical" install will install featues of level 3 and below.  A "complete" install will install features of level 1000 and below.
 		 A "custom" install will display the tree view with items of value "3" and below selected by default. -->
 	<Feature Id='Complete' Title='$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion)' Description='The complete package.'
 		Display='expand' Level='1' AllowAdvertise="no" InstallDefault="source" Absent='disallow' >
 			<ComponentRef Id='Vapor'/>
-
-		<Feature Id='Application' Title='Main Application' Description='The main executable, libraries, and registry settings.' Level='1' ConfigurableDirectory='APPFOLDER' AllowAdvertise="no" InstallDefault="source" Absent='disallow' TypicalDefault="install" >
 			<ComponentGroupRef Id="HarvestedAppFiles" />
 			<ComponentRef Id='RegKeyValues'/>
 			<ComponentRef Id='RegKeySettingsDir'/>
 			<ComponentRef Id='AppIcon'/>
-		</Feature>
 
-		<Feature Id='DataFiles' Title='Default Data' Description='Default data files distributed with the application.'
-			Level='1' ConfigurableDirectory='DATAFOLDER' AllowAdvertise="no" InstallDefault="source" Absent='allow' TypicalDefault="install" >
-		  <ComponentGroupRef Id="HarvestedDataFiles" />
-		</Feature>
-
-		<Feature Id='DesktopShortcut' Title='Desktop Shortuct' Description='Creates a shortcut on the desktop.' Level='3' ConfigurableDirectory='APPFOLDER' AllowAdvertise="no" InstallDefault="source" Absent='allow' TypicalDefault="install" >
-			<ComponentRef Id='ApplicationShortcutDesktop'/>
-		</Feature>
-
-		<Feature Id='MenuShortcut' Title='Start Menu Shortuct' Description='Creates a shortcut in the Start menu.' Level='3' ConfigurableDirectory='APPFOLDER' AllowAdvertise="no" InstallDefault="source" Absent='allow' TypicalDefault="install" >
-			<ComponentRef Id='ApplicationShortcutMenu' />
-		</Feature>
-
-		<!--<Feature Id='Fonts' Title='Related Fonts' Description='Installing fonts used by the application.' Level='3' AllowAdvertise="no" InstallDefault="source" Absent='allow' TypicalDefault="install" >
-		  <ComponentRef Id='Font1'/>
-		  <ComponentRef Id='Font2'/>
-		  <ComponentRef Id='Font3'/>
-		  <ComponentRef Id='Font4'/>
-		  <ComponentRef Id='Font5'/>
-		  <ComponentRef Id='Font6'/>
-		  <ComponentRef Id='Font7'/>
-		  <ComponentRef Id='Font8'/>
-		  <ComponentRef Id='Font9'/>
-		  <ComponentRef Id='Font10'/>
-		  <ComponentRef Id='Font11'/>
-		  <ComponentRef Id='Font12'/>
-		  <ComponentRef Id='Font13'/>
-		  <ComponentRef Id='Font14'/>
-		</Feature>-->
 		<?include ../Common/CustomFeatures.wxi?>
 	</Feature>
   </Product>
