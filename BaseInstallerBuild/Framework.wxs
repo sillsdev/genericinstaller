@@ -102,6 +102,9 @@
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
 	<CustomAction Id='UseOvrDataFolder' Property='DATAFOLDER' Value='[OVRDATAFOLDER]' /> <!-- from Overrides.wxi -->
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
+	<!-- TODO (HASSO) 2018.02: if there is no OVRHARVESTDATAFOLDER, make HARVESTDATAFOLDER whatever the user picked for DATAFOLDER -->
+	<CustomAction Id='UseDefHarvestDataFolder' Property='HARVESTDATAFOLDER' Value='[DATAFOLDER]' />
+	<CustomAction Id='UseOvrHarvestDataFolder' Property='HARVESTDATAFOLDER' Value='[OVRHARVESTDATAFOLDER]' /> <!-- from Overrides.wxi -->
 
 
 	<CustomAction Id='AlreadyUpdated' Error='Version [ProductVersion] of $(var.ApplicationName) is already installed.' />
@@ -129,6 +132,8 @@
 		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
 		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
 		<Custom Action="UseRegDataFolder" After="AppSearch">REGDATAFOLDER</Custom>
+		<Custom Action="UseDefHarvestDataFolder" After="AppSearch">NOT OVRHARVESTDATAFOLDER</Custom>
+		<Custom Action="UseOvrHarvestDataFolder" After="AppSearch">OVRHARVESTDATAFOLDER</Custom>
 	</InstallUISequence>
 
 	<Media Id='1' Cabinet='AppTemplate.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
@@ -161,6 +166,7 @@
 
 	<Directory Id='TARGETDIR' Name='SourceDir'>
 		<Directory Id='DATAFOLDER' Name='.' />
+		<Directory Id='HARVESTDATAFOLDER' Name='.' />
 		<Directory Id='FontsFolder'/>
 		<Directory Id="DesktopFolder" Name="Desktop">
 			<Component Id="ApplicationShortcutDesktop" Guid="*">

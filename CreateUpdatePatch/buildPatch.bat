@@ -42,7 +42,7 @@ for /f "tokens=1,2,3,4 delims=/." %%a in ("%PatchVersion%") do set pmaj=%%a&set 
 @echo on
 @REM Harvest the MASTER application
 heat.exe dir %MASTERBUILDDIR% -cg HarvestedAppFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr APPFOLDER -var var.MASTERBUILDDIR -out ./Master/AppHarvest.wxs
-heat.exe dir %MASTERDATADIR% -cg HarvestedDataFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr DATAFOLDER -var var.MASTERDATADIR -out ./Master/DataHarvest.wxs
+heat.exe dir %MASTERDATADIR% -cg HarvestedDataFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr HARVESTDATAFOLDER -var var.MASTERDATADIR -out ./Master/DataHarvest.wxs
 
 @REM Build the No-UI msi containing the MASTER files
 candle.exe -arch %Arch% -dApplicationName=%AppName% -dSafeApplicationName=%SafeAppName% -dMajorVersion=%bmaj% -dMinorVersion=%bmin% -dManufacturer=%Manufacturer% -dVersionNumber=%BaseVersion% -dMASTERBUILDDIR=%MASTERBUILDDIR% -dMASTERDATADIR=%MASTERDATADIR% -dUpgradeCode=%UPGRADECODEGUID% -dProductCode=%PRODUCTIDGUID% -dCompGGS=%COMPGGS% -out ./Master/ ./AppNoUi.wxs ./Master/AppHarvest.wxs ./Master/DataHarvest.wxs
@@ -51,7 +51,7 @@ light.exe ./Master/AppNoUi.wixobj ./Master/AppHarvest.wixobj ./Master/DataHarves
 
 @REM Harvest the UPDATE application
 heat.exe dir %UPDATEBUILDDIR% -cg HarvestedAppFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr APPFOLDER -var var.UPDATEBUILDDIR -out ./Update/AppHarvest.wxs
-heat.exe dir %UPDATEDATADIR% -cg HarvestedDataFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr DATAFOLDER -var var.UPDATEDATADIR -out ./Update/DataHarvest.wxs
+heat.exe dir %UPDATEDATADIR% -cg HarvestedDataFiles -ag -scom -sreg -sfrag -srd -sw5150 -sw5151 -dr HARVESTDATAFOLDER -var var.UPDATEDATADIR -out ./Update/DataHarvest.wxs
 
 @REM Build the No-UI msi containing the UPDATE files
 candle.exe -arch %Arch% -dApplicationName=%AppName% -dSafeApplicationName=%SafeAppName% -dMajorVersion=%pmaj% -dMinorVersion=%pmin% -dManufacturer=%Manufacturer% -dVersionNumber=%PatchVersion% -dBaseVersionNumber=%BaseVersion% -dUPDATEBUILDDIR=%UPDATEBUILDDIR% -dUPDATEDATADIR=%UPDATEDATADIR% -dUpgradeCode=%UPGRADECODEGUID% -dProductCode=%PRODUCTIDGUID% -dCompGGS=%COMPGGS% -out ./Update/ ./AppNoUi.wxs ./Update/AppHarvest.wxs ./Update/DataHarvest.wxs 
