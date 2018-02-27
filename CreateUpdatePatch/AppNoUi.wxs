@@ -60,9 +60,9 @@
 
 	<Directory Id='TARGETDIR' Name='SourceDir'>
 		<Directory Id='DATAFOLDER' Name='.' ComponentGuidGenerationSeed='$(var.CompGGS)' />
+		<Directory Id='HARVESTDATAFOLDER' Name='.' ComponentGuidGenerationSeed='$(var.CompGGS)' />
 		<Directory Id='FontsFolder'/>
-		<Directory Id="DesktopFolder" Name="Desktop">
-		</Directory>
+		<Directory Id="DesktopFolder" Name="Desktop"/>
 
 		<Directory Id='ProgramFilesFolder'>
 			<Directory Id='APPFOLDER' Name='$(var.SafeApplicationName)$(var.MajorVersion)' >
