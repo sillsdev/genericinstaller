@@ -188,7 +188,7 @@
 				  </RegistryKey>
 				</Component>
 
-				<Component Id='RegKeySettingsDir' Guid='*' Permanent='yes'>
+				<Component Id='RegKeySettingsDir' Guid='*'>
 				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
 					<RegistryValue Name="Settings_Directory" Type='string' Value='[DATAFOLDER]'/>
 				  </RegistryKey>
