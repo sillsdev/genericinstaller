@@ -2,7 +2,7 @@
 <Theme xmlns="http://wixtoolset.org/schemas/thmutil/2010">
     <Window Width="494" Height="390" HexStyle="100a0000" FontId="0">#(loc.Caption)</Window>
     <Font Id="0" Height="-12" Weight="500" Foreground="000000" Background="FFFFFF">Segoe UI</Font>
-    <Font Id="1" Height="-32" Weight="500" Foreground="FFFFFF">Segoe UI</Font>
+    <Font Id="1" Height="-32" Weight="500" Foreground="FFFFFF" Background="3d2004">Segoe UI</Font>
     <Font Id="2" Height="-22" Weight="500" Foreground="666666">Segoe UI</Font>
     <Font Id="3" Height="-13" Weight="500" Foreground="FFFFFF" Background="3d2004">Segoe UI</Font>
     <Font Id="4" Height="-14" Weight="500" Foreground="fdf1af" Background="3d2004" Underline="no">Segoe UI</Font>
@@ -16,8 +16,8 @@
         <Button Name="HelpCancelButton" X="-11" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.HelpCloseButton)</Button>
     </Page>
     <Page Name="Install">
-		<Image X="0" Y="0" Width="494" Height="301" ImageFile="logo.png" Visible="yes"/>
-        <Text X="0" Y="140" Width="494" Height="40" FontId="1" Center="yes">#(loc.InstallHeader)</Text>
+		<Image X="0" Y="0" Width="494" Height="140" ImageFile="logo.png" Visible="yes"/>
+        <Text X="0" Y="140" Width="494" Height="170" FontId="1" Center="yes">#(loc.InstallHeader)</Text>
 		<Hypertext Name="EulaHyperlink" X="40" Y="206" Width="449" Height="45" TabStop="yes" FontId="7" HideWhenDisabled="yes">#(loc.InstallLicenseLinkText)</Hypertext>
         <Checkbox Name="EulaAcceptCheckbox" X="40" Y="250" Width="13" Height="17" TabStop="yes" FontId="3" HideWhenDisabled="yes"></Checkbox>
 		<Text X="64" Y="250" Width="246" Height="20" FontId="3">#(loc.InstallAcceptCheckbox)</Text>
