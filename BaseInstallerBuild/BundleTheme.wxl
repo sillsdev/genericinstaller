@@ -17,7 +17,7 @@
   <String Id="InstallMessage">To install [WixBundleTag], agree to the license terms, and then click Install.</String>
   <String Id="InstallVersion">Version [WixBundleVersion]</String>
   <String Id="InstallLicenseLinkText">To install [WixBundleName], agree to the &lt;a href="#"&gt;license terms&lt;/a&gt;, and then click Install.</String>
-  <String Id="InstallAcceptCheckbox">I agree to the license terms.</String>
+  <String Id="InstallAcceptCheckbox">I &amp;agree to the license terms.</String>
   <String Id="InstallOptionsButton">&amp;Options</String>
   <String Id="InstallInstallButton">&amp;Install</String>
   <String Id="InstallCloseButton">&amp;Close</String>
