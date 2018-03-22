@@ -25,6 +25,7 @@ SET APPDATADIR=%1
 SHIFT
 
 REM File to be invoked by desktop shortcut.
+REM REVIEW (Hasso) 2018.03: this is neither complicated, customizable, nor used multiple times. It's not our job to set.
 SET ShortcutTargetName=%SafeAppName%.exe
 
 REM To protect the password for the certfile, you can configure your build process to read the password from an unversioned file and pass it into the CERTPASS variable.
@@ -34,6 +35,10 @@ SET Manufacturer=%1
 SHIFT
 SET Arch=%1
 if "%Arch%" == "" set Arch=x86
+
+REM Ensure WiX tools are on the PATH
+where heat >nul 2>nul
+if not %errorlevel% == 0 set PATH=%WIX%/bin;%PATH%
 
 @echo on
 @REM Harvest (heat) the application and data files.
