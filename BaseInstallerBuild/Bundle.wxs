@@ -93,7 +93,7 @@
 	<?define VC15RedistWebLink = https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe ?>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\8.0\VC\VCRedist\x86"
+                     Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{9A25302D-30C0-39D9-BD6F-21E6EC160475}"
                      Variable="CPP2008Redist"
                      Value="Installed"
                      Result="value"/>
@@ -197,7 +197,7 @@
 	<?define VC15RedistWebLink = https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x64.exe ?>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\8.0\VC\VCRedist\x64"
+                     Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{8220EEFE-38CD-377E-8595-13398D740ACE}"
                      Variable="CPP2008Redist"
                      Value="Installed"
                      Result="value"

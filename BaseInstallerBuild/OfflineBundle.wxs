@@ -60,8 +60,10 @@
 	
 	<?if $(sys.BUILDARCH)="x86"?>
 	<Fragment>
+	<Property Id="CRVSINSTALLED">
+</Property>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\8.0\VC\VCRedist\x86"
+                     Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{9A25302D-30C0-39D9-BD6F-21E6EC160475}"
                      Variable="CPP2008Redist"
                      Value="Installed"
                      Result="value"/>
@@ -134,7 +136,7 @@
 	<?elseif $(sys.BUILDARCH)="x64"?>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\8.0\VC\VCRedist\x64"
+                     Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{8220EEFE-38CD-377E-8595-13398D740ACE}"
                      Variable="CPP2008Redist"
                      Value="Installed"
                      Result="value"
