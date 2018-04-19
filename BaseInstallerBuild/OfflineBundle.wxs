@@ -152,61 +152,84 @@
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
-                     Variable="CPP2010Redist"
+                     Variable="CPP2010Redist64"
                      Value="Installed"
                      Result="value"
 					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
+                     Variable="CPP2010Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
 		<PackageGroup Id="redist_vc10">
 			<ExePackage Id="vc10" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
                   SourceFile="..\libs\vcredist_x64.exe"
                   InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2010Redist"
+				  DetectCondition="(CPP2010Redist32) OR (CPP2010Redist64)"
                   />
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
-                     Variable="CPP2011Redist"
+                     Variable="CPP2011Redist64"
                      Value="Installed"
                      Result="value"
 					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
+                     Variable="CPP2011Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
 		<PackageGroup Id="redist_vc11">
 			<ExePackage Id="vc11" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
                   SourceFile="..\libs\vcredist_2012_x64.exe"
                   InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2011Redist"
+				  DetectCondition="(CPP2011Redist32) OR (CPP2011Redist64)"
                   />
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\12.0\VC\Runtimes\x64"
-                     Variable="CPP2012Redist"
+                     Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x86"
+                     Variable="CPP2012Redist64"
                      Value="Installed"
                      Result="value"
 					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x86"
+                     Variable="CPP2012Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
 		<PackageGroup Id="redist_vc12">
 			<ExePackage Id="vc12" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
                   SourceFile="..\libs\vcredist_2013_x64.exe"
                   InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2012Redist"
+				  DetectCondition="(CPP2012Redist32) OR (CPP2012Redist64)"
                   />
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
-                     Variable="CPP2015Redist"
+                     Variable="CPP2015Redist64"
                      Value="Installed"
                      Result="value"
 					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                     Variable="CPP2015Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
 		<PackageGroup Id="redist_vc15">
 			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
                   SourceFile="..\libs\vcredist_2015_x64.exe"
                   InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2015Redist"
-                  />
+				  DetectCondition="(CPP2015Redist32) OR (CPP2015Redist64)"/>
 		</PackageGroup>
 	</Fragment>
 	<?else?>

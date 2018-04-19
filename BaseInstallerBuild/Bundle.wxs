@@ -216,16 +216,22 @@
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
-                     Variable="CPP2010Redist"
+                     Variable="CPP2010Redist64"
                      Value="Installed"
                      Result="value"
 					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
+                     Variable="CPP2010Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
 		<PackageGroup Id="redist_vc10">
 			<ExePackage Id="vc10" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vcredist_x64.exe"
 				  DownloadUrl="$(var.VC10RedistWebLink)"
                   InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2010Redist">
+				  DetectCondition="(CPP2010Redist32) OR (CPP2010Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2010  x64 Redistributable Setup" Hash="B330B760A8F16D5A31C2DC815627F5EB40861008"
 					ProductName="Microsoft Visual C++ 2010  x64 Redistributable" Size="5718872" Version="10.0.30319.1" />
 			</ExePackage>
@@ -234,16 +240,22 @@
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
-                     Variable="CPP2011Redist"
+                     Variable="CPP2011Redist64"
                      Value="Installed"
                      Result="value"
 					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
+                     Variable="CPP2011Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
 		<PackageGroup Id="redist_vc11">
 			<ExePackage Id="vc11" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vcredist_x64.exe"
 				  DownloadUrl="$(var.VC11RedistWebLink)"
                   InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2011Redist">
+				  DetectCondition="(CPP2011Redist32) OR (CPP2011Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030" Hash="1A5D93DDDBC431AB27B1DA711CD3370891542797"
 					ProductName="Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030" Size="7186992" Version="11.0.61030.0" />
 			</ExePackage>
@@ -252,15 +264,22 @@
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x86"
-                     Variable="CPP2012Redist"
+                     Variable="CPP2012Redist64"
                      Value="Installed"
-                     Result="value"/>
+                     Result="value"
+					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x86"
+                     Variable="CPP2012Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
 		<PackageGroup Id="redist_vc12">
 			<ExePackage Id="vc12" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vcredist_x64.exe"
 				  DownloadUrl="$(var.VC12RedistWebLink)"
                   InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2012Redist">
+				  DetectCondition="(CPP2012Redist32) OR (CPP2012Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.30501" Hash="8BF41BA9EEF02D30635A10433817DBB6886DA5A2"
 					ProductName="Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.30501" Size="7194312" Version="12.0.30501.0" />
 			</ExePackage>
@@ -270,16 +289,22 @@
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
-                     Variable="CPP2015Redist"
+                     Variable="CPP2015Redist64"
                      Value="Installed"
                      Result="value"
 					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                     Variable="CPP2015Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
 		<PackageGroup Id="redist_vc15">
 			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vc_redist.x64.exe"
 				  DownloadUrl="$(var.VC15RedistWebLink)"
                   InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2015Redist">
+				  DetectCondition="(CPP2015Redist32) OR (CPP2015Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2015 Redistributable (x64) - 14.0.23026" Hash="3155CB0F146B927FCC30647C1A904CD162548C8C"
 					ProductName="Microsoft Visual C++ 2015 Redistributable (x64) - 14.0.23026" Size="14572000" Version="14.0.23026.0" />
 			</ExePackage>
