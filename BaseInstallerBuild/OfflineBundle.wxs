@@ -133,6 +133,21 @@
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
+                     Variable="CPP2017Redist"
+                     Value="Installed"
+                     Result="value"/>
+		<PackageGroup Id="redist_vc17">
+			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+				  Name="vcredist_x86.exe"
+				  SourceFile="..\libs\vcredist_2017_x86.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="CPP2017Redist">
+			</ExePackage>
+		</PackageGroup>
+	</Fragment>
 	<?elseif $(sys.BUILDARCH)="x64"?>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
@@ -157,7 +172,7 @@
                      Result="value"
 					 Win64="yes"/>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
+                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
                      Variable="CPP2010Redist32"
                      Value="Installed"
                      Result="value"
@@ -178,7 +193,7 @@
                      Result="value"
 					 Win64="yes"/>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
+                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x86"
                      Variable="CPP2011Redist32"
                      Value="Installed"
                      Result="value"
@@ -193,7 +208,7 @@
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x86"
+                     Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x64"
                      Variable="CPP2012Redist64"
                      Value="Installed"
                      Result="value"
@@ -220,7 +235,7 @@
                      Result="value"
 					 Win64="yes"/>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
                      Variable="CPP2015Redist32"
                      Value="Installed"
                      Result="value"
@@ -230,6 +245,26 @@
                   SourceFile="..\libs\vcredist_2015_x64.exe"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="(CPP2015Redist32) OR (CPP2015Redist64)"/>
+		</PackageGroup>
+	</Fragment>
+	<Fragment>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                     Variable="CPP2017Redist64"
+                     Value="Installed"
+                     Result="value"
+					 Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
+                     Variable="CPP2017Redist32"
+                     Value="Installed"
+                     Result="value"
+					 Win64="no"/>
+		<PackageGroup Id="redist_vc17">
+			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
+                  SourceFile="..\libs\vcredist_2017_x64.exe"
+                  InstallCommand="/quiet /norestart"
+				  DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)"/>
 		</PackageGroup>
 	</Fragment>
 	<?else?>
