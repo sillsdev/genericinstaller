@@ -96,8 +96,7 @@
 		<util:RegistrySearch Root="HKLM"
                      Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{9A25302D-30C0-39D9-BD6F-21E6EC160475}"
                      Variable="CPP2008Redist"
-                     Value="Installed"
-                     Result="value"/>
+                     Result="exists"/>
 		<PackageGroup Id="redist_vc8">
 			<ExePackage Id="vc8" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vcredist_x86.exe"
@@ -106,6 +105,7 @@
 				  DetectCondition="CPP2008Redist">
 				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="56719288AB6514C07AC2088119D8A87056EEB94A"
 					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="1821192" Version="9.0.21022.8" />
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -127,6 +127,7 @@
 					ProductName="Microsoft Visual C++ 2010  x86 Redistributable Setup"
 					Description="Microsoft Visual C++ 2010  x86 Redistributable Setup"
 					Hash="372d9c1670343d3fb252209ba210d4dc4d67d358"/>
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -148,6 +149,7 @@
 					ProductName="Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030"
 					Description="Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030"
 					Hash="96b377a27ac5445328cbaae210fc4f0aaa750d3f"/>
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -169,6 +171,7 @@
 					ProductName="Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40660"
 					Description="Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40660"
 					Hash="2a07a32330d5131665378836d542478d3e7bd137"/>
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -218,8 +221,7 @@
 		<util:RegistrySearch Root="HKLM"
                      Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{8220EEFE-38CD-377E-8595-13398D740ACE}"
                      Variable="CPP2008Redist"
-                     Value="Installed"
-                     Result="value"
+                     Result="exists"
 					 Win64="yes"/>
 		<PackageGroup Id="redist_vc8">
 			<ExePackage Id="vc8" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
@@ -227,8 +229,9 @@
 				  DownloadUrl="$(var.VC8RedistWebLink)"
                   InstallCommand="/Q /norestart"
 				  DetectCondition="CPP2008Redist">
-			<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="5580072A056FDD50CDF93D470239538636F8F3A9"
-				ProductName="Microsoft Visual C++ 2008 Redistributable" Size="2373640" Version="9.0.21022.8" />
+				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="5580072A056FDD50CDF93D470239538636F8F3A9"
+					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="2373640" Version="9.0.21022.8" />
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -253,6 +256,7 @@
 				  DetectCondition="(CPP2010Redist32) OR (CPP2010Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2010  x64 Redistributable Setup" Hash="B330B760A8F16D5A31C2DC815627F5EB40861008"
 					ProductName="Microsoft Visual C++ 2010  x64 Redistributable" Size="5718872" Version="10.0.30319.1" />
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -277,6 +281,7 @@
 				  DetectCondition="(CPP2011Redist32) OR (CPP2011Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030" Hash="1A5D93DDDBC431AB27B1DA711CD3370891542797"
 					ProductName="Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030" Size="7186992" Version="11.0.61030.0" />
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -301,6 +306,7 @@
 				  DetectCondition="(CPP2012Redist32) OR (CPP2012Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.30501" Hash="8BF41BA9EEF02D30635A10433817DBB6886DA5A2"
 					ProductName="Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.30501" Size="7194312" Version="12.0.30501.0" />
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -326,6 +332,7 @@
 				  DetectCondition="(CPP2015Redist32) OR (CPP2015Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2015 Redistributable (x64) - 14.0.23026" Hash="3155CB0F146B927FCC30647C1A904CD162548C8C"
 					ProductName="Microsoft Visual C++ 2015 Redistributable (x64) - 14.0.23026" Size="14572000" Version="14.0.23026.0" />
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -348,8 +355,9 @@
 				  DownloadUrl="$(var.VC17RedistWebLink)"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)">
-				<RemotePayload Description="Microsoft Visual C++ 2017 Redistributable (x64) - 14.13.26020.0" Hash="33000000c4e989f87a8150e9ff0000000000c4"
-					ProductName="Microsoft Visual C++ 2017 Redistributable (x64) - 14.13.26020.0" Size="15301240" Version="14.13.26020.0" />
+				<RemotePayload Description="Microsoft Visual C++ 2017 Redistributable (x64) - 14.13.26020" Hash="5027E77B7EDEDA314287F9E2279C3927D92F6FF8"
+					ProductName="Microsoft Visual C++ 2017 Redistributable (x64) - 14.13.26020" Size="15301240" Version="14.13.26020.0" /> />
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
