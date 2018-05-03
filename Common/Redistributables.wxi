@@ -7,6 +7,7 @@
 		<PackageGroupRef Id="redist_vc11" />
 		<PackageGroupRef Id="redist_vc12" />
 		<PackageGroupRef Id="redist_vc15" />
+		<PackageGroupRef Id="redist_vc17" />
 	</PackageGroup>
 	</Fragment>
 </Include>
