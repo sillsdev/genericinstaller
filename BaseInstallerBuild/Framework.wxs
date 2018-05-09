@@ -88,6 +88,9 @@
 	<Property Id="GALATIA_INSTALLED" Value='False'/>
 	<Property Id="EZRA_INSTALLED" Value='False'/>-->
 
+	<Property Id="DATAFOLDER" Secure='yes'>
+	  <RegistrySearch Id='RegSearchDataFolder' Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Name='[DATAFOLDERREGSZNAME]' Type='raw'/>
+	</Property>
 
 	<CustomAction Id='SetDefDataFolder' Property='DEFDATAFOLDER' Value='[WindowsVolume]My$(var.SafeApplicationName)DataFolder' />
 	<Property Id="DATAFOLDERFOUND" Value="unset" />
@@ -196,8 +199,8 @@
 				</Component>
 
 				<Component Id='RegKeySettingsDir' Guid='*'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
-					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]'/>
+				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Action='createAndRemoveOnUninstall'>
+					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]' KeyPath='yes'/>
 				  </RegistryKey>
 				</Component>
 
