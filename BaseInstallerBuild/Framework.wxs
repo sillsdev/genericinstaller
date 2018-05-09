@@ -88,6 +88,9 @@
 	<Property Id="GALATIA_INSTALLED" Value='False'/>
 	<Property Id="EZRA_INSTALLED" Value='False'/>-->
 
+	<Property Id="DATAFOLDER" Secure='yes'>
+	  <RegistrySearch Id='RegistryDataBool' Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Name='[DATAFOLDERREGSZNAME]' Type='raw'/>
+	</Property>
 
 	<CustomAction Id='SetDefDataFolder' Property='DEFDATAFOLDER' Value='[WindowsVolume]My$(var.SafeApplicationName)DataFolder' />
 	<Property Id="DATAFOLDERFOUND" Value="unset" />
@@ -98,7 +101,7 @@
 		DllEntry="VerifyDataDirPath"  />
 	<SetProperty Id='REGISTRYKEY' Value='$(var.SafeApplicationName)\\$(var.MajorVersion)'  Before="AppSearch">not REGISTRYKEY</SetProperty>
 	<SetProperty Id='APPFOLDERREGSZNAME' Value='Program_Files_Directory_$(var.SafeApplicationName)'  Before="AppSearch">not APPFOLDERREGSZNAME</SetProperty>
-	<SetProperty Id='DATAFOLDERREGSZNAME' Value='Settings_Directory'  Before="AppSearch">not DATAFOLDERREGSZNAME</SetProperty>
+	<SetProperty Id='DATAFOLDERREGSZNAME' Value='[DATAFOLDERREGSZNAME]'  Before="AppSearch">not DATAFOLDERREGSZNAME</SetProperty>
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
 	<CustomAction Id='UseOvrDataFolder' Property='DATAFOLDER' Value='[OVRDATAFOLDER]' /> <!-- from Overrides.wxi -->
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
@@ -196,8 +199,8 @@
 				</Component>
 
 				<Component Id='RegKeySettingsDir' Guid='*'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
-					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]'/>
+				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Action='createAndRemoveOnUninstall'>
+					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]' KeyPath='yes'/>
 				  </RegistryKey>
 				</Component>
 
