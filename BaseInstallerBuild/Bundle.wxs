@@ -356,7 +356,7 @@
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2017 Redistributable (x64) - 14.13.26020" Hash="5027E77B7EDEDA314287F9E2279C3927D92F6FF8"
-					ProductName="Microsoft Visual C++ 2017 Redistributable (x64) - 14.13.26020" Size="15301240" Version="14.13.26020.0" /> />
+					ProductName="Microsoft Visual C++ 2017 Redistributable (x64) - 14.13.26020" Size="15301240" Version="14.13.26020.0" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
