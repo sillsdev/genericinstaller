@@ -40,7 +40,7 @@ for /f "tokens=1,2,3,4 delims=/." %%a in ("%BaseVersion%") do set bmaj=%%a&set b
 for /f "tokens=1,2,3,4 delims=/." %%a in ("%PatchVersion%") do set pmaj=%%a&set pmin=%%b&set pbuild=%%c&set prev=%%d
 
 REM ICE validation must be run with admin privileges. The jenkins user is not an admin. Suppress ICE validation so it doesn't fail.
-set SuppressICE=-sice:ICE01;ICE02;ICE03;ICE04;ICE05;ICE06;ICE07
+set SuppressICE=-sice:ICE01 -sice:ICE02 -sice:ICE03 -sice:ICE04 -sice:ICE05 -sice:ICE06 -sice:ICE07 -sice:ICE09
 
 REM Ensure WiX tools are on the PATH
 where heat >nul 2>nul
