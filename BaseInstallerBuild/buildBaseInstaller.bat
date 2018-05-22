@@ -37,9 +37,9 @@ SET Arch=%1
 if "%Arch%" == "" set Arch=x86
 
 REM ICE validation must be run with admin privileges. The jenkins user is not an admin. Suppress ICE validation so it doesn't fail.
-rem set SuppressICE=-sice:ICE01 -sice:ICE02 -sice:ICE03 -sice:ICE04 -sice:ICE05 -sice:ICE06 -sice:ICE07 -sice:ICE09
-rem for /l %%i in (10,1,32) do call set SuppressICE=%%SuppressICE%% -sice:ICE%%i
-set SuppressICE=-ice:ICE08
+set SuppressICE=-sice:ICE01 -sice:ICE02 -sice:ICE03 -sice:ICE04 -sice:ICE05 -sice:ICE06 -sice:ICE07 -sice:ICE09
+for /l %%i in (10,1,99) do call set SuppressICE=%%SuppressICE%% -sice:ICE%%i
+rem set SuppressICE=-ice:ICE08
 
 REM Ensure WiX tools are on the PATH
 where heat >nul 2>nul
