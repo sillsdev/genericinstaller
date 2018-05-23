@@ -38,7 +38,8 @@ if "%Arch%" == "" set Arch=x86
 
 REM ICE validation must be run with admin privileges. The jenkins user is not an admin. Suppress ICE validation so it doesn't fail.
 REM For some reason, ICE08 works without admin, and the quickest way to suppress everything else on the command line is to specify one ICE to run.
-set SuppressICE=-ice:ICE08
+whoami /groups | find "BUILTIN\Administrators" > nul
+if errorlevel 1 set SuppressICE=-ice:ICE08
 
 REM Ensure WiX tools are on the PATH
 where heat >nul 2>nul
