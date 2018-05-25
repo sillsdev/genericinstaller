@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?if $(sys.BUILDARCH) = x64 ?>
+<?if $(sys.BUILDARCH) = x64?>
 <?define PFDir = ProgramFiles64Folder?>
 <?else?>
 <?define PFDir = ProgramFilesFolder?>
@@ -199,7 +199,7 @@
 				</Component>
 
 				<Component Id='RegKeySettingsDir' Guid='*'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Action='createAndRemoveOnUninstall'>
+				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
 					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]' KeyPath='yes'/>
 				  </RegistryKey>
 				</Component>
