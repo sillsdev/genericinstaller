@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
+<?if $(sys.BUILDARCH) = x64?>
+<?define PFDir = ProgramFiles64Folder?>
+<?else?>
+<?define PFDir = ProgramFilesFolder?>
+<?endif?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
   <Product Name='$(var.ApplicationName) $(var.MajorVersion) Packages'
@@ -64,7 +70,7 @@
 		<Directory Id='FontsFolder'/>
 		<Directory Id="DesktopFolder" Name="Desktop"/>
 
-		<Directory Id='ProgramFilesFolder'>
+		<Directory Id='$(var.PFDir)'>
 			<Directory Id='APPFOLDER' Name='$(var.SafeApplicationName)$(var.MajorVersion)' >
 				<Component Id='RegKeyValues' Guid='*'>
 				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
