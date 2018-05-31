@@ -68,7 +68,9 @@
 		<Directory Id='DATAFOLDER' Name='.' ComponentGuidGenerationSeed='$(var.CompGGS)' />
 		<Directory Id='HARVESTDATAFOLDER' Name='.' ComponentGuidGenerationSeed='$(var.CompGGS)' />
 		<Directory Id='FontsFolder'/>
-		<Directory Id="DesktopFolder" Name="Desktop"/>
+		<Directory Id="DesktopFolder" Name="Desktop">
+			<Component Id="ApplicationShortcutDesktop" Guid="7C6FDB7D-6162-4239-A60A-3382660B2F64"/>
+		</Directory>
 
 		<Directory Id='$(var.PFDir)'>
 			<Directory Id='APPFOLDER' Name='$(var.SafeApplicationName)$(var.MajorVersion)' >
@@ -80,17 +82,18 @@
 				</Component>
 			</Directory>
 		</Directory>
+		<Directory Id="ProgramMenuFolder">
+			<Component Id="ApplicationShortcutMenu" Guid="6C9D3231-05D1-49D3-9F43-8E437CDC9DDB"/>
+		</Directory>
 	</Directory>
 
-	<Feature Id='Application' Title='$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion) Application and Resources' Description='Installing $(var.ApplicationName) Application and Resources'
-		Level='1' ConfigurableDirectory='APPFOLDER'>
-	  <ComponentGroupRef Id="HarvestedAppFiles" />
-	  <ComponentRef Id='RegKeyValues'/>
-	</Feature>
+	<?include ../Common/CustomComponents.wxi?>
 
-	<Feature Id='DataFiles' Title='$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion) Data Folder Resources' Description='Installing $(var.ApplicationName) Data Folder'
-		Level='1' ConfigurableDirectory='DATAFOLDER'>
-	  <ComponentGroupRef Id="HarvestedDataFiles" />
+	<Feature Id='Complete' Title='$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion)' Description='The complete package.'>
+		<ComponentGroupRef Id="HarvestedAppFiles" />
+		<ComponentRef Id='RegKeyValues'/>
+
+		<?include ../Common/CustomFeatures.wxi?>
 	</Feature>
   </Product>
 </Wix>
