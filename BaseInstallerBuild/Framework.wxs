@@ -168,7 +168,17 @@
 	<UIRef Id="WixUI_ErrorProgressText" />
 
 	<Directory Id='TARGETDIR' Name='SourceDir'>
-		<Directory Id='DATAFOLDER' Name='.' />
+		<Directory Id='DATAFOLDER' Name='[DATAFOLDER]'>
+				<Component Id='RegKeySettingsDir' Permanent="yes" Guid='*'>
+					<CreateFolder>
+						<Permission User="Users" GenericAll="yes" />
+						<Permission User="Administrators" GenericAll="yes" />
+					</CreateFolder>
+					<RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
+						<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]' KeyPath='yes'/>
+					</RegistryKey>
+				</Component>
+		</Directory>
 		<Directory Id='HARVESTDATAFOLDER' Name='.' />
 		<Directory Id='FontsFolder'/>
 		<Directory Id="DesktopFolder" Name="Desktop">
@@ -195,12 +205,6 @@
 				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
 					<RegistryValue Name="[APPFOLDERREGSZNAME]" Type='string' Value='[APPFOLDER]'/>
 					<RegistryValue Name="$(var.SafeApplicationName)Version" Type='string' Value='$(var.VersionNumber)'/>
-				  </RegistryKey>
-				</Component>
-
-				<Component Id='RegKeySettingsDir' Guid='*'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Action='createAndRemoveOnUninstall'>
-					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]' KeyPath='yes'/>
 				  </RegistryKey>
 				</Component>
 
