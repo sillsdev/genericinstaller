@@ -26,7 +26,6 @@
 			<PackageGroupRef Id="vcredists" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
-			<PackageGroupRef Id='AppPackagePatchGroup'/>
 		</Chain>
 	</Bundle>
 	<Fragment Id='AppFragment'>
@@ -366,5 +365,4 @@
 		<?error Unsupported value of sys.BUILDARCH=$(sys.BUILDARCH)?>
 	<?endif?>
 	<?include ../Common/Redistributables.wxi?>
-	<?include ../Common/Patch.wxi?>
 </Wix>
