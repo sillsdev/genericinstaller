@@ -18,9 +18,9 @@
     <Page Name="Install">
 		<Image X="0" Y="0" Width="494" Height="140" ImageFile="logo.png" Visible="yes"/>
         <Text X="0" Y="140" Width="494" Height="50" FontId="1" Center="yes">#(loc.InstallHeader)</Text>
-		<Hypertext Name="EulaHyperlink" X="25" Y="206" Width="449" Height="20" TabStop="yes" FontId="7" HideWhenDisabled="yes">#(loc.InstallLicenseLinkText)</Hypertext>
-		<Checkbox Name="EulaAcceptCheckbox" X="25" Y="250" Width="230" Height="20" TabStop="yes" FontId="7" HideWhenDisabled="yes">#(loc.InstallAcceptCheckbox)</Checkbox>
-		<Text X="11" Y="-17" Width="246" Height="17" FontId="5">#(loc.InstallVersion)</Text>
+		<Hypertext Name="EulaHyperlink" X="25" Y="206" Width="449" Height="40" TabStop="yes" FontId="7" HideWhenDisabled="yes">#(loc.InstallLicenseLinkText)</Hypertext>
+		<Checkbox Name="EulaAcceptCheckbox" X="25" Y="270" Width="230" Height="20" TabStop="yes" FontId="7" HideWhenDisabled="yes">#(loc.InstallAcceptCheckbox)</Checkbox>
+		<Text X="11" Y="-17" Width="266" Height="17" FontId="5">#(loc.InstallVersion)</Text>
         <Button Name="InstallButton" X="-91" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.InstallInstallButton)</Button>
         <Button Name="WelcomeCancelButton" X="-11" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.InstallCloseButton)</Button>
     </Page>
