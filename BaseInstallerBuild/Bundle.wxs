@@ -17,7 +17,7 @@
 			<Payload SourceFile="..\resources\License.htm" />
 		</BootstrapperApplicationRef>
 		<!--<RelatedBundle Id='$(var.UpgradeCode)' Action='Detect'/>-->
-		<WixVariable Id="WixStdbaLicenseUrl" Value="..\resources\License.htm" />
+		<WixVariable Id="WixStdbaLicenseUrl" Value="License.htm" />
 		<WixVariable Id="WixStdbaLogo" Value="..\resources\bundle_background.bmp" />
 		<WixVariable Id="WixStdbaThemeXml" Value="BundleTheme.xml" />
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
