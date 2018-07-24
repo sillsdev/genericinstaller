@@ -7,6 +7,9 @@
 		</xsl:copy>
 	</xsl:template>
 
+	<!-- Insert TrueType="yes" after KeyPath="yes" (an attribute heat.exe adds to all File elements).
+		This allows us to harvest fonts and install them so that Windows recognises them.
+		A more principled approach was attempted, but heat's xsl is limited. -->
 	<xsl:template match="@KeyPath[.='yes']">
 		<xsl:attribute name="KeyPath">
 			<xsl:value-of select="'yes'"/>
@@ -15,26 +18,4 @@
 			<xsl:value-of select="'yes'"/>
 		</xsl:attribute>
 	</xsl:template>
-<!--
-The following should work but do not.
-	<xsl:template match="File">
-		<File TrueType="yes">
-			<xsl:apply-templates select="@*|node()" />
-		</File>
-	</xsl:template>
-
-	<xsl:template match="File">
-		<File>
-			<xsl:attribute name="TrueType">
-				<xsl:value-of select="'yes'" />
-			</xsl:attribute>
-			<xsl:apply-templates select="@*|node()" />
-		</File>
-	</xsl:template>
-	<xsl:template match="*[@Source[ends-with(.,'.ttf')]]">
-		<File TrueType="yes">
-			<xsl:apply-templates select="@*|node()" />
-		</File>
-	</xsl:template>
-	-->
 </xsl:stylesheet>
