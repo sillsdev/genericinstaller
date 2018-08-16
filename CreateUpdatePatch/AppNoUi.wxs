@@ -87,8 +87,6 @@
 		</Directory>
 	</Directory>
 
-	<?include ../Common/CustomComponents.wxi?>
-
 	<Feature Id='Complete' Title='$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion)' Description='The complete package.'>
 		<ComponentGroupRef Id="HarvestedAppFiles" />
 		<ComponentRef Id='RegKeyValues'/>
@@ -96,4 +94,8 @@
 		<?include ../Common/CustomFeatures.wxi?>
 	</Feature>
   </Product>
+
+  <Fragment>
+  </Fragment>
+	<?include ../Common/CustomComponents.wxi?>
 </Wix>

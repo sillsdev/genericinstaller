@@ -235,8 +235,6 @@
 		</Component>
 	</DirectoryRef>
 
-	<?include ../Common/CustomComponents.wxi?>
-
 	<!-- A "typical" install will install featues of level 3 and below.  A "complete" install will install features of level 1000 and below.
 		 A "custom" install will display the tree view with items of value "3" and below selected by default. -->
 	<Feature Id='Complete' Title='$(var.ApplicationName) $(var.MajorVersion).$(var.MinorVersion)' Description='The complete package.'
@@ -250,4 +248,8 @@
 		<?include ../Common/CustomFeatures.wxi?>
 	</Feature>
   </Product>
+
+  <Fragment>
+	<?include ../Common/CustomComponents.wxi?>
+  </Fragment>
 </Wix>
