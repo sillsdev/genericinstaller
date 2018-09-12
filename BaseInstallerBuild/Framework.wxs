@@ -176,7 +176,7 @@
 				<Shortcut Id="ApplicationDesktopShortcut"
 					Name="$(var.ApplicationName) $(var.MajorVersion)"
 					Description="$(var.ApplicationName) $(var.MajorVersion)"
-					Target="[APPFOLDER]$(var.ShortcutTargetName)"
+					Target="[APPFOLDER]$(var.SafeApplicationName).exe"
 					WorkingDirectory="APPFOLDER"
 					Icon="Application_Icon.ico"/>
 				<RemoveFolder Id="DesktopFolder" On="uninstall"/>
