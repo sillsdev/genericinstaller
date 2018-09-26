@@ -9,7 +9,8 @@
 	 In other words this is for Paratext 8.0 only.
 	 Every other Paratext 8.X.Y.Z will be a Major Upgrade, Minor Upgrade, or Small Update of this installation.
 -->
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+		xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
   <Product Name='$(var.ApplicationName) $(var.MajorVersion) Packages'
 			Id='$(var.ProductCode)'
@@ -101,6 +102,7 @@
 	<SetProperty Id='REGISTRYKEY' Value='$(var.SafeApplicationName)\\$(var.MajorVersion)'  Before="AppSearch">not REGISTRYKEY</SetProperty>
 	<SetProperty Id='APPFOLDERREGSZNAME' Value='Program_Files_Directory_$(var.SafeApplicationName)'  Before="AppSearch">not APPFOLDERREGSZNAME</SetProperty>
 	<SetProperty Id='DATAFOLDERREGSZNAME' Value='Settings_Directory'  Before="AppSearch">not DATAFOLDERREGSZNAME</SetProperty>
+	<SetProperty Id='HARVESTDATAFOLDERREGSZNAME' Value='Data_Directory'  Before="AppSearch">not HARVESTDATAFOLDERREGSZNAME</SetProperty>
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
 	<CustomAction Id='UseOvrDataFolder' Property='DATAFOLDER' Value='[OVRDATAFOLDER]' /> <!-- from Overrides.wxi -->
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
@@ -170,15 +172,23 @@
 		<Directory Id='DATAFOLDER' Name='[DATAFOLDER]'>
 			<Component Id='RegKeySettingsDir' Permanent="yes" Guid='*'>
 				<CreateFolder>
-					<Permission User="Users" GenericAll="yes" />
-					<Permission User="Administrators" GenericAll="yes" />
+					<util:PermissionEx User="AuthenticatedUser" GenericAll="yes" />
 				</CreateFolder>
 				<RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
 					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]' KeyPath='yes'/>
 				</RegistryKey>
 			</Component>
 		</Directory>
-		<Directory Id='HARVESTDATAFOLDER' Name='.' />
+		<Directory Id='HARVESTDATAFOLDER' Name='.'>
+			<Component Id='HarvestDataDir' Guid='*'>
+				<CreateFolder>
+					<util:PermissionEx User="AuthenticatedUser" GenericAll="yes" />
+				</CreateFolder>
+				<RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
+					<RegistryValue Name="[HARVESTDATAFOLDERREGSZNAME]" Type='string' Value='[HARVESTDATAFOLDER]' KeyPath='yes'/>
+				</RegistryKey>
+			</Component>
+		</Directory>
 		<Directory Id='FontsFolder'/>
 		<Directory Id="DesktopFolder" Name="Desktop">
 			<Component Id="ApplicationShortcutDesktop" Guid="*">
@@ -245,6 +255,7 @@
 			<ComponentGroupRef Id="HarvestedAppFiles" />
 			<ComponentRef Id='RegKeyValues'/>
 			<ComponentRef Id='RegKeySettingsDir'/>
+			<ComponentRef Id='HarvestDataDir'/>
 			<ComponentRef Id='AppIcon'/>
 
 		<?include ../Common/CustomFeatures.wxi?>

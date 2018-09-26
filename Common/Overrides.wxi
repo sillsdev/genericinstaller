@@ -6,6 +6,8 @@
 	<!--Property Id="APPFOLDERREGSZNAME" Value="InstallationDir"/-->
 	<!-- the name of registry value containing the user data directory (APPFOLDER) -->
 	<!--Property Id="DATAFOLDERREGSZNAME" Value="DataDir"/-->
+	<!-- the name of registry value containing the harvested user data directory (if applicable) (APPFOLDER) -->
+	<!--Property Id="HARVESTDATAFOLDERREGSZNAME" Value="OtherDataDir"/-->
 	<!-- the folder in which the app is installed -->
 	<!--SetProperty Id="OVRAPPFOLDER" Value="[ProgramFilesFolder]\SIL\$(var.SafeApplicationName)$(var.MajorVersion)\" Before="AppSearch"/-->
 	<!-- the folder in which the user's data will be kept (the user will be able to change this) -->
