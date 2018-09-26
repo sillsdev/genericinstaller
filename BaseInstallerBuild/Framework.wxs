@@ -180,7 +180,7 @@
 			</Component>
 		</Directory>
 		<Directory Id='HARVESTDATAFOLDER' Name='.'>
-			<Component Id='HarvestDataFolderDir' Guid='*'>
+			<Component Id='HarvestDataDir' Guid='*'>
 				<CreateFolder>
 					<util:PermissionEx User="AuthenticatedUser" GenericAll="yes" />
 				</CreateFolder>
@@ -255,7 +255,7 @@
 			<ComponentGroupRef Id="HarvestedAppFiles" />
 			<ComponentRef Id='RegKeyValues'/>
 			<ComponentRef Id='RegKeySettingsDir'/>
-			<ComponentRef Id='HarvestDataFolderDir'/>
+			<ComponentRef Id='HarvestDataDir'/>
 			<ComponentRef Id='AppIcon'/>
 
 		<?include ../Common/CustomFeatures.wxi?>
