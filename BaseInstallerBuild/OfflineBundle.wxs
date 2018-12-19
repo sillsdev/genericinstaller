@@ -22,7 +22,7 @@
 		<WixVariable Id="WixStdbaThemeXml" Value="BundleTheme.xml" />
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
-			<PackageGroupRef Id="Netfx451" />
+			<PackageGroupRef Id="Netfx461" />
 			<PackageGroupRef Id="vcredists" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
@@ -41,14 +41,15 @@
 			</MsiPackage>
 		</PackageGroup>
 	</Fragment>
+	<!-- .NET 4.6.1 -->
 	<Fragment>
-		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45FullVersion" />
-		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45x64FullVersion" Win64="yes" />
-		<PackageGroup Id="Netfx451">
-			<ExePackage Id="Netfx451" Cache="no" Compressed="yes" PerMachine="yes" Permanent="yes" Vital="yes" InstallCommand="/q /norestart"
-					SourceFile="..\libs\NDP451-KB2858728-x86-x64-AllOS-ENU.exe"
-					DetectCondition="(Netfx45FullVersion=&quot;4.5.50938&quot;) AND (NOT VersionNT64 OR (Netfx45x64FullVersion=&quot;4.5.50938&quot;))"
-					InstallCondition="(VersionNT >= v6.0 OR VersionNT64 >= v6.0) AND (NOT (Netfx45FullVersion &gt;= &quot;4.5.50938&quot; OR Netfx45x64FullVersion &gt;= &quot;4.5.50938&quot;))">
+		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx46FullVersion" />
+		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx46x64FullVersion" Win64="yes" />
+		<PackageGroup Id="Netfx461">
+			<ExePackage Id="Netfx461" Cache="no" Compressed="yes" PerMachine="yes" Permanent="yes" Vital="yes" InstallCommand="/q /norestart"
+					SourceFile="..\libs\NDP461-KB3102436-x86-x64-AllOS-ENU.exe"
+					DetectCondition="(Netfx46FullVersion=&quot;4.6.1055.0&quot;) AND (NOT VersionNT64 OR (Netfx64x64FullVersion=&quot;4.6.1055.0&quot;))"
+					InstallCondition="(VersionNT >= v6.0 OR VersionNT64 >= v6.0) AND (NOT (Netfx46FullVersion &gt;= &quot;4.6.1055.0&quot; OR Netfx46x64FullVersion &gt;= &quot;4.6.1055.0&quot;))">
 				<ExitCode Behavior="forceReboot" Value="1641" />
 				<ExitCode Behavior="forceReboot" Value="3010" />
 				<ExitCode Behavior="error" Value="5100" />
@@ -57,11 +58,10 @@
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
-	
 	<?if $(sys.BUILDARCH)="x86"?>
 	<Fragment>
 	<Property Id="CRVSINSTALLED">
-</Property>
+	</Property>
 		<util:RegistrySearch Root="HKLM"
                      Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{9A25302D-30C0-39D9-BD6F-21E6EC160475}"
                      Variable="CPP2008Redist"
@@ -103,7 +103,7 @@
                   SourceFile="..\libs\vcredist_2012_x86.exe"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="CPP2011Redist">
-								<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
