@@ -22,7 +22,7 @@
 		<WixVariable Id="WixStdbaThemeXml" Value="BundleTheme.xml" />
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
-			<PackageGroupRef Id="NetFx451Webz" />
+			<PackageGroupRef Id="NetFx461Webz" />
 			<PackageGroupRef Id="vcredists" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
@@ -42,49 +42,51 @@
 			</MsiPackage>
 		</PackageGroup>
 	</Fragment>
-	<?define NetFx451MinRelease = 378675?>
-	<?define NetFx451WebLink =  http://go.microsoft.com/fwlink/?LinkId=322115 ?>
-	<?define NetFx451RedistLink = http://go.microsoft.com/fwlink/?LinkId=322116 ?>
-	<?define NetFx451EulaLink = http://go.microsoft.com/fwlink/?LinkID=260867 ?>
+	<!-- .NET 4.6.1 -->
+	<?define NetFx461MinRelease = 394254 ?>
+	<?define NetFx461WebLink = http://go.microsoft.com/fwlink/?LinkId=671728 ?>
 	<Fragment>
-		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45FullVersion" />
-		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45x64FullVersion" Win64="yes" />
-		<Property Id="PACKAGEPROP" Value="NetFx451Web" />
-		<Property Id="PREREQPROP" Value="$(var.NetFx451EulaLink)" />
-		<WixVariable Id="WixMbaPrereqPackageId" Value="[PACKAGEPROP]" Overridable="yes"/>
-		<WixVariable Id="WixMbaPrereqLicenseUrl" Value="[PREREQPROP]"  Overridable="yes"/>
-		<PackageGroup Id="NetFx451Webz">
-			<ExePackage
-				InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx451FullWebLog].html"
-				RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx451FullWebLog].html"
-				UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx451FullWebLog].html"
-				PerMachine="yes"
-				DetectCondition="(Netfx45FullVersion=&quot;4.5.50938&quot;) AND (NOT VersionNT64 OR (Netfx45x64FullVersion=&quot;4.5.50938&quot;))"
-				InstallCondition="(VersionNT >= v6.0 OR VersionNT64 >= v6.0) AND (NOT (Netfx45FullVersion &gt;= &quot;4.5.50938&quot; OR Netfx45x64FullVersion &gt;= &quot;4.5.50938&quot;))"
-				Id="NetFx451Web"
-				Vital="yes"
-				Permanent="yes"
-				Protocol="netfx4"
-				DownloadUrl="$(var.NetFx451WebLink)"
-				LogPathVariable="NetFx451FullWebLog"
-				Compressed="no"
-				Name="redist\NDP451-KB2859818-Web.exe">
-				<RemotePayload
-					Size="1021432"
-					Version="4.5.50938.18408"
-					ProductName="Microsoft .NET Framework 4.5.1"
-					Description="Microsoft .NET Framework 4.5.1 Setup"
-					CertificatePublicKey="A260A870BE1145ED71E2BB5AA19463A4FE9DCC41"
-					CertificateThumbprint="108E2BA23632620C427C570B6D9DB51AC31387FE"
-					Hash="4CBEA1E408DB5B423E130931B9478972E6798431"/>
-				<ExitCode Behavior="forceReboot" Value="1641" />
-				<ExitCode Behavior="forceReboot" Value="3010" />
-				<ExitCode Behavior="error" Value="5100" />
-				<ExitCode Behavior="error" Value="1603" />
-				<ExitCode Behavior="success" Value="0" />
-			</ExePackage>
-		</PackageGroup>
+		<PropertyRef Id="WIXNETFX4RELEASEINSTALLED" />
+		<Property Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" Secure="yes" />
+		<SetProperty Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" Value="1" After="AppSearch">
+		  WIXNETFX4RELEASEINSTALLED >= "#$(var.NetFx461MinRelease)"
+		</SetProperty>
 	</Fragment>
+	<Fragment>
+	<util:RegistrySearchRef Id="NETFRAMEWORK45"/>
+
+	<WixVariable Id="NetFx461WebDetectCondition" Value="NETFRAMEWORK45 &gt;= $(var.NetFx461MinRelease)" Overridable="yes" />
+	<WixVariable Id="NetFx461WebInstallCondition" Value="" Overridable="yes" />
+	<WixVariable Id="NetFx461WebPackageDirectory" Value="redist\" Overridable="yes" />
+
+	<PackageGroup Id="NetFx461Webz">
+	  <ExePackage
+		  InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx461FullLog].html&quot;"
+		  RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx461FullLog].html&quot;"
+		  UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx461FullLog].html&quot;"
+		  PerMachine="yes"
+		  DetectCondition="!(wix.NetFx461WebDetectCondition)"
+		  InstallCondition="!(wix.NetFx461WebInstallCondition)"
+		  Id="NetFx461Web"
+		  Vital="yes"
+		  Permanent="yes"
+		  Protocol="netfx4"
+		  DownloadUrl="$(var.NetFx461WebLink)"
+		  LogPathVariable="NetFx461FullLog"
+		  Compressed="no"
+		  Name="!(wix.NetFx461WebPackageDirectory)NDP461-KB3102438-Web.exe">
+		<RemotePayload
+		  CertificatePublicKey="52868DFCA6E3AF2632389E6C1EE7D0468D3797D0"
+		  CertificateThumbprint="3BDA323E552DB1FDE5F4FBEE75D6D5B2B187EEDC"
+		  Description="Microsoft .NET Framework 4.6.1 Setup"
+		  Hash="EE88B05232F43B517D4A368F7EE5065CDE7F67FA"
+		  ProductName="Microsoft .NET Framework 4.6.1"
+		  Size="1424328"
+		  Version="4.6.1055.0" />
+	  </ExePackage>
+	</PackageGroup>
+	</Fragment>
+
 	<?if $(sys.BUILDARCH)="x86"?>
 	<!-- 32bit VC++ redistributable download section -->
 	<?define VC08RedistWebLink = https://download.microsoft.com/download/1/1/1/1116b75a-9ec3-481a-a3c8-1777b5381140/vcredist_x86.exe ?>
