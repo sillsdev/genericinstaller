@@ -23,6 +23,7 @@
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
 			<PackageGroupRef Id="NetFx451Webz" />
+			<PackageGroupRef Id="NetFx461Webz" />
 			<PackageGroupRef Id="vcredists" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
@@ -85,6 +86,53 @@
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
+	<!-- .NET 4.6.1 -->
+	<?define NetFx461MinRelease = 394254 ?>
+	<?define NetFx461WebLink = http://go.microsoft.com/fwlink/?LinkId=671728 ?>
+	<?define NetFx461RedistLink = http://go.microsoft.com/fwlink/?LinkId=671743 ?>
+	<Fragment>
+		<PropertyRef Id="WIXNETFX4RELEASEINSTALLED" />
+		<Property Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" Secure="yes" />
+		<SetProperty Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" Value="1" After="AppSearch">
+		  WIXNETFX4RELEASEINSTALLED >= "#$(var.NetFx461MinRelease)"
+		</SetProperty>
+	</Fragment>
+
+	<Fragment>
+	<util:RegistrySearchRef Id="NETFRAMEWORK45"/>
+
+	<WixVariable Id="NetFx461WebDetectCondition" Value="NETFRAMEWORK45 &gt;= $(var.NetFx461MinRelease)" Overridable="yes" />
+	<WixVariable Id="NetFx461WebInstallCondition" Value="" Overridable="yes" />
+	<WixVariable Id="NetFx461WebPackageDirectory" Value="redist\" Overridable="yes" />
+
+	<PackageGroup Id="NetFx461Webz">
+	  <ExePackage
+		  InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx461FullLog].html&quot;"
+		  RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx461FullLog].html&quot;"
+		  UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx461FullLog].html&quot;"
+		  PerMachine="yes"
+		  DetectCondition="!(wix.NetFx461WebDetectCondition)"
+		  InstallCondition="!(wix.NetFx461WebInstallCondition)"
+		  Id="NetFx461Web"
+		  Vital="yes"
+		  Permanent="yes"
+		  Protocol="netfx4"
+		  DownloadUrl="$(var.NetFx461WebLink)"
+		  LogPathVariable="NetFx461FullLog"
+		  Compressed="no"
+		  Name="!(wix.NetFx461WebPackageDirectory)NDP461-KB3102438-Web.exe">
+		<RemotePayload
+		  CertificatePublicKey="52868DFCA6E3AF2632389E6C1EE7D0468D3797D0"
+		  CertificateThumbprint="3BDA323E552DB1FDE5F4FBEE75D6D5B2B187EEDC"
+		  Description="Microsoft .NET Framework 4.6.1 Setup"
+		  Hash="EE88B05232F43B517D4A368F7EE5065CDE7F67FA"
+		  ProductName="Microsoft .NET Framework 4.6.1"
+		  Size="1424328"
+		  Version="4.6.1055.0" />
+	  </ExePackage>
+	</PackageGroup>
+	</Fragment>
+
 	<?if $(sys.BUILDARCH)="x86"?>
 	<!-- 32bit VC++ redistributable download section -->
 	<?define VC08RedistWebLink = https://download.microsoft.com/download/1/1/1/1116b75a-9ec3-481a-a3c8-1777b5381140/vcredist_x86.exe ?>
