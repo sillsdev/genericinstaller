@@ -207,7 +207,7 @@
 				  DownloadUrl="$(var.VC17RedistWebLink)"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="CPP2017Redist">
-				<RemotePayload Description="Microsoft Visual C++ 2017 Redistributable (x86) - 14.13.26020.0" Hash="33000000c4e989f87a8150e9ff0000000000c4"
+				<RemotePayload Description="Microsoft Visual C++ 2017 Redistributable (x86) - 14.13.26020.0" Hash="725656A642A518F8060892D8AB82226C1430C964"
 					ProductName="Microsoft Visual C++ 2017 Redistributable (x86) - 14.13.26020.0" Size="14575896" Version="14.13.26020.0" />
 			</ExePackage>
 		</PackageGroup>
