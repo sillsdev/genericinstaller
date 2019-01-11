@@ -129,7 +129,7 @@
                      Value="Installed"
                      Result="value"/>
 		<PackageGroup Id="redist_vc15">
-			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
 				  Name="vcredist_x86.exe"
 				  SourceFile="..\libs\vcredist_2015_x86.exe"
                   InstallCommand="/quiet /norestart"
@@ -145,11 +145,12 @@
                      Value="Installed"
                      Result="value"/>
 		<PackageGroup Id="redist_vc17">
-			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
 				  Name="vcredist_x86.exe"
 				  SourceFile="..\libs\vcredist_2017_x86.exe"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="CPP2017Redist">
+				 <ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
