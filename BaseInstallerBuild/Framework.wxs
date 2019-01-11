@@ -211,7 +211,7 @@
 		<Directory Id='$(var.PFDir)' SourceName="Program Files">
 			<Directory Id='APPFOLDER' Name='$(var.SafeApplicationName)$(var.MajorVersion)'>
 				<Component Id='RegKeyValues' Guid='*'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
+				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
 					<RegistryValue Name="[APPFOLDERREGSZNAME]" Type='string' Value='[APPFOLDER]'/>
 					<RegistryValue Name="$(var.SafeApplicationName)Version" Type='string' Value='$(var.VersionNumber)'/>
 				  </RegistryKey>
