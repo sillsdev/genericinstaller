@@ -185,7 +185,7 @@
 					<util:PermissionEx User="AuthenticatedUser" GenericAll="yes" />
 				</CreateFolder>
 				<RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
-					<RegistryValue Name="[HARVESTDATAFOLDERREGSZNAME]" Type='string' Value='[HARVESTDATAFOLDER]' KeyPath='yes'/>
+					<RegistryValue Name="[HARVESTDATAFOLDERREGSZNAME]" Type='string' Value='[OVRHARVESTDATAFOLDER]' KeyPath='yes'/>
 				</RegistryKey>
 			</Component>
 		</Directory>
