@@ -42,19 +42,12 @@
 		</PackageGroup>
 	</Fragment>
 	<!-- .NET 4.8 -->
-	<?define NetFx48MinRelease = 528040 ?>
-	<Fragment>
-		<PropertyRef Id="WIXNETFX4RELEASEINSTALLED" />
-		<Property Id="WIX_IS_NETFRAMEWORK_48_OR_LATER_INSTALLED" Secure="yes" />
-		<SetProperty Id="WIX_IS_NETFRAMEWORK_48_OR_LATER_INSTALLED" Value="1" After="AppSearch">
-		  WIXNETFX4RELEASEINSTALLED >= "#$(var.NetFx48MinRelease)"
-		</SetProperty>
-	</Fragment>
+	<?define NetFx48MinRelease = 528049 ?>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Release" Variable="Netfx4FullRelease" />
 		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Release" Variable="Netfx4x64FullRelease" Win64="yes" />
 		<WixVariable Id="NetFx48OrLaterDetectCondition" Overridable="yes"
-		  Value="(Netfx4FullRelease &gt;= $(var.NetFx48MinRelease)) AND (NOT VersionNT64 OR (Netfx4x64FullRelease &gt;= $(var.NetFx48MinRelease))" />
+		  Value="(Netfx4FullRelease &gt;= $(var.NetFx48MinRelease)) AND (NOT VersionNT64 OR (Netfx4x64FullRelease &gt;= $(var.NetFx48MinRelease)))" />
 		<WixVariable Id="NetFx48RedistInstallCondition" Value="" Overridable="yes" />
 
 		<PackageGroup Id="NetFx48Redist">
