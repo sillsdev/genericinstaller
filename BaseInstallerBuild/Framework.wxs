@@ -88,8 +88,8 @@
 	<Property Id="GALATIA_INSTALLED" Value='False'/>
 	<Property Id="EZRA_INSTALLED" Value='False'/>-->
 
-	<Property Id="DATAFOLDER" Secure='yes'>
-	  <RegistrySearch Id='RegSearchDataFolder' Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Name='[DATAFOLDERREGSZNAME]' Type='raw'/>
+	<Property Id="REGDATAFOLDER" Secure='yes'>
+	  <RegistrySearch Id='RegSearchDataFolder' Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Name='[DATAFOLDERREGSZNAME]' Type='directory'/>
 	</Property>
 
 	<CustomAction Id='SetDefDataFolder' Property='DEFDATAFOLDER' Value='[WindowsVolume]My$(var.SafeApplicationName)DataFolder' />
@@ -105,6 +105,7 @@
 	<SetProperty Id='HARVESTDATAFOLDERREGSZNAME' Value='Data_Directory'  Before="AppSearch">not HARVESTDATAFOLDERREGSZNAME</SetProperty>
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
 	<CustomAction Id='UseOvrDataFolder' Property='DATAFOLDER' Value='[OVRDATAFOLDER]' /> <!-- from Overrides.wxi -->
+	<CustomAction Id='UseLegDataFolder' Property='DATAFOLDER' Value='[LEGDATAFOLDER]' /> <!-- legacy data folder from a previous version -->
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
 	<!-- TODO (HASSO) 2018.02: if there is no OVRHARVESTDATAFOLDER, make HARVESTDATAFOLDER whatever the user picked for DATAFOLDER -->
 	<CustomAction Id='UseDefHarvestDataFolder' Property='HARVESTDATAFOLDER' Value='[DATAFOLDER]' />
@@ -133,9 +134,10 @@
 		<Custom Action="UseDefAppFolder" Before="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
 		<Custom Action="UseOvrAppFolder" Before="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
 		<Custom Action="UseRegAppFolder" Before="AppSearch">REGAPPFOLDER</Custom>
-		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
-		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
-		<Custom Action="UseRegDataFolder" After="AppSearch">REGDATAFOLDER</Custom>
+		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT LEGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
+		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT LEGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
+		<Custom Action="UseLegDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (LEGDATAFOLDER)</Custom>
+		<Custom Action="UseRegDataFolder" After="AppSearch">(REGDATAFOLDER)</Custom>
 		<Custom Action="UseDefHarvestDataFolder" After="AppSearch">NOT OVRHARVESTDATAFOLDER</Custom>
 		<Custom Action="UseOvrHarvestDataFolder" After="AppSearch">OVRHARVESTDATAFOLDER</Custom>
 	</InstallUISequence>
