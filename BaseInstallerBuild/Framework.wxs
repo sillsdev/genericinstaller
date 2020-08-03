@@ -130,9 +130,9 @@
 	<InstallUISequence>
 		<Custom Action="SetDefDataFolder" After="FindRelatedProducts"></Custom>
 		<Custom Action="VerifyDataPath" After="SetDefDataFolder"></Custom>
-		<Custom Action="UseDefAppFolder" Before="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
-		<Custom Action="UseOvrAppFolder" Before="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
-		<Custom Action="UseRegAppFolder" Before="AppSearch">REGAPPFOLDER</Custom>
+		<Custom Action="UseDefAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
+		<Custom Action="UseOvrAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
+		<Custom Action="UseRegAppFolder" After="AppSearch">REGAPPFOLDER</Custom>
 		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
 		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
 		<Custom Action="UseRegDataFolder" After="AppSearch">REGDATAFOLDER</Custom>
