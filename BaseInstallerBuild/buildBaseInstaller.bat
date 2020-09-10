@@ -65,17 +65,25 @@ if not %errorlevel% == 0 set PATH=%WIX%/bin;%PATH%
 	light.exe OfflineBundle.wixobj -ext WixFirewallExtension -ext WixUIExtension -ext WixBalExtension -ext WixUtilExtension -ext WixNetFxExtension -ext WixDependencyExtension %SuppressICE% -out %SafeAppName%_%Version%_Offline.exe
 ) && (
 	@REM sign and clean up only if the build succeeded
+	@REM some of our build agents' signing scripts get ahead of themselves; wait a second to make sure everything's ready
+	SET WAIT_1s="%WINDIR%\System32\choice.exe" /m "Waiting 1 second..." /n /t:1 /d:Y
 
 	@REM Sign the standard installer.
 	insignia -ib %SafeAppName%_%Version%_Online.exe -o engine.exe
+	%WAIT_1s%
 	call signingProxy engine.exe
+	%WAIT_1s%
 	insignia -ab engine.exe %SafeAppName%_%Version%_Online.exe -o %SafeAppName%_%Version%_Online.exe
+	%WAIT_1s%
 	call signingProxy %SafeAppName%_%Version%_Online.exe
 
 	@REM Sign the offline installer.
 	insignia -ib %SafeAppName%_%Version%_Offline.exe -o engine.exe
+	%WAIT_1s%
 	call signingProxy engine.exe
+	%WAIT_1s%
 	insignia -ab engine.exe %SafeAppName%_%Version%_Offline.exe -o %SafeAppName%_%Version%_Offline.exe
+	%WAIT_1s%
 	call signingProxy %SafeAppName%_%Version%_Offline.exe
 
 	@REM Cleanup debris from this build
