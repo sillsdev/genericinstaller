@@ -8,9 +8,9 @@
 <!-- This file is used for creating a BASE product installation.
 	 In other words this is for Paratext 8.0 only.
 	 Every other Paratext 8.X.Y.Z will be a Major Upgrade, Minor Upgrade, or Small Update of this installation.
-			Previously hardcoded Product Id='7DF4AEC5-44FF-4B2F-BC92-3C60B187BA86'
 -->
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+		xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
   <Product Name='$(var.ApplicationName) $(var.MajorVersion) Packages'
 			Id='$(var.ProductCode)'
@@ -102,6 +102,7 @@
 	<SetProperty Id='REGISTRYKEY' Value='$(var.SafeApplicationName)\\$(var.MajorVersion)'  Before="AppSearch">not REGISTRYKEY</SetProperty>
 	<SetProperty Id='APPFOLDERREGSZNAME' Value='Program_Files_Directory_$(var.SafeApplicationName)'  Before="AppSearch">not APPFOLDERREGSZNAME</SetProperty>
 	<SetProperty Id='DATAFOLDERREGSZNAME' Value='Settings_Directory'  Before="AppSearch">not DATAFOLDERREGSZNAME</SetProperty>
+	<SetProperty Id='HARVESTDATAFOLDERREGSZNAME' Value='Data_Directory'  Before="AppSearch">not HARVESTDATAFOLDERREGSZNAME</SetProperty>
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
 	<CustomAction Id='UseOvrDataFolder' Property='DATAFOLDER' Value='[OVRDATAFOLDER]' /> <!-- from Overrides.wxi -->
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
@@ -129,9 +130,9 @@
 	<InstallUISequence>
 		<Custom Action="SetDefDataFolder" After="FindRelatedProducts"></Custom>
 		<Custom Action="VerifyDataPath" After="SetDefDataFolder"></Custom>
-		<Custom Action="UseDefAppFolder" Before="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
-		<Custom Action="UseOvrAppFolder" Before="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
-		<Custom Action="UseRegAppFolder" Before="AppSearch">REGAPPFOLDER</Custom>
+		<Custom Action="UseDefAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
+		<Custom Action="UseOvrAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
+		<Custom Action="UseRegAppFolder" After="AppSearch">REGAPPFOLDER</Custom>
 		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
 		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
 		<Custom Action="UseRegDataFolder" After="AppSearch">REGDATAFOLDER</Custom>
@@ -168,8 +169,26 @@
 	<UIRef Id="WixUI_ErrorProgressText" />
 
 	<Directory Id='TARGETDIR' Name='SourceDir'>
-		<Directory Id='DATAFOLDER' Name='.' />
-		<Directory Id='HARVESTDATAFOLDER' Name='.' />
+		<Directory Id='DATAFOLDER' Name='[DATAFOLDER]'>
+			<Component Id='RegKeySettingsDir' Permanent="yes" Guid='*'>
+				<CreateFolder>
+					<util:PermissionEx User="AuthenticatedUser" GenericAll="yes" />
+				</CreateFolder>
+				<RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
+					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]' KeyPath='yes'/>
+				</RegistryKey>
+			</Component>
+		</Directory>
+		<Directory Id='HARVESTDATAFOLDER' Name='.'>
+			<Component Id='HarvestDataDir' Guid='*'>
+				<CreateFolder>
+					<util:PermissionEx User="AuthenticatedUser" GenericAll="yes" />
+				</CreateFolder>
+				<RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
+					<RegistryValue Name="[HARVESTDATAFOLDERREGSZNAME]" Type='string' Value='[OVRHARVESTDATAFOLDER]' KeyPath='yes'/>
+				</RegistryKey>
+			</Component>
+		</Directory>
 		<Directory Id='FontsFolder'/>
 		<Directory Id="DesktopFolder" Name="Desktop">
 			<Component Id="ApplicationShortcutDesktop" Guid="*">
@@ -192,15 +211,9 @@
 		<Directory Id='$(var.PFDir)' SourceName="Program Files">
 			<Directory Id='APPFOLDER' Name='$(var.SafeApplicationName)$(var.MajorVersion)'>
 				<Component Id='RegKeyValues' Guid='*'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]'>
+				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
 					<RegistryValue Name="[APPFOLDERREGSZNAME]" Type='string' Value='[APPFOLDER]'/>
 					<RegistryValue Name="$(var.SafeApplicationName)Version" Type='string' Value='$(var.VersionNumber)'/>
-				  </RegistryKey>
-				</Component>
-
-				<Component Id='RegKeySettingsDir' Guid='*'>
-				  <RegistryKey Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' ForceDeleteOnUninstall='yes'>
-					<RegistryValue Name="[DATAFOLDERREGSZNAME]" Type='string' Value='[DATAFOLDER]' KeyPath='yes'/>
 				  </RegistryKey>
 				</Component>
 
@@ -242,6 +255,7 @@
 			<ComponentGroupRef Id="HarvestedAppFiles" />
 			<ComponentRef Id='RegKeyValues'/>
 			<ComponentRef Id='RegKeySettingsDir'/>
+			<ComponentRef Id='HarvestDataDir'/>
 			<ComponentRef Id='AppIcon'/>
 
 		<?include ../Common/CustomFeatures.wxi?>

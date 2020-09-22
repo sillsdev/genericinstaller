@@ -17,12 +17,12 @@
 			<Payload SourceFile="..\resources\License.htm" />
 		</BootstrapperApplicationRef>
 		<!--<RelatedBundle Id='$(var.UpgradeCode)' Action='Detect'/>-->
-		<WixVariable Id="WixStdbaLicenseUrl" Value="..\resources\License.htm" />
+		<WixVariable Id="WixStdbaLicenseUrl" Value="License.htm" />
 		<WixVariable Id="WixStdbaLogo" Value="..\resources\bundle_background.bmp" />
 		<WixVariable Id="WixStdbaThemeXml" Value="BundleTheme.xml" />
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
-			<PackageGroupRef Id="NetFx451Webz" />
+			<PackageGroupRef Id="NetFx48Web" />
 			<PackageGroupRef Id="vcredists" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
@@ -41,49 +41,45 @@
 			</MsiPackage>
 		</PackageGroup>
 	</Fragment>
-	<?define NetFx451MinRelease = 378675?>
-	<?define NetFx451WebLink =  http://go.microsoft.com/fwlink/?LinkId=322115 ?>
-	<?define NetFx451RedistLink = http://go.microsoft.com/fwlink/?LinkId=322116 ?>
-	<?define NetFx451EulaLink = http://go.microsoft.com/fwlink/?LinkID=260867 ?>
+	<!-- .NET 4.8 -->
+	<?define NetFx48MinRelease = 528049 ?>
+	<?define NetFx48WebLink = https://go.microsoft.com/fwlink/?LinkId=2085155 ?>
+
 	<Fragment>
-		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45FullVersion" />
-		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45x64FullVersion" Win64="yes" />
-		<Property Id="PACKAGEPROP" Value="NetFx451Web" />
-		<Property Id="PREREQPROP" Value="$(var.NetFx451EulaLink)" />
-		<WixVariable Id="WixMbaPrereqPackageId" Value="[PACKAGEPROP]" Overridable="yes"/>
-		<WixVariable Id="WixMbaPrereqLicenseUrl" Value="[PREREQPROP]"  Overridable="yes"/>
-		<PackageGroup Id="NetFx451Webz">
-			<ExePackage
-				InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx451FullWebLog].html"
-				RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx451FullWebLog].html"
-				UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log [NetFx451FullWebLog].html"
-				PerMachine="yes"
-				DetectCondition="(Netfx45FullVersion=&quot;4.5.50938&quot;) AND (NOT VersionNT64 OR (Netfx45x64FullVersion=&quot;4.5.50938&quot;))"
-				InstallCondition="(VersionNT >= v6.0 OR VersionNT64 >= v6.0) AND (NOT (Netfx45FullVersion &gt;= &quot;4.5.50938&quot; OR Netfx45x64FullVersion &gt;= &quot;4.5.50938&quot;))"
-				Id="NetFx451Web"
-				Vital="yes"
-				Permanent="yes"
-				Protocol="netfx4"
-				DownloadUrl="$(var.NetFx451WebLink)"
-				LogPathVariable="NetFx451FullWebLog"
-				Compressed="no"
-				Name="redist\NDP451-KB2859818-Web.exe">
-				<RemotePayload
-					Size="1021432"
-					Version="4.5.50938.18408"
-					ProductName="Microsoft .NET Framework 4.5.1"
-					Description="Microsoft .NET Framework 4.5.1 Setup"
-					CertificatePublicKey="A260A870BE1145ED71E2BB5AA19463A4FE9DCC41"
-					CertificateThumbprint="108E2BA23632620C427C570B6D9DB51AC31387FE"
-					Hash="4CBEA1E408DB5B423E130931B9478972E6798431"/>
-				<ExitCode Behavior="forceReboot" Value="1641" />
-				<ExitCode Behavior="forceReboot" Value="3010" />
-				<ExitCode Behavior="error" Value="5100" />
-				<ExitCode Behavior="error" Value="1603" />
-				<ExitCode Behavior="success" Value="0" />
-			</ExePackage>
+		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Release" Variable="Netfx4FullRelease" />
+		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Release" Variable="Netfx4x64FullRelease" Win64="yes" />
+		<WixVariable Id="NetFx48OrLaterDetectCondition" Overridable="yes"
+		  Value="(Netfx4FullRelease &gt;= $(var.NetFx48MinRelease)) AND (NOT VersionNT64 OR (Netfx4x64FullRelease &gt;= $(var.NetFx48MinRelease)))" />
+		<WixVariable Id="NetFx48WebInstallCondition" Value="" Overridable="yes" />
+		<WixVariable Id="NetFx48WebPackageDirectory" Value="redist\" Overridable="yes" />
+
+		<PackageGroup Id="NetFx48Web">
+		  <ExePackage Id="NetFx48Web"
+			  InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
+			  RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
+			  UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
+			  PerMachine="yes"
+			  DetectCondition="!(wix.NetFx48OrLaterDetectCondition)"
+			  InstallCondition="!(wix.NetFx48WebInstallCondition)"
+			  Vital="yes"
+			  Permanent="yes"
+			  Protocol="netfx4"
+			  DownloadUrl="$(var.NetFx48WebLink)"
+			  LogPathVariable="NetFx48FullLog"
+			  Compressed="no"
+			  Name="!(wix.NetFx48WebPackageDirectory)ndp48-web.exe">
+			<RemotePayload
+			  CertificatePublicKey="D17AFCE951979605250FAEBAFA7AE974899AED22"
+			  CertificateThumbprint="C82273A065EC470FB1EBDE846A91E6FFB29E9C12"
+			  Description="Microsoft .NET Framework 4.8 Setup"
+			  Hash="5A84A8E612E270E27D0061D58DB6B470153BE1F9"
+			  ProductName="Microsoft .NET Framework 4.8"
+			  Size="1479400"
+			  Version="4.8.3928.0" />
+		  </ExePackage>
 		</PackageGroup>
 	</Fragment>
+
 	<?if $(sys.BUILDARCH)="x86"?>
 	<!-- 32bit VC++ redistributable download section -->
 	<?define VC08RedistWebLink = https://download.microsoft.com/download/1/1/1/1116b75a-9ec3-481a-a3c8-1777b5381140/vcredist_x86.exe ?>
@@ -204,7 +200,7 @@
 				  DownloadUrl="$(var.VC17RedistWebLink)"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="CPP2017Redist">
-				<RemotePayload Description="Microsoft Visual C++ 2017 Redistributable (x86) - 14.13.26020.0" Hash="33000000c4e989f87a8150e9ff0000000000c4"
+				<RemotePayload Description="Microsoft Visual C++ 2017 Redistributable (x86) - 14.13.26020.0" Hash="725656A642A518F8060892D8AB82226C1430C964"
 					ProductName="Microsoft Visual C++ 2017 Redistributable (x86) - 14.13.26020.0" Size="14575896" Version="14.13.26020.0" />
 			</ExePackage>
 		</PackageGroup>

@@ -9,7 +9,7 @@ if %errorlevel%==0 (
 	where signtool.exe >nul 2>nul
 	if %errorlevel%==0 (
 		echo Signing with specified code signing certificate ...
-		signtool.exe sign /f %CERTPATH% /p %CERTPASS% /t http://timestamp.comodoca.com/authenticode %*
+		signtool.exe sign /fd sha256 /f %CERTPATH% /p %CERTPASS% /t http://timestamp.comodoca.com/authenticode %*
 	)
 	if not %errorlevel%==0 (
 		echo Unable to sign %1; skipping.

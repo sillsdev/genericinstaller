@@ -17,12 +17,12 @@
 			<Payload SourceFile="..\resources\License.htm" />
 		</BootstrapperApplicationRef>
 		<!--<RelatedBundle Id='$(var.UpgradeCode)' Action='Detect'/>-->
-		<WixVariable Id="WixStdbaLicenseUrl" Value="..\resources\License.htm" />
+		<WixVariable Id="WixStdbaLicenseUrl" Value="License.htm" />
 		<WixVariable Id="WixStdbaLogo" Value="..\resources\bundle_background.bmp" />
 		<WixVariable Id="WixStdbaThemeXml" Value="BundleTheme.xml" />
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
-			<PackageGroupRef Id="Netfx451" />
+			<PackageGroupRef Id="NetFx48Redist" />
 			<PackageGroupRef Id="vcredists" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
@@ -41,27 +41,41 @@
 			</MsiPackage>
 		</PackageGroup>
 	</Fragment>
+	<!-- .NET 4.8 -->
+	<?define NetFx48MinRelease = 528049 ?>
 	<Fragment>
-		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45FullVersion" />
-		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Version" Variable="Netfx45x64FullVersion" Win64="yes" />
-		<PackageGroup Id="Netfx451">
-			<ExePackage Id="Netfx451" Cache="no" Compressed="yes" PerMachine="yes" Permanent="yes" Vital="yes" InstallCommand="/q /norestart"
-					SourceFile="..\libs\NDP451-KB2858728-x86-x64-AllOS-ENU.exe"
-					DetectCondition="(Netfx45FullVersion=&quot;4.5.50938&quot;) AND (NOT VersionNT64 OR (Netfx45x64FullVersion=&quot;4.5.50938&quot;))"
-					InstallCondition="(VersionNT >= v6.0 OR VersionNT64 >= v6.0) AND (NOT (Netfx45FullVersion &gt;= &quot;4.5.50938&quot; OR Netfx45x64FullVersion &gt;= &quot;4.5.50938&quot;))">
-				<ExitCode Behavior="forceReboot" Value="1641" />
-				<ExitCode Behavior="forceReboot" Value="3010" />
-				<ExitCode Behavior="error" Value="5100" />
-				<ExitCode Behavior="error" Value="1603" />
-				<ExitCode Behavior="success" Value="0" />
-			</ExePackage>
+		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Release" Variable="Netfx4FullRelease" />
+		<util:RegistrySearch Root="HKLM" Key="SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full" Value="Release" Variable="Netfx4x64FullRelease" Win64="yes" />
+		<WixVariable Id="NetFx48OrLaterDetectCondition" Overridable="yes"
+		  Value="(Netfx4FullRelease &gt;= $(var.NetFx48MinRelease)) AND (NOT VersionNT64 OR (Netfx4x64FullRelease &gt;= $(var.NetFx48MinRelease)))" />
+		<WixVariable Id="NetFx48RedistInstallCondition" Value="" Overridable="yes" />
+
+		<PackageGroup Id="NetFx48Redist">
+		  <ExePackage Id="NetFx48Redist"
+			  InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
+			  RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
+			  UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
+			  PerMachine="yes"
+			  DetectCondition="!(wix.NetFx48OrLaterDetectCondition)"
+			  InstallCondition="!(wix.NetFx48RedistInstallCondition)"
+			  Vital="yes"
+			  Permanent="yes"
+			  Protocol="netfx4"
+			  LogPathVariable="NetFx48FullLog"
+			  Compressed="yes"
+			  SourceFile="..\libs\ndp48-x86-x64-allos-enu.exe">
+			<ExitCode Behavior="forceReboot" Value="1641" />
+			<ExitCode Behavior="forceReboot" Value="3010" />
+			<ExitCode Behavior="error" Value="5100" />
+			<ExitCode Behavior="error" Value="1603" />
+			<ExitCode Behavior="success" Value="0" />
+		  </ExePackage>
 		</PackageGroup>
 	</Fragment>
-	
 	<?if $(sys.BUILDARCH)="x86"?>
 	<Fragment>
 	<Property Id="CRVSINSTALLED">
-</Property>
+	</Property>
 		<util:RegistrySearch Root="HKLM"
                      Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{9A25302D-30C0-39D9-BD6F-21E6EC160475}"
                      Variable="CPP2008Redist"
@@ -103,7 +117,7 @@
                   SourceFile="..\libs\vcredist_2012_x86.exe"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="CPP2011Redist">
-								<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -129,7 +143,7 @@
                      Value="Installed"
                      Result="value"/>
 		<PackageGroup Id="redist_vc15">
-			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
 				  Name="vcredist_x86.exe"
 				  SourceFile="..\libs\vcredist_2015_x86.exe"
                   InstallCommand="/quiet /norestart"
@@ -145,11 +159,12 @@
                      Value="Installed"
                      Result="value"/>
 		<PackageGroup Id="redist_vc17">
-			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
 				  Name="vcredist_x86.exe"
 				  SourceFile="..\libs\vcredist_2017_x86.exe"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="CPP2017Redist">
+				 <ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
