@@ -7,8 +7,8 @@ See https://github.com/sillsdev/genericinstaller-sample for a sample use.
 ## How to use:
 1)	Clone this repo as a submodule of your project.
 2)	Copy Build*.bat, CommonVersion.cs, certpass.txt, and Sample.(build|targets), and SetVCVars.bat from the [sample project](https://github.com/sillsdev/genericinstaller-sample) into your root project folder. You may instead wish to put them in your project's build directory; if you do, you will need to update several relative paths.
-3)	Rename Sample.(build|targets) to <ProjectName>.(build|targets). Edit Build*.bat to reference the new <ProjectName>.(build|targets) filename.
-4)	Edit the <ProjectName>.(build|targets) file as follows:
+3)	Rename Sample.(build|targets) to \<ProjectName\>.(build|targets). Edit Build*.bat to reference the new \<ProjectName\>.(build|targets) filename.
+4)	Edit the \<ProjectName\>.(build|targets) file as follows:
 
 	a.	Change all references to Sample to reference your project.
 
