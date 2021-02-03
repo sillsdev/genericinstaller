@@ -88,7 +88,7 @@
 	<Property Id="GALATIA_INSTALLED" Value='False'/>
 	<Property Id="EZRA_INSTALLED" Value='False'/>-->
 
-	<Property Id="DATAFOLDER" Secure='yes'>
+	<Property Id="DATAFOLDER" Secure='yes' Value='[CommonAppDataFolder]$(var.SafeApplicationName)'>
 	  <RegistrySearch Id='RegSearchDataFolder' Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Name='[DATAFOLDERREGSZNAME]' Type='raw'/>
 	</Property>
 
