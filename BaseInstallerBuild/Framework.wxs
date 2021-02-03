@@ -88,7 +88,7 @@
 	<Property Id="GALATIA_INSTALLED" Value='False'/>
 	<Property Id="EZRA_INSTALLED" Value='False'/>-->
 
-	<Property Id="DATAFOLDER" Secure='yes' Value='[CommonAppDataFolder]$(var.SafeApplicationName)'>
+	<Property Id="DATAFOLDER" Secure='yes'>
 	  <RegistrySearch Id='RegSearchDataFolder' Root='HKLM' Key='SOFTWARE\[REGISTRYKEY]' Name='[DATAFOLDERREGSZNAME]' Type='raw'/>
 	</Property>
 
@@ -119,6 +119,14 @@
 	<InstallExecuteSequence>
 		<Custom Action="CloseApplications" Before="AppSearch"></Custom>
 		<!--<Custom Action="SetFontValues" After="AppSearch"></Custom>-->
+		<Custom Action="UseDefAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
+		<Custom Action="UseOvrAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
+		<Custom Action="UseRegAppFolder" After="AppSearch">REGAPPFOLDER</Custom>
+		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
+		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
+		<Custom Action="UseRegDataFolder" After="AppSearch">REGDATAFOLDER</Custom>
+		<Custom Action="UseDefHarvestDataFolder" After="AppSearch">NOT OVRHARVESTDATAFOLDER</Custom>
+		<Custom Action="UseOvrHarvestDataFolder" After="AppSearch">OVRHARVESTDATAFOLDER</Custom>
 		<Custom Action="DeleteRegistryVersionNumber" Before="RemoveRegistryValues">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
 		<RemoveExistingProducts Before="InstallInitialize" />
 		<Custom Action='AlreadyUpdated' After='FindRelatedProducts'>SELFFOUND</Custom>
@@ -130,14 +138,6 @@
 	<InstallUISequence>
 		<Custom Action="SetDefDataFolder" After="FindRelatedProducts"></Custom>
 		<Custom Action="VerifyDataPath" After="SetDefDataFolder"></Custom>
-		<Custom Action="UseDefAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
-		<Custom Action="UseOvrAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
-		<Custom Action="UseRegAppFolder" After="AppSearch">REGAPPFOLDER</Custom>
-		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
-		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
-		<Custom Action="UseRegDataFolder" After="AppSearch">REGDATAFOLDER</Custom>
-		<Custom Action="UseDefHarvestDataFolder" After="AppSearch">NOT OVRHARVESTDATAFOLDER</Custom>
-		<Custom Action="UseOvrHarvestDataFolder" After="AppSearch">OVRHARVESTDATAFOLDER</Custom>
 	</InstallUISequence>
 
 	<Media Id='1' Cabinet='AppTemplate.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
