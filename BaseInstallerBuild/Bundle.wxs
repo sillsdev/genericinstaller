@@ -82,7 +82,7 @@
 
 	<?if $(sys.BUILDARCH)="x86"?>
 	<!-- 32bit VC++ redistributable download section -->
-	<?define VC08RedistWebLink = https://download.microsoft.com/download/1/1/1/1116b75a-9ec3-481a-a3c8-1777b5381140/vcredist_x86.exe ?>
+	<?define VC08RedistWebLink = https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe ?>
 	<?define VC10RedistWebLink =  https://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe ?>
 	<?define VC11RedistWebLink =  https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe ?>
 	<?define VC12RedistWebLink =  http://download.microsoft.com/download/0/5/6/056dcda9-d667-4e27-8001-8a0c6971d6b1/vcredist_x86.exe ?>
@@ -99,8 +99,8 @@
 				  DownloadUrl="$(var.VC08RedistWebLink)"
                   InstallCommand="/Q /norestart"
 				  DetectCondition="CPP2008Redist">
-				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="56719288AB6514C07AC2088119D8A87056EEB94A"
-					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="1821192" Version="9.0.21022.8" />
+				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="470640AA4BB7DB8E69196B5EDB0010933569E98D"
+					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="4479832" Version="9.0.30729.5677" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
@@ -207,7 +207,7 @@
 	</Fragment>
 	<?elseif $(sys.BUILDARCH)="x64"?>
 	<!-- 64bit  VC++ redistributable download section -->
-	<?define VC8RedistWebLink = https://download.microsoft.com/download/d/2/4/d242c3fb-da5a-4542-ad66-f9661d0a8d19/vcredist_x64.exe ?>
+	<?define VC8RedistWebLink = https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe ?>
 	<?define VC10RedistWebLink =  https://download.microsoft.com/download/3/2/2/3224B87F-CFA0-4E70-BDA3-3DE650EFEBA5/vcredist_x64.exe ?>
 	<?define VC11RedistWebLink =  https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe ?>
 	<?define VC12RedistWebLink = https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe ?>
@@ -225,8 +225,8 @@
 				  DownloadUrl="$(var.VC8RedistWebLink)"
                   InstallCommand="/Q /norestart"
 				  DetectCondition="CPP2008Redist">
-				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="5580072A056FDD50CDF93D470239538636F8F3A9"
-					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="2373640" Version="9.0.21022.8" />
+				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="A7C83077B8A28D409E36316D2D7321FA0CCDB7E8"
+					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="5207896" Version="9.0.30729.5677" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
