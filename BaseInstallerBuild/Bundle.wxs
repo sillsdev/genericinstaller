@@ -87,9 +87,9 @@
 	<?if $(sys.BUILDARCH)="x86"?>
 	<!-- 32bit VC++ redistributable download section -->
 	<?define VC08RedistWebLink = https://download.microsoft.com/download/1/1/1/1116b75a-9ec3-481a-a3c8-1777b5381140/vcredist_x86.exe ?>
-	<?define VC10RedistWebLink =  https://download.microsoft.com/download/5/B/C/5BC5DBB3-652D-4DCE-B14A-475AB85EEF6E/vcredist_x86.exe ?>
-	<?define VC11RedistWebLink =  https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe ?>
-	<?define VC12RedistWebLink =  http://download.microsoft.com/download/0/5/6/056dcda9-d667-4e27-8001-8a0c6971d6b1/vcredist_x86.exe ?>
+	<?define VC10RedistWebLink = https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe ?>
+	<?define VC11RedistWebLink = https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe ?>
+	<?define VC12RedistWebLink = http://download.microsoft.com/download/0/5/6/056dcda9-d667-4e27-8001-8a0c6971d6b1/vcredist_x86.exe ?>
 	<?define VC15RedistWebLink = https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe ?>
 	<?define VC17RedistWebLink = https://download.visualstudio.microsoft.com/download/pr/11687613/88b50ce70017bf10f2d56d60fcba6ab1/VC_redist.x86.exe ?>
 	<Fragment>
@@ -122,11 +122,11 @@
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="CPP2010Redist">
 				<RemotePayload
-					Size="5073240"
-					Version="10.0.30319.01"
-					ProductName="Microsoft Visual C++ 2010  x86 Redistributable Setup"
-					Description="Microsoft Visual C++ 2010  x86 Redistributable Setup"
-					Hash="372d9c1670343d3fb252209ba210d4dc4d67d358"/>
+					Size="8990552"
+					Version="10.0.40219.325"
+					ProductName="Microsoft Visual C++ 2010 x86 Redistributable Setup"
+					Description="Microsoft Visual C++ 2010 x86 Redistributable Setup"
+					Hash="28C54491BE70C38C97849C3D8CFBFDD0D3C515CB"/>
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
@@ -211,9 +211,9 @@
 	</Fragment>
 	<?elseif $(sys.BUILDARCH)="x64"?>
 	<!-- 64bit  VC++ redistributable download section -->
-	<?define VC8RedistWebLink = https://download.microsoft.com/download/d/2/4/d242c3fb-da5a-4542-ad66-f9661d0a8d19/vcredist_x64.exe ?>
-	<?define VC10RedistWebLink =  https://download.microsoft.com/download/3/2/2/3224B87F-CFA0-4E70-BDA3-3DE650EFEBA5/vcredist_x64.exe ?>
-	<?define VC11RedistWebLink =  https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe ?>
+	<?define VC08RedistWebLink = https://download.microsoft.com/download/d/2/4/d242c3fb-da5a-4542-ad66-f9661d0a8d19/vcredist_x64.exe ?>
+	<?define VC10RedistWebLink = https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe ?>
+	<?define VC11RedistWebLink = https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe ?>
 	<?define VC12RedistWebLink = https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe ?>
 	<?define VC15RedistWebLink = https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x64.exe ?>
 	<?define VC17RedistWebLink = https://download.visualstudio.microsoft.com/download/pr/11687625/2cd2dba5748dc95950a5c42c2d2d78e4/VC_redist.x64.exe ?>
@@ -226,7 +226,7 @@
 		<PackageGroup Id="redist_vc8">
 			<ExePackage Id="vc8" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vcredist_x64.exe"
-				  DownloadUrl="$(var.VC8RedistWebLink)"
+				  DownloadUrl="$(var.VC08RedistWebLink)"
                   InstallCommand="/Q /norestart"
 				  DetectCondition="CPP2008Redist">
 				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="5580072A056FDD50CDF93D470239538636F8F3A9"
@@ -254,8 +254,8 @@
 				  DownloadUrl="$(var.VC10RedistWebLink)"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="(CPP2010Redist32) OR (CPP2010Redist64)">
-				<RemotePayload Description="Microsoft Visual C++ 2010  x64 Redistributable Setup" Hash="B330B760A8F16D5A31C2DC815627F5EB40861008"
-					ProductName="Microsoft Visual C++ 2010  x64 Redistributable" Size="5718872" Version="10.0.30319.1" />
+				<RemotePayload Description="Microsoft Visual C++ 2010 x64 Redistributable Setup" Hash="15D032D669078AA6F0F7FD1CBF4115A070BD034D"
+					ProductName="Microsoft Visual C++ 2010 x64 Redistributable" Size="10274136" Version="10.0.40219.325" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
