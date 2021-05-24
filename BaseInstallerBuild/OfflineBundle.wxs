@@ -139,29 +139,13 @@
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
-                     Variable="CPP2015Redist"
-                     Value="Installed"
-                     Result="value"/>
-		<PackageGroup Id="redist_vc15">
-			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
-				  Name="vcredist_x86.exe"
-				  SourceFile="..\libs\vcredist_2015_x86.exe"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2015Redist">
-				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
-			</ExePackage>
-		</PackageGroup>
-	</Fragment>
-	<Fragment>
-		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
                      Variable="CPP2017Redist"
                      Value="Installed"
                      Result="value"/>
-		<PackageGroup Id="redist_vc17">
+		<PackageGroup Id="redist_vc15-19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
 				  Name="vcredist_x86.exe"
-				  SourceFile="..\libs\vcredist_2017_x86.exe"
+				  SourceFile="..\libs\vcredist_2015-19_x86.exe"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="CPP2017Redist">
 				 <ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
@@ -254,28 +238,6 @@
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
                      Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
-                     Variable="CPP2015Redist64"
-                     Value="Installed"
-                     Result="value"
-					 Win64="yes"/>
-		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
-                     Variable="CPP2015Redist32"
-                     Value="Installed"
-                     Result="value"
-					 Win64="no"/>
-		<PackageGroup Id="redist_vc15">
-			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
-                  SourceFile="..\libs\vcredist_2015_x64.exe"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="(CPP2015Redist32) OR (CPP2015Redist64)">
-				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
-			</ExePackage>
-		</PackageGroup>
-	</Fragment>
-	<Fragment>
-		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
                      Variable="CPP2017Redist64"
                      Value="Installed"
                      Result="value"
@@ -286,9 +248,9 @@
                      Value="Installed"
                      Result="value"
 					 Win64="no"/>
-		<PackageGroup Id="redist_vc17">
+		<PackageGroup Id="redist_vc15-19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
-                  SourceFile="..\libs\vcredist_2017_x64.exe"
+                  SourceFile="..\libs\vcredist_2015-19_x64.exe"
                   InstallCommand="/quiet /norestart"
 				  DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)">
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
