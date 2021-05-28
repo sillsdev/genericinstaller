@@ -308,7 +308,7 @@
                      Value="Installed"
                      Result="value"
 					 Win64="no"/>
-		<PackageGroup Id="vc15to19">
+		<PackageGroup Id="redist_vc15to19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 				  Name="vc_redist.x64.exe"
 				  DownloadUrl="$(var.VC15to19RedistWebLink)"
