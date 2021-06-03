@@ -69,8 +69,6 @@
 			  Compressed="no"
 			  Name="!(wix.NetFx48WebPackageDirectory)ndp48-web.exe">
 			<RemotePayload
-			  CertificatePublicKey="D17AFCE951979605250FAEBAFA7AE974899AED22"
-			  CertificateThumbprint="C82273A065EC470FB1EBDE846A91E6FFB29E9C12"
 			  Description="Microsoft .NET Framework 4.8 Setup"
 			  Hash="5A84A8E612E270E27D0061D58DB6B470153BE1F9"
 			  ProductName="Microsoft .NET Framework 4.8"
