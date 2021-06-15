@@ -317,7 +317,7 @@
 					Version="14.28.29914.0"
 					ProductName="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
 					Description="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
-					Hash="A4EFAD335D3CCFA19963F53398E87BE5C8BEBC45" />
+					Hash="10D155CEF0CA585D94B24BC4BE53C33DCBF91E7E" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
