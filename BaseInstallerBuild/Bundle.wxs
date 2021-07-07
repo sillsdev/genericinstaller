@@ -86,63 +86,70 @@
 	</Fragment>
 	<?if $(sys.BUILDARCH)="x86"?>
 	<!-- 32bit VC++ redistributable download section -->
-	<?define VC08RedistWebLink = https://download.microsoft.com/download/1/1/1/1116b75a-9ec3-481a-a3c8-1777b5381140/vcredist_x86.exe ?>
+	<!-- When updating or adding a redistributable you can generate the RemotePayload with the WIX's heat tool -->
+	<!-- e.g. "%WIX%\bin\heat" payload C:\fwroot\fw\PatchableInstaller\libs\vcredist_2008_x64.exe -o c:\Repositories\fw\PatchableInstaller\VC2008Frag.wxs -->
+	<?define VC08RedistWebLink = https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe ?>
 	<?define VC10RedistWebLink = https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe ?>
 	<?define VC11RedistWebLink = https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe ?>
-	<?define VC12RedistWebLink = http://download.microsoft.com/download/0/5/6/056dcda9-d667-4e27-8001-8a0c6971d6b1/vcredist_x86.exe ?>
-	<?define VC15RedistWebLink = https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe ?>
-	<?define VC17RedistWebLink = https://download.visualstudio.microsoft.com/download/pr/11687613/88b50ce70017bf10f2d56d60fcba6ab1/VC_redist.x86.exe ?>
+	<?define VC12RedistWebLink = https://download.microsoft.com/download/0/5/6/056dcda9-d667-4e27-8001-8a0c6971d6b1/vcredist_x86.exe ?>
+	<?define VC15to19RedistWebLink = https://aka.ms/vs/16/release/vc_redist.x86.exe ?>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{9A25302D-30C0-39D9-BD6F-21E6EC160475}"
-                     Variable="CPP2008Redist"
-                     Result="exists"/>
+					Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{9BE518E6-ECC6-35A9-88E4-87755C07200F}"
+					Variable="CPP2008Redist"
+					Result="exists"/>
 		<PackageGroup Id="redist_vc8">
 			<ExePackage Id="vc8" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x86.exe"
-				  DownloadUrl="$(var.VC08RedistWebLink)"
-                  InstallCommand="/Q /norestart"
-				  DetectCondition="CPP2008Redist">
-				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="56719288AB6514C07AC2088119D8A87056EEB94A"
-					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="1821192" Version="9.0.21022.8" />
+					Name="vcredist_x86.exe"
+					DownloadUrl="$(var.VC08RedistWebLink)"
+					InstallCommand="/Q /norestart"
+					DetectCondition="CPP2008Redist">
+				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="0940EC60DCC3162E482C1A797CA033D5996AB256"
+					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="4483040" Version="9.0.30729.5677" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
-                     Variable="CPP2010Redist"
-                     Value="Installed"
-                     Result="value"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86"
+					Variable="CPP2010Redist"
+					Value="Installed"
+					Result="value"/>
+		<!-- KB2565063 is the MFC Security Update. The VC2008 redist has a similar security update, but I don't know how to check for it. -->
+		<util:RegistrySearch Root="HKLM"
+					Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x86\KB2565063"
+					Variable="CPP2010RedistSecurity"
+					Value="Present"
+					Result="value"/>
 		<PackageGroup Id="redist_vc10">
 			<ExePackage Id="vc10" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x86.exe"
-				  DownloadUrl="$(var.VC10RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2010Redist">
+					Name="vcredist_x86.exe"
+					DownloadUrl="$(var.VC10RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="CPP2010Redist AND CPP2010RedistSecurity">
 				<RemotePayload
 					Size="8990552"
 					Version="10.0.40219.325"
 					ProductName="Microsoft Visual C++ 2010 x86 Redistributable Setup"
 					Description="Microsoft Visual C++ 2010 x86 Redistributable Setup"
-					Hash="28C54491BE70C38C97849C3D8CFBFDD0D3C515CB"/>
+					Hash="2222FC008E469FEC77D0D291877F357C6E1EB16D"/>
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x86"
-                     Variable="CPP2011Redist"
-                     Value="Installed"
-                     Result="value"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x86"
+					Variable="CPP2012Redist"
+					Value="Installed"
+					Result="value"/>
 		<PackageGroup Id="redist_vc11">
 			<ExePackage Id="vc11" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x86.exe"
-				  DownloadUrl="$(var.VC11RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2011Redist">
+					Name="vcredist_x86.exe"
+					DownloadUrl="$(var.VC11RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="CPP2012Redist">
 				<RemotePayload
 					Size="6554576"
 					Version="11.0.61030.0"
@@ -155,106 +162,107 @@
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\12.0\VC\Runtimes\x86"
-                     Variable="CPP2012Redist"
-                     Value="Installed"
-                     Result="value"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\12.0\VC\Runtimes\x86"
+					Variable="CPP2013Redist"
+					Value="Installed"
+					Result="value"/>
 		<PackageGroup Id="redist_vc12">
 			<ExePackage Id="vc12" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x86.exe"
-				  DownloadUrl="$(var.VC12RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2012Redist">
+					Name="vcredist_x86.exe"
+					DownloadUrl="$(var.VC12RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="CPP2013Redist">
 				<RemotePayload
 					Size="6510544"
 					Version="12.0.40660.0"
 					ProductName="Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40660"
 					Description="Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40660"
-					Hash="2a07a32330d5131665378836d542478d3e7bd137"/>
+					Hash="2A07A32330D5131665378836D542478D3E7BD137" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
-                     Variable="CPP2015Redist"
-                     Value="Installed"
-                     Result="value"/>
-		<PackageGroup Id="redist_vc15">
-			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x86.exe"
-				  DownloadUrl="$(var.VC15RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2015Redist">
-				<RemotePayload Description="Microsoft Visual C++ 2015 Redistributable (x86) - 14.0.23026" Hash="BFB74E498C44D3A103CA3AA2831763FB417134D1"
-					ProductName="Microsoft Visual C++ 2015 Redistributable (x86) - 14.0.23026" Size="13767776" Version="14.0.23026.0" />
-			</ExePackage>
-		</PackageGroup>
-	</Fragment>
-	<Fragment>
-		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x86"
-                     Variable="CPP2017Redist"
-                     Value="Installed"
-                     Result="value"/>
-		<PackageGroup Id="redist_vc17">
+					Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X86"
+					Variable="CPP2017Redist"
+					Value="Installed"
+					Result="value"/>
+		<PackageGroup Id="redist_vc15to19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x86.exe"
-				  DownloadUrl="$(var.VC17RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="CPP2017Redist">
-				<RemotePayload Description="Microsoft Visual C++ 2017 Redistributable (x86) - 14.13.26020.0" Hash="33000000c4e989f87a8150e9ff0000000000c4"
-					ProductName="Microsoft Visual C++ 2017 Redistributable (x86) - 14.13.26020.0" Size="14575896" Version="14.13.26020.0" />
+					Name="vcredist_x86.exe"
+					DownloadUrl="$(var.VC15to19RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="CPP2017Redist">
+				<RemotePayload
+					Size="14327344"
+					Version="14.28.29914.0"
+					ProductName="Microsoft Visual C++ 2015-2019 Redistributable (x86) - 14.28.29914"
+					Description="Microsoft Visual C++ 2015-2019 Redistributable (x86) - 14.28.29914"
+					Hash="5B8637ACC24F11E9BF83C77AACC8D529EA62D173" />
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
 	<?elseif $(sys.BUILDARCH)="x64"?>
 	<!-- 64bit  VC++ redistributable download section -->
-	<?define VC08RedistWebLink = https://download.microsoft.com/download/d/2/4/d242c3fb-da5a-4542-ad66-f9661d0a8d19/vcredist_x64.exe ?>
+	<!-- When updating or adding a redistributable you can generate the RemotePayload with the WIX's heat tool -->
+	<!-- e.g. "%WIX%\bin\heat" payload C:\fwroot\fw\PatchableInstaller\libs\vcredist_2008_x64.exe -o c:\Repositories\fw\PatchableInstaller\VC2008Frag.wxs -->
+	<?define VC08RedistWebLink = https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe ?>
 	<?define VC10RedistWebLink = https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe ?>
 	<?define VC11RedistWebLink = https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe ?>
-	<?define VC12RedistWebLink = https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe ?>
-	<?define VC15RedistWebLink = https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x64.exe ?>
-	<?define VC17RedistWebLink = https://download.visualstudio.microsoft.com/download/pr/11687625/2cd2dba5748dc95950a5c42c2d2d78e4/VC_redist.x64.exe ?>
+	<?define VC12RedistWebLink = https://download.microsoft.com/download/0/5/6/056DCDA9-D667-4E27-8001-8A0C6971D6B1/vcredist_x64.exe ?>
+	<?define VC15to19RedistWebLink = https://aka.ms/vs/16/release/vc_redist.x64.exe ?>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{8220EEFE-38CD-377E-8595-13398D740ACE}"
-                     Variable="CPP2008Redist"
-                     Result="exists"
-					 Win64="yes"/>
+					Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{5FCE6D76-F5DC-37AB-B2B8-22AB8CEDB1D4}"
+					Variable="CPP2008Redist"
+					Result="exists"
+					Win64="yes"/>
 		<PackageGroup Id="redist_vc8">
 			<ExePackage Id="vc8" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x64.exe"
-				  DownloadUrl="$(var.VC08RedistWebLink)"
-                  InstallCommand="/Q /norestart"
-				  DetectCondition="CPP2008Redist">
-				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="5580072A056FDD50CDF93D470239538636F8F3A9"
-					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="2373640" Version="9.0.21022.8" />
+					Name="vcredist_x64.exe"
+					DownloadUrl="$(var.VC08RedistWebLink)"
+					InstallCommand="/Q /norestart"
+					DetectCondition="CPP2008Redist">
+				<RemotePayload Description="Microsoft Visual C++ 2008 Redistributable Setup" Hash="CE8FF6572E86B0BBA39D88FA3A6D56B59100613D"
+					ProductName="Microsoft Visual C++ 2008 Redistributable" Size="5211080" Version="9.0.30729.5677" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
-                     Variable="CPP2010Redist64"
-                     Value="Installed"
-                     Result="value"
-					 Win64="yes"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
+					Variable="CPP2010Redist64"
+					Value="Installed"
+					Result="value"
+					Win64="yes"/>
+		<!-- KB2565063 is the MFC Security Update. The VC2008 redist has a similar security update, but I don't know how to check for it. -->
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
-                     Variable="CPP2010Redist32"
-                     Value="Installed"
-                     Result="value"
-					 Win64="no"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64\KB2565063"
+					Variable="CPP2010Redist64Security"
+					Value="Present"
+					Result="value"
+					Win64="yes"/>
+		<util:RegistrySearch Root="HKLM"
+					Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64"
+					Variable="CPP2010Redist32"
+					Value="Installed"
+					Result="value"
+					Win64="no"/>
+		<util:RegistrySearch Root="HKLM"
+					Key="SOFTWARE\Microsoft\VisualStudio\10.0\VC\VCRedist\x64\KB2565063"
+					Variable="CPP2010Redist32Security"
+					Value="Present"
+					Result="value"
+					Win64="no"/>
 		<PackageGroup Id="redist_vc10">
 			<ExePackage Id="vc10" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x64.exe"
-				  DownloadUrl="$(var.VC10RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="(CPP2010Redist32) OR (CPP2010Redist64)">
-				<RemotePayload Description="Microsoft Visual C++ 2010 x64 Redistributable Setup" Hash="15D032D669078AA6F0F7FD1CBF4115A070BD034D"
+					Name="vcredist_x64.exe"
+					DownloadUrl="$(var.VC10RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="(CPP2010Redist32 AND CPP2010Redist32Security) OR (CPP2010Redist64 AND CPP2010Redist64Security)">
+				<RemotePayload Description="Microsoft Visual C++ 2010 x64 Redistributable Setup" Hash="8691972F0A5BF919701AC3B80FB693FC715420C2"
 					ProductName="Microsoft Visual C++ 2010 x64 Redistributable" Size="10274136" Version="10.0.40219.325" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
@@ -262,23 +270,23 @@
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
-                     Variable="CPP2011Redist64"
-                     Value="Installed"
-                     Result="value"
-					 Win64="yes"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
+					Variable="CPP2012Redist64"
+					Value="Installed"
+					Result="value"
+					Win64="yes"/>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
-                     Variable="CPP2011Redist32"
-                     Value="Installed"
-                     Result="value"
-					 Win64="no"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\11.0\VC\Runtimes\x64"
+					Variable="CPP2012Redist32"
+					Value="Installed"
+					Result="value"
+					Win64="no"/>
 		<PackageGroup Id="redist_vc11">
 			<ExePackage Id="vc11" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x64.exe"
-				  DownloadUrl="$(var.VC11RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="(CPP2011Redist32) OR (CPP2011Redist64)">
+					Name="vcredist_x64.exe"
+					DownloadUrl="$(var.VC11RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="(CPP2012Redist32) OR (CPP2012Redist64)">
 				<RemotePayload Description="Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030" Hash="1A5D93DDDBC431AB27B1DA711CD3370891542797"
 					ProductName="Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030" Size="7186992" Version="11.0.61030.0" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
@@ -287,76 +295,54 @@
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x86"
-                     Variable="CPP2012Redist64"
-                     Value="Installed"
-                     Result="value"
-					 Win64="yes"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\12.0\VC\Runtimes\x64"
+					Variable="CPP2013Redist64"
+					Value="Installed"
+					Result="value"
+					Win64="yes"/>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\13.0\VC\Runtimes\x86"
-                     Variable="CPP2012Redist32"
-                     Value="Installed"
-                     Result="value"
-					 Win64="no"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\12.0\VC\Runtimes\x64"
+					Variable="CPP2013Redist32"
+					Value="Installed"
+					Result="value"
+					Win64="no"/>
 		<PackageGroup Id="redist_vc12">
 			<ExePackage Id="vc12" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vcredist_x64.exe"
-				  DownloadUrl="$(var.VC12RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="(CPP2012Redist32) OR (CPP2012Redist64)">
-				<RemotePayload Description="Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.30501" Hash="8BF41BA9EEF02D30635A10433817DBB6886DA5A2"
-					ProductName="Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.30501" Size="7194312" Version="12.0.30501.0" />
-				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
-			</ExePackage>
-		</PackageGroup>
-	</Fragment>
-
-	<Fragment>
-		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
-                     Variable="CPP2015Redist64"
-                     Value="Installed"
-                     Result="value"
-					 Win64="yes"/>
-		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
-                     Variable="CPP2015Redist32"
-                     Value="Installed"
-                     Result="value"
-					 Win64="no"/>
-		<PackageGroup Id="redist_vc15">
-			<ExePackage Id="vc15" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vc_redist.x64.exe"
-				  DownloadUrl="$(var.VC15RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="(CPP2015Redist32) OR (CPP2015Redist64)">
-				<RemotePayload Description="Microsoft Visual C++ 2015 Redistributable (x64) - 14.0.23026" Hash="3155CB0F146B927FCC30647C1A904CD162548C8C"
-					ProductName="Microsoft Visual C++ 2015 Redistributable (x64) - 14.0.23026" Size="14572000" Version="14.0.23026.0" />
+					Name="vcredist_x64.exe"
+					DownloadUrl="$(var.VC12RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="(CPP2013Redist32) OR (CPP2013Redist64)">
+				<RemotePayload Description="Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40660" Hash="261C2E77D288A513A9EB7849CF5AFCA6167D4FA2"
+					ProductName="Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40660" Size="7201032" Version="12.0.40660.0" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
-                     Variable="CPP2017Redist64"
-                     Value="Installed"
-                     Result="value"
-					 Win64="yes"/>
+					Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X64"
+					Variable="CPP2017Redist64"
+					Value="Installed"
+					Result="value"
+					Win64="yes"/>
 		<util:RegistrySearch Root="HKLM"
-                     Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
-                     Variable="CPP2017Redist32"
-                     Value="Installed"
-                     Result="value"
-					 Win64="no"/>
-		<PackageGroup Id="redist_vc17">
+					Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X64"
+					Variable="CPP2017Redist32"
+					Value="Installed"
+					Result="value"
+					Win64="no"/>
+		<PackageGroup Id="redist_vc15to19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
-				  Name="vc_redist.x64.exe"
-				  DownloadUrl="$(var.VC17RedistWebLink)"
-                  InstallCommand="/quiet /norestart"
-				  DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)">
-				<RemotePayload Description="Microsoft Visual C++ 2017 Redistributable (x64) - 14.13.26020" Hash="5027E77B7EDEDA314287F9E2279C3927D92F6FF8"
-					ProductName="Microsoft Visual C++ 2017 Redistributable (x64) - 14.13.26020" Size="15301240" Version="14.13.26020.0" />
+					Name="vc_redist.x64.exe"
+					DownloadUrl="$(var.VC15to19RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)">
+				<RemotePayload
+					Size="14882064"
+					Version="14.28.29914.0"
+					ProductName="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
+					Description="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
+					Hash="10D155CEF0CA585D94B24BC4BE53C33DCBF91E7E" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
