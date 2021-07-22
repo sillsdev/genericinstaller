@@ -1,0 +1,12 @@
+*.cs	diff=csharp
+
+*.config -whitespace
+*.csproj -whitespace
+*.Designer.cs -whitespace
+*.designer.cs -whitespace
+*.ReSharper -whitespace
+*.resx -whitespace
+*.settings -whitespace
+*.xml -whitespace
+changelog -whitespace
+LICENSE -whitespace
