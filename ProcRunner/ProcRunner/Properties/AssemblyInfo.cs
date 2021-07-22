@@ -5,11 +5,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ProcRunner")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Allows an app to update itself by calling ProcRunner to install the update and restart the app." +
+								"\r\n  Usage: ProcRunner [repair_]<installer> <app>")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("SIL")]
 [assembly: AssemblyProduct("ProcRunner")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
+[assembly: AssemblyCopyright("Copyright (c) 2016-2021 SIL International")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("938f411e-1ece-4899-9868-9355b6e6bbb4")]
+[assembly: Guid("3572DF64-A6C5-4EED-9D63-478111D9A2CB")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -30,6 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.10.0")]
-[assembly: AssemblyFileVersion("1.2.10.0")]
+[assembly: AssemblyVersion("5.0.0.0")]
+[assembly: AssemblyFileVersion("5.0.0.0")]
