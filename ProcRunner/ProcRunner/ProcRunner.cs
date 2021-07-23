@@ -10,22 +10,17 @@ namespace ProcRunner
 	/// <remarks>
 	/// IMPORTANT TODO: Because ProcRunner is running when the installer is running, it cannot be updated. Instead, the new version must be installed
 	/// beside the old version. Each time ProcRunner is updated, you must:
+	///  * Update the version in ProcRunner.csproj, BaseInstallerBuild/Framework.wxs, and CreateUpdatePatch/AppNoUi.wxs
 	///  * Generate a new GUID in AssemblyInfo.cs
-	///  * Update the version in ProcRunner.csproj, AssemblyInfo.cs, BaseInstallerBuild/Framework.wxs, and CreateUpdatePatch/AppNoUi.wxs
 	/// </remarks>
 	public static class ProcRunner
 	{
-		//public static string UpdatePath { get; private set; }
-		//public static string callingApplication { get; set; }
-
-		/// <summary>
-		/// TODO: usage
-		/// </summary>
 		[STAThread]
 		public static int Main(string[] args)
 		{
-			if (args.Length < 2)
+			if (args.Length != 2)
 			{
+				Console.WriteLine("Usage: ProcRunner [repair_]path-to-installer path-to-app");
 				return 1;
 			}
 

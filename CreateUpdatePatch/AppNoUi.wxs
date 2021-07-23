@@ -84,7 +84,7 @@
 				</Component>
 			</Directory>
 			<Directory Id='$(var.CFDir)'>
-				<Directory Id='CompanyCommonFilesFolder' Name='$(var.Manufacturer)'>
+				<Directory Id='CompanyCommonFilesFolder' Name='$(var.SafeManufacturer)'>
 					<Component Id='ProcRunner' Guid='*' Permanent='yes' UninstallWhenSuperseded='yes' NeverOverwrite='no'>
 						<File Id='ProcRunnerFile' Name='ProcRunner_5.0.exe'
 							Source='../ProcRunner/ProcRunner/bin/$(sys.BUILDARCH)/Release/ProcRunner_5.0.exe' KeyPath='yes'/>
