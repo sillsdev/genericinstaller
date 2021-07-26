@@ -28,6 +28,8 @@ SHIFT
 
 SET Manufacturer=%1
 SHIFT
+SET SafeManufacturer=%1
+SHIFT
 SET Arch=%1
 if "%Arch%" == "" set Arch=x86
 
