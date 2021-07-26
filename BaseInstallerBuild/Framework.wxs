@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <?if $(sys.BUILDARCH) = x64?>
 <?define PFDir = ProgramFiles64Folder?>
+<?define CFDir = CommonFiles64Folder?>
 <?else?>
 <?define PFDir = ProgramFilesFolder?>
+<?define CFDir = CommonFilesFolder?>
 <?endif?>
 
 <!-- This file is used for creating a BASE product installation.
@@ -217,11 +219,16 @@
 				  </RegistryKey>
 				</Component>
 
-				<Component Id='AppIcon' Guid='*'>
-				  <File Id='AppIconFile' Name='App.ico' Source='..\resources\App.ico' KeyPath='yes'/>
-				</Component>
-
 				<Component Id='Vapor' Guid='3C4B8E68-6147-482F-B7ED-17C485024AEF' KeyPath='yes'/>
+			</Directory>
+			<Directory Id='$(var.CFDir)'>
+				<!-- TODO (Hasso) 2021.07: make a SafeManufacturer variable (SIL instead of SIL\ International) -->
+				<Directory Id='CompanyCommonFilesFolder' Name='$(var.SafeManufacturer)'>
+					<Component Id='ProcRunner' Guid='*' Permanent='yes' UninstallWhenSuperseded='yes' NeverOverwrite='no'>
+						<File Id='ProcRunnerFile' Name='ProcRunner_5.0.exe'
+							Source='../ProcRunner/ProcRunner/bin/Release/ProcRunner_5.0.exe' KeyPath='yes'/>
+					</Component>
+				</Directory>
 			</Directory>
 		</Directory>
 
@@ -256,7 +263,7 @@
 			<ComponentRef Id='RegKeyValues'/>
 			<ComponentRef Id='RegKeySettingsDir'/>
 			<ComponentRef Id='HarvestDataDir'/>
-			<ComponentRef Id='AppIcon'/>
+			<ComponentRef Id='ProcRunner'/>
 
 		<?include ../Common/CustomFeatures.wxi?>
 	</Feature>
