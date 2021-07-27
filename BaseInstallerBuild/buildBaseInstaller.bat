@@ -43,8 +43,8 @@ REM Ensure WiX tools are on the PATH
 where heat >nul 2>nul
 if not %errorlevel% == 0 set PATH=%WIX%/bin;%PATH%
 
-rem TODO (Hasso) 2021.07: figure out how to do this without breaking the build:
-rem if  "%msbuild%" == "" ( set msbuild=msbuild )
+REM single quotes, since we expect %msbuild% is already double giquoted
+if  '%msbuild%' == '' set msbuild=msbuild
 
 (
 	@echo on
