@@ -226,7 +226,7 @@
 				<Directory Id='CompanyCommonFilesFolder' Name='$(var.SafeManufacturer)'>
 					<Component Id='ProcRunner' Guid='*' Permanent='yes' UninstallWhenSuperseded='yes' NeverOverwrite='no'>
 						<File Id='ProcRunnerFile' Name='ProcRunner_5.0.exe'
-							Source='../ProcRunner/ProcRunner/bin/Release/ProcRunner_5.0.exe' KeyPath='yes'/>
+							Source='../ProcRunner/ProcRunner/bin/Release/net48/ProcRunner_5.0.exe' KeyPath='yes'/>
 					</Component>
 				</Directory>
 			</Directory>
