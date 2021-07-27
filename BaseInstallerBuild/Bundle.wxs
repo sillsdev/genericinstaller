@@ -86,7 +86,7 @@
 	<?define VC10RedistWebLink = https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe ?>
 	<?define VC11RedistWebLink = https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe ?>
 	<?define VC12RedistWebLink = https://download.microsoft.com/download/0/5/6/056dcda9-d667-4e27-8001-8a0c6971d6b1/vcredist_x86.exe ?>
-	<?define VC15to19RedistWebLink = https://aka.ms/vs/16/release/vc_redist.x86.exe ?>
+	<?define VC15to19RedistWebLink = https://download.visualstudio.microsoft.com/download/pr/888b4c07-c602-499a-9efb-411188496ce7/F3A86393234099BEDD558FD35AB538A6E4D9D4F99AD5ADFA13F603D4FF8A42DC/VC_redist.x86.exe ?>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
 					Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{9BE518E6-ECC6-35A9-88E4-87755C07200F}"
@@ -189,11 +189,11 @@
 					InstallCommand="/quiet /norestart"
 					DetectCondition="CPP2017Redist">
 				<RemotePayload
-					Size="14327344"
-					Version="14.28.29914.0"
+					Size="13782072"
+					Version="14.29.30040.0"
 					ProductName="Microsoft Visual C++ 2015-2019 Redistributable (x86) - 14.28.29914"
 					Description="Microsoft Visual C++ 2015-2019 Redistributable (x86) - 14.28.29914"
-					Hash="5B8637ACC24F11E9BF83C77AACC8D529EA62D173" />
+					Hash="FBE4B370A346BBA08690EAF7C4EB4AFF20C94181" />
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
@@ -205,7 +205,7 @@
 	<?define VC10RedistWebLink = https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe ?>
 	<?define VC11RedistWebLink = https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe ?>
 	<?define VC12RedistWebLink = https://download.microsoft.com/download/0/5/6/056DCDA9-D667-4E27-8001-8A0C6971D6B1/vcredist_x64.exe ?>
-	<?define VC15to19RedistWebLink = https://aka.ms/vs/16/release/vc_redist.x64.exe ?>
+	<?define VC15to19RedistWebLink = https://download.visualstudio.microsoft.com/download/pr/36e45907-8554-4390-ba70-9f6306924167/97CC5066EB3C7246CF89B735AE0F5A5304A7EE33DC087D65D9DFF3A1A73FE803/VC_redist.x64.exe ?>
 	<Fragment>
 		<util:RegistrySearch Root="HKLM"
 					Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\{5FCE6D76-F5DC-37AB-B2B8-22AB8CEDB1D4}"
@@ -332,11 +332,11 @@
 					InstallCommand="/quiet /norestart"
 					DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)">
 				<RemotePayload 
-					Size="14882064"
-					Version="14.28.29914.0"
+					Size="25169400"
+					Version="14.29.30040.0"
 					ProductName="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
 					Description="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
-					Hash="10D155CEF0CA585D94B24BC4BE53C33DCBF91E7E" />
+					Hash="9ADE54D322BE27BFF05D5AFEC8ED44F9B2D9306E" />
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
