@@ -19,4 +19,7 @@
 	<!--DirectoryRef Id='APPFOLDER'>
 		<Merge Id="ChorusMergeModule" Language="1033" SourceFile="..\..\..\lib\Release\ChorusMergeModule.msm" DiskId="1"/>
 	</DirectoryRef-->
+	<!-- Add a custom action
+		<CustomAction Id='LaunchFile' FileKey='FoobarEXE' ExeCommand='' Return='asyncNoWait' />
+	-->
 </Include>

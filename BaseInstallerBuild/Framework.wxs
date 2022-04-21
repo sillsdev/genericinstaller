@@ -127,6 +127,7 @@
 		<Custom Action='NoDowngrade' After='FindRelatedProducts'>NEWERFOUND</Custom>
 		<Custom Action="CheckPatchValue" Before="CheckUpgradeValue">PATCHNEWSUMMARYSUBJECT="Small Update Patch"</Custom>
 		<Custom Action="CheckUpgradeValue" After="InstallFinalize">PREVIOUSFOUND</Custom>
+		<?include ../Common/CustomActionSteps.wxi?>
 	</InstallExecuteSequence>
 
 	<InstallUISequence>
