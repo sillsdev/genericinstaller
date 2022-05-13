@@ -196,6 +196,20 @@
 					Hash="FBE4B370A346BBA08690EAF7C4EB4AFF20C94181" />
 			</ExePackage>
 		</PackageGroup>
+		<PackageGroup Id="redist_vc15to19">
+			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+					Name="vcredist_x86.exe"
+					DownloadUrl="$(var.VC15to19RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="CPP2017Redist"> <!-- TODO (Hasso) 2022.05: check for 2022 redist -->
+				<RemotePayload Size="13733552" Version="14.32.31326.0"
+					ProductName="Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.32.31326"
+					Description="Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.32.31326"
+					CertificatePublicKey="236F73B837007769A26657E02FEB5869EB09D01A"
+					CertificateThumbprint="C9CAEDC2CECF953E812C6446D41927B9864BB880"
+					Hash="AE587BE1C1AD6D58FBE73D43CE1EA0771D774BA7"/>
+			</ExePackage>
+		</PackageGroup>
 	</Fragment>
 	<?elseif $(sys.BUILDARCH)="x64"?>
 	<!-- 64bit  VC++ redistributable download section -->
@@ -307,6 +321,21 @@
 					ProductName="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
 					Description="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
 					Hash="9ADE54D322BE27BFF05D5AFEC8ED44F9B2D9306E" />
+				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
+			</ExePackage>
+		</PackageGroup>
+		<PackageGroup Id="redist_vc15to22">
+			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+					Name="vc_redist.x64.exe"
+					DownloadUrl="$(var.VC15to19RedistWebLink)"
+					InstallCommand="/quiet /norestart"
+					DetectCondition="CPP2017Redist64"> <!-- TODO (Hasso) 2022.05: check for 2022 redist -->
+			<RemotePayload Size="25337776" Version="14.32.31326.0"
+				CertificatePublicKey="236F73B837007769A26657E02FEB5869EB09D01A"
+				CertificateThumbprint="C9CAEDC2CECF953E812C6446D41927B9864BB880"
+				ProductName="Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.32.31326"
+				Description="Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.32.31326"
+				Hash="47996AAB6A20DBBA69969C4B36F8FC718877751F"/>
 				<ExitCode Value="1638" Behavior="success"/> <!-- Don't fail if newer version is installed -->
 			</ExePackage>
 		</PackageGroup>
