@@ -327,12 +327,15 @@
 					Value="Installed"
 					Result="value"
 					Win64="no"/>
+		<!-- On a few machines, this redist was detected even though it wasn't installed. Extensive research and testing was unable to find out what
+			causes this (https://jira.sil.org/browse/LT-21006). For now, we'll consider it installed only if we find the key in the x64 registry
+			space, but we'll query for both keys in case we can get an install log from a computer with this problem. -->
 		<PackageGroup Id="redist_vc15to19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 					Name="vc_redist.x64.exe"
 					DownloadUrl="$(var.VC15to19RedistWebLink)"
 					InstallCommand="/quiet /norestart"
-					DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)">
+					DetectCondition="CPP2017Redist64">
 				<RemotePayload 
 					Size="25169400"
 					Version="14.29.30040.0"
