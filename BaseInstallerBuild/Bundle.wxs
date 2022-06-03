@@ -177,17 +177,14 @@
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
-		<util:RegistrySearch Root="HKLM"
-					Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X86"
-					Variable="CPP2017Redist"
-					Value="Installed"
-					Result="value"/>
+		<!-- We haven't figured out how to figure out which version of this redistributable is installed (2015, 2017, and 2015-19 are all
+		"version 14.0" in the registry). We wouldn't want the presence of the 2017 redist to prevent installing 2015-2019, so we attempt to install
+		all the time to avoid problems (https://jira.sil.org/browse/LT-21006) -->
 		<PackageGroup Id="redist_vc15to19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 					Name="vcredist_x86.exe"
 					DownloadUrl="$(var.VC15to19RedistWebLink)"
-					InstallCommand="/quiet /norestart"
-					DetectCondition="CPP2017Redist">
+					InstallCommand="/quiet /norestart">
 				<RemotePayload
 					Size="13782072"
 					Version="14.29.30040.0"
@@ -315,21 +312,9 @@
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
-		<util:RegistrySearch Root="HKLM"
-					Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X64"
-					Variable="CPP2017Redist64"
-					Value="Installed"
-					Result="value"
-					Win64="yes"/>
-		<util:RegistrySearch Root="HKLM"
-					Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X64"
-					Variable="CPP2017Redist32"
-					Value="Installed"
-					Result="value"
-					Win64="no"/>
-		<!-- On a few machines, this redist was detected even though it wasn't installed. Extensive research and testing was unable to find out what
-			causes this (https://jira.sil.org/browse/LT-21006). For now, we'll consider it installed only if we find the key in the x64 registry
-			space, but we'll query for both keys in case we can get an install log from a computer with this problem. -->
+		<!-- We haven't figured out how to figure out which version of this redistributable is installed (2015, 2017, and 2015-19 are all
+		"version 14.0" in the registry). We wouldn't want the presence of the 2017 redist to prevent installing 2015-2019, so we attempt to install
+		all the time to avoid problems (https://jira.sil.org/browse/LT-21006) -->
 		<PackageGroup Id="redist_vc15to19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 					Name="vc_redist.x64.exe"

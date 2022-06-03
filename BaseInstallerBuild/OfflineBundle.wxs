@@ -142,8 +142,9 @@
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
-		<!-- On a few machines, this redist was detected even though it wasn't installed. Extensive research and testing was unable to find out what
-			causes this, so we attempt to install all the time (in the offline installer) to avoid problems (https://jira.sil.org/browse/LT-21006) -->
+		<!-- We haven't figured out how to figure out which version of this redistributable is installed (2015, 2017, and 2015-19 are all
+		"version 14.0" in the registry). We wouldn't want the presence of the 2017 redist to prevent installing 2015-2019, so we attempt to install
+		all the time to avoid problems (https://jira.sil.org/browse/LT-21006) -->
 		<PackageGroup Id="redist_vc15to19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
 				Name="vcredist_x86.exe"
@@ -251,8 +252,9 @@
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
-		<!-- On a few machines, this redist was detected even though it wasn't installed. Extensive research and testing was unable to find out what
-			causes this, so we attempt to install all the time (in the offline installer) to avoid problems (https://jira.sil.org/browse/LT-21006) -->
+		<!-- We haven't figured out how to figure out which version of this redistributable is installed (2015, 2017, and 2015-19 are all
+		"version 14.0" in the registry). We wouldn't want the presence of the 2017 redist to prevent installing 2015-2019, so we attempt to install
+		all the time to avoid problems (https://jira.sil.org/browse/LT-21006) -->
 		<PackageGroup Id="redist_vc15to19">
 			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="yes" Permanent="yes"
 				SourceFile="..\libs\vcredist_2015-19_x64.exe"
