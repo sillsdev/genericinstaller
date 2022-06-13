@@ -177,17 +177,20 @@
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
+		<!-- Visual C++ runtimes 2015, 2015, and 2015-19 are all "version 14" in the registry, so we need to check subversion numbers.
+			The Bld number has increased monotonically through version 2015-22, so it is safe to check only that number before installing this version. -->
 		<util:RegistrySearch Root="HKLM"
 					Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X86"
-					Variable="CPP2017Redist"
-					Value="Installed"
+					Variable="CPP14RedistBld"
+					Value="Bld"
 					Result="value"/>
+		<WixVariable Id="CPP14DetectCondition" Overridable="yes" Value="CPP14RedistBld &gt;= 30040" />
 		<PackageGroup Id="redist_vc15to19">
-			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+			<ExePackage Id="vc14" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 					Name="vcredist_x86.exe"
 					DownloadUrl="$(var.VC15to19RedistWebLink)"
 					InstallCommand="/quiet /norestart"
-					DetectCondition="CPP2017Redist">
+					DetectCondition="!(wix.CPP14DetectCondition)">
 				<RemotePayload
 					Size="13782072"
 					Version="14.29.30040.0"
@@ -315,24 +318,22 @@
 		</PackageGroup>
 	</Fragment>
 	<Fragment>
+		<!-- Visual Studio 14, unlike previous versions, registers itself in the 64-bit space in addition to WOW6432Node. -->
+		<!-- Visual C++ runtimes 2015, 2015, and 2015-19 are all "version 14" in the registry, so we need to check subversion numbers.
+			The Bld number has increased monotonically through version 2015-22, so it is safe to check only that number before installing this version. -->
 		<util:RegistrySearch Root="HKLM"
 					Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X64"
-					Variable="CPP2017Redist64"
-					Value="Installed"
+					Variable="CPP14RedistBld"
+					Value="Bld"
 					Result="value"
 					Win64="yes"/>
-		<util:RegistrySearch Root="HKLM"
-					Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X64"
-					Variable="CPP2017Redist32"
-					Value="Installed"
-					Result="value"
-					Win64="no"/>
+		<WixVariable Id="CPP14DetectCondition" Overridable="yes" Value="CPP14RedistBld &gt;= 30040" />
 		<PackageGroup Id="redist_vc15to19">
-			<ExePackage Id="vc17" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
+			<ExePackage Id="vc14" Cache="no" PerMachine="yes" Vital="yes" Compressed="no" Permanent="yes"
 					Name="vc_redist.x64.exe"
 					DownloadUrl="$(var.VC15to19RedistWebLink)"
 					InstallCommand="/quiet /norestart"
-					DetectCondition="(CPP2017Redist32) OR (CPP2017Redist64)">
+					DetectCondition="!(wix.CPP14DetectCondition)">
 				<RemotePayload 
 					Size="25169400"
 					Version="14.29.30040.0"

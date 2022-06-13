@@ -7,10 +7,6 @@
 <?define CFDir = CommonFilesFolder?>
 <?endif?>
 
-<!-- This file is used for creating a BASE product installation.
-	 In other words this is for Paratext 8.0 only.
-	 Every other Paratext 8.X.Y.Z will be a Major Upgrade, Minor Upgrade, or Small Update of this installation.
--->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
 		xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
