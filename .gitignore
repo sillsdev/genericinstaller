@@ -1,6 +1,11 @@
 *.dll
 *.exe
 *.msi
+*.wixobj
 bin/
+Common/Master/
+Common/Update/
+CreateUpdatePatch/Master/
+CreateUpdatePatch/Update/
 obj/
 .vs/
