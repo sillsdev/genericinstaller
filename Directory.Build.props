@@ -1,0 +1,16 @@
+<Project>
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<TargetFrameworks>$(TargetFramework)</TargetFrameworks>
+		<Company>SIL International</Company>
+		<Authors>SIL International</Authors>
+		<Copyright>Copyright © 2016-2023 SIL International</Copyright>
+		<OutputPath>bin/$(Configuration)</OutputPath>
+		<TargetDir>$(OutputPath)</TargetDir>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<LangVersion>8</LangVersion>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+	</PropertyGroup>
+</Project>
