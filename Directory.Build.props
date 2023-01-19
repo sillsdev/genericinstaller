@@ -7,7 +7,7 @@
 		<Copyright>Copyright © 2016-2023 SIL International</Copyright>
 		<OutputPath>bin/$(Configuration)</OutputPath>
 		<TargetDir>$(OutputPath)</TargetDir>
-		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
