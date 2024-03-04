@@ -2,6 +2,8 @@
 @REM Usage (requires %CERTPATH% and %CERTPASS% to be set ahead of time, if needed):
 @REM   signingProxy.bat FileToSign
 
+if "%UNSIGNEDISOK%" == "" set UNSIGNEDISOK=1
+
 where sign >nul 2>nul
 if %errorlevel%==0 (
 	sign %*
@@ -13,5 +15,6 @@ if %errorlevel%==0 (
 	)
 	if not %errorlevel%==0 (
 		echo Unable to sign %1; skipping.
+		exit /b %UNSIGNEDISOK%
 	)
 )
