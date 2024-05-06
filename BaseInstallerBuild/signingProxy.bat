@@ -7,7 +7,7 @@ setlocal
 @REM Check if the FILESTOSIGNLATER environment variable is set
 if not "%FILESTOSIGNLATER%"=="" (
 	@REM Append the file name to 
-	echo %~1 >> "%FILESTOSIGNLATER%
+	echo %~1 >> %FILESTOSIGNLATER%
 ) else (
     @REM Check if the "sign" command is available
     where sign >nul 2>nul

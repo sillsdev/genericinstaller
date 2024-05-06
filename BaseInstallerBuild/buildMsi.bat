@@ -17,5 +17,5 @@ call setVars.bat %*
 ) && (
 	light.exe Framework.wixobj AppHarvest.wixobj DataHarvest.wixobj WixUI_DialogFlow.wixobj GIInstallDirDlg.wixobj GIProgressDlg.wixobj GIWelcomeDlg.wixobj GICustomizeDlg.wixobj GISetupTypeDlg.wixobj -ext WixFirewallExtension -ext WixUIExtension -ext WixUtilExtension -cultures:en-us -loc WixUI_en-us.wxl %SuppressICE% -sw1076 -out %SafeAppName%_%Version%.msi
 ) && (
-	call signingProxy %SafeAppName%_%Version%.msi
+	call signingProxy %CD%\%SafeAppName%_%Version%.msi
 )
