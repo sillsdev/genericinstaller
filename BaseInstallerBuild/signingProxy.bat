@@ -29,5 +29,5 @@ if "%FILESTOSIGNLATER%"=="" (
 ) else (
     @REM Append the file name to FILESTOSIGNLATER
     echo %~1 >> "%FILESTOSIGNLATER%"
-    exit /b 1
+    exit /b 0
 )
