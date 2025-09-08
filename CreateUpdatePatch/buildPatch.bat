@@ -48,7 +48,7 @@ if errorlevel 1 (
 	set SuppressICE=-ice:ICE08
 ) else (
 	REM ICE18 and ICE38 are being thrown for two components that don't change, so they can be ignored.
-	set SuppressICE=-sice:ICE18 -sice:ICE38
+	set SuppressICE=-sice:ICE18 -sice:ICE38 %SuppressICE%
 )
 
 REM Ensure WiX tools are on the PATH
