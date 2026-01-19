@@ -39,9 +39,13 @@ REM For some reason, ICE08 works without admin, and the quickest way to suppress
 C:\Windows\System32\whoami /groups | find "BUILTIN\Administrators" > nul 2> nul
 if errorlevel 1 set SuppressICE=-ice:ICE08
 
+REM Default WIX if not already set
+if "%WIX%"=="" if exist "%LOCALAPPDATA%\FieldWorksTools\Wix314\heat.exe" set WIX=%LOCALAPPDATA%\FieldWorksTools\Wix314
+
 REM Ensure WiX tools are on the PATH
 where heat >nul 2>nul
-if not %errorlevel% == 0 set PATH=%WIX%/bin;%PATH%
+if not %errorlevel% == 0 if exist "%WIX%\bin\heat.exe" set PATH=%WIX%\bin;%PATH%
+if not %errorlevel% == 0 if not exist "%WIX%\bin\heat.exe" set PATH=%WIX%;%PATH%
 
 REM single quotes, since we expect %msbuild% is already double giquoted
 if  '%msbuild%' == '' set msbuild=msbuild

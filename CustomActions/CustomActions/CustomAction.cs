@@ -26,7 +26,7 @@ namespace CustomActions
             //return failure if the app path is the program files directory
             string progFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             string progFiles86Dir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
-            
+
             //On 32bit XP machines ProgramFilesX86 will return an empty string.
             if (String.IsNullOrEmpty(progFiles86Dir))
                 progFiles86Dir = progFilesDir;
@@ -86,6 +86,13 @@ namespace CustomActions
             session.Log("Begin VerifyDataPath in custom action dll");
             string registryKey = session["REGISTRYDATAKEY"];
             string valueName = session["REGISTRYDATAVALUENAME"];
+            if (string.IsNullOrWhiteSpace(registryKey) || string.IsNullOrWhiteSpace(valueName))
+            {
+                session.Log("VerifyDataPath: REGISTRYDATAKEY or REGISTRYDATAVALUENAME is missing.");
+                session["REGDATAFOLDER"] = null;
+                session["DATAFOLDERFOUND"] = "NotFound";
+                return ActionResult.Success;
+            }
             string regDataPath = GetDataDirFromRegistry(registryKey, valueName, session);
             if (string.IsNullOrEmpty(regDataPath))
             {
@@ -95,7 +102,7 @@ namespace CustomActions
             }
 
             session["REGDATAFOLDER"] = regDataPath;
-             
+
             if (Directory.Exists(regDataPath) && Directory.GetFiles(regDataPath).Length > 0)
                 session["DATAFOLDERFOUND"] = "AlreadyExisting";
             else
@@ -213,6 +220,9 @@ namespace CustomActions
 
         private static string GetDataDirFromRegistry(string path, string valueName, Session session)
         {
+            if (string.IsNullOrWhiteSpace(path) || string.IsNullOrWhiteSpace(valueName))
+                return null;
+
             string dataPathKey = "HKEY_LOCAL_MACHINE\\SOFTWARE\\" + path;
             string dataPathKeyWow = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Wow6432Node\\" + path;
 
@@ -220,9 +230,17 @@ namespace CustomActions
             try
             {
                 if (RegistryU.KeyExists(dataPathKey))
-                    projPath = RegistryU.GetKey("HKLM", "SOFTWARE\\" + path).GetValue(valueName).ToString();
+                {
+                    var value = RegistryU.GetKey("HKLM", "SOFTWARE\\" + path)?.GetValue(valueName);
+                    if (value != null)
+                        projPath = value.ToString();
+                }
                 if (RegistryU.KeyExists(dataPathKeyWow))
-                    projPath = RegistryU.GetKey("HKLM", "SOFTWARE\\Wow6432Node\\" + path).GetValue(valueName).ToString();
+                {
+                    var value = RegistryU.GetKey("HKLM", "SOFTWARE\\Wow6432Node\\" + path)?.GetValue(valueName);
+                    if (value != null)
+                        projPath = value.ToString();
+                }
             }
             catch (Exception ex)
             {
