@@ -22,8 +22,8 @@
 		<WixVariable Id="WixStdbaThemeXml" Value="BundleTheme.xml" />
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
-			<PackageGroupRef Id="NetFx48Redist" />
-			<PackageGroupRef Id="vcredists" />
+			<PackageGroupRef Id="FwNetFx48Redist" />
+			<PackageGroupRef Id="prerequisites" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
 		</Chain>
@@ -50,8 +50,8 @@
 		  Value="(Netfx4FullRelease &gt;= $(var.NetFx48MinRelease)) AND (NOT VersionNT64 OR (Netfx4x64FullRelease &gt;= $(var.NetFx48MinRelease)))" />
 		<WixVariable Id="NetFx48RedistInstallCondition" Value="" Overridable="yes" />
 
-		<PackageGroup Id="NetFx48Redist">
-		  <ExePackage Id="NetFx48Redist"
+		<PackageGroup Id="FwNetFx48Redist">
+		  <ExePackage Id="FwNetFx48Redist"
 			  InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
 			  RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
 			  UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
@@ -72,7 +72,7 @@
 		  </ExePackage>
 		</PackageGroup>
 	</Fragment>
-	<?if $(sys.BUILDARCH)="x86"?>
+	<?if $(var.BuildArch)="x86"?>
 	<Fragment>
 	<Property Id="CRVSINSTALLED">
 	</Property>
@@ -160,7 +160,7 @@
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
-	<?elseif $(sys.BUILDARCH)="x64"?>
+	<?elseif $(var.BuildArch)="x64"?>
 	<!-- Some 64-bit runtimes register themselves in the 32-bit space.
 		Check for Runtimes\X64 or similar under each space; if either exists, the 64-bit redistributable is installed. -->
 	<Fragment>
@@ -278,7 +278,7 @@
 		</PackageGroup>
 	</Fragment>
 	<?else?>
-		<?error Unsupported value of sys.BUILDARCH=$(sys.BUILDARCH)?>
+		<?error Unsupported value of BuildArch=$(var.BuildArch)?>
 	<?endif?>
 	<?include ../Common/Redistributables.wxi?>
 </Wix>

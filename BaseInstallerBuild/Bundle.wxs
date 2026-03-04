@@ -22,8 +22,8 @@
 		<WixVariable Id="WixStdbaThemeXml" Value="BundleTheme.xml" />
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
-			<PackageGroupRef Id="NetFx48Web" />
-			<PackageGroupRef Id="vcredists" />
+			<PackageGroupRef Id="FwNetFx48Web" />
+			<PackageGroupRef Id="prerequisites" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
 		</Chain>
@@ -53,8 +53,8 @@
 		<WixVariable Id="NetFx48WebInstallCondition" Value="" Overridable="yes" />
 		<WixVariable Id="NetFx48WebPackageDirectory" Value="redist\" Overridable="yes" />
 
-		<PackageGroup Id="NetFx48Web">
-		  <ExePackage Id="NetFx48Web"
+		<PackageGroup Id="FwNetFx48Web">
+		  <ExePackage Id="FwNetFx48Web"
 			  InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
 			  RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
 			  UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx48FullLog].html&quot;"
@@ -78,7 +78,7 @@
 		</PackageGroup>
 	</Fragment>
 
-	<?if $(sys.BUILDARCH)="x86"?>
+	<?if $(var.BuildArch)="x86"?>
 	<!-- 32bit VC++ redistributable download section -->
 	<!-- When updating or adding a redistributable you can generate the RemotePayload with the WIX's heat tool -->
 	<!-- e.g. "%WIX%\bin\heat" payload C:\fwroot\fw\PatchableInstaller\libs\vcredist_2008_x64.exe -o c:\Repositories\fw\PatchableInstaller\VC2008Frag.wxs -->
@@ -200,7 +200,7 @@
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
-	<?elseif $(sys.BUILDARCH)="x64"?>
+	<?elseif $(var.BuildArch)="x64"?>
 	<!-- 64bit  VC++ redistributable download section -->
 	<!-- When updating or adding a redistributable you can generate the RemotePayload with the WIX's heat tool -->
 	<!-- e.g. "%WIX%\bin\heat" payload C:\fwroot\fw\PatchableInstaller\libs\vcredist_2008_x64.exe -o c:\Repositories\fw\PatchableInstaller\VC2008Frag.wxs -->
@@ -334,7 +334,7 @@
 					DownloadUrl="$(var.VC15to19RedistWebLink)"
 					InstallCommand="/quiet /norestart"
 					DetectCondition="!(wix.CPP14DetectCondition)">
-				<RemotePayload 
+				<RemotePayload
 					Size="25169400"
 					Version="14.29.30040.0"
 					ProductName="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
@@ -345,7 +345,7 @@
 		</PackageGroup>
 	</Fragment>
 	<?else?>
-		<?error Unsupported value of sys.BUILDARCH=$(sys.BUILDARCH)?>
+		<?error Unsupported value of BuildArch=$(var.BuildArch)?>
 	<?endif?>
 	<?include ../Common/Redistributables.wxi?>
 </Wix>

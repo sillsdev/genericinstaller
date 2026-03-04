@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?if $(sys.BUILDARCH) = x64?>
+<?if $(var.BuildArch) = x64?>
 <?define PFDir = ProgramFiles64Folder?>
 <?define CFDir = CommonFiles64Folder?>
 <?else?>
@@ -68,6 +68,8 @@
 
 	<CustomAction Id="CloseApplications"
 		Return="check"
+		Execute="immediate"
+		Impersonate="yes"
 		BinaryKey="MyCustomActionsDll"
 		DllEntry="ClosePrompt"  />
 	<!-- The following two properties can be comma separted lists, but they must have the same number of items. -->
@@ -101,6 +103,8 @@
 	<SetProperty Id='APPFOLDERREGSZNAME' Value='Program_Files_Directory_$(var.SafeApplicationName)'  Before="AppSearch">not APPFOLDERREGSZNAME</SetProperty>
 	<SetProperty Id='DATAFOLDERREGSZNAME' Value='Settings_Directory'  Before="AppSearch">not DATAFOLDERREGSZNAME</SetProperty>
 	<SetProperty Id='HARVESTDATAFOLDERREGSZNAME' Value='Data_Directory'  Before="AppSearch">not HARVESTDATAFOLDERREGSZNAME</SetProperty>
+	<SetProperty Id='REGISTRYDATAKEY' Value='[REGISTRYKEY]' Before="AppSearch">not REGISTRYDATAKEY</SetProperty>
+	<SetProperty Id='REGISTRYDATAVALUENAME' Value='[DATAFOLDERREGSZNAME]' Before="AppSearch">not REGISTRYDATAVALUENAME</SetProperty>
 	<CustomAction Id='UseDefDataFolder' Property='DATAFOLDER' Value='[DEFDATAFOLDER]' />
 	<CustomAction Id='UseOvrDataFolder' Property='DATAFOLDER' Value='[OVRDATAFOLDER]' /> <!-- from Overrides.wxi -->
 	<CustomAction Id='UseRegDataFolder' Property='DATAFOLDER' Value='[REGDATAFOLDER]' />
@@ -115,7 +119,6 @@
 	<CustomAction Id='CheckPatchValue' Property='ISPATCH' Value='True' />
 
 	<InstallExecuteSequence>
-		<Custom Action="CloseApplications" Before="AppSearch"></Custom>
 		<!--<Custom Action="SetFontValues" After="AppSearch"></Custom>-->
 		<Custom Action="DeleteRegistryVersionNumber" Before="RemoveRegistryValues">(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
 		<RemoveExistingProducts Before="InstallInitialize" />
@@ -127,8 +130,9 @@
 	</InstallExecuteSequence>
 
 	<InstallUISequence>
+		<Custom Action="CloseApplications" Before="AppSearch">UILevel &gt;= 3</Custom>
 		<Custom Action="SetDefDataFolder" After="FindRelatedProducts"></Custom>
-		<Custom Action="VerifyDataPath" After="SetDefDataFolder"></Custom>
+		<Custom Action="VerifyDataPath" After="AppSearch"></Custom>
 		<Custom Action="UseDefAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
 		<Custom Action="UseOvrAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
 		<Custom Action="UseRegAppFolder" After="AppSearch">REGAPPFOLDER</Custom>
