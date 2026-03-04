@@ -4,7 +4,7 @@
 	<ComponentGroupRef Id="FwEnvironmentVars" />
 	<ComponentGroupRef Id="HarvestedDataFiles" />
 	<ComponentGroupRef Id="Fonts" />
-	<ComponentGroupRef Id="Miscelanea"/>
+	<ComponentGroupRef Id="Miscellanea"/>
 	<MergeRef Id="CC_DLL"/>
 	<MergeRef Id="EncConverters_Common"/>
 	<MergeRef Id="PerlEC"/>
