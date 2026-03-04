@@ -193,7 +193,7 @@
 	</DirectoryRef>
 
 
-	<ComponentGroup Id="Miscelanea">
+	<ComponentGroup Id="Miscellanea">
 		<ComponentRef Id="vs_piaredist.exe"/>
 		<ComponentRef Id="RegisterICUFolder"/>
 		<?if $(sys.BUILDARCH) = x64 ?>
