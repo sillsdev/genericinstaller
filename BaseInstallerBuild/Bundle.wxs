@@ -23,7 +23,7 @@
 		<WixVariable Id="WixStdbaThemeWxl" Value="BundleTheme.wxl" />
 		<Chain>
 			<PackageGroupRef Id="FwNetFx48Web" />
-			<PackageGroupRef Id="vcredists" />
+			<PackageGroupRef Id="prerequisites" />
 			<RollbackBoundary />
 			<PackageGroupRef Id='AppPackageGroup'/>
 		</Chain>

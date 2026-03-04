@@ -32,7 +32,11 @@ SHIFT
 SET SafeManufacturer=%1
 SHIFT
 SET Arch=%1
-if "%Arch%" == "" set Arch=x86
+if "%Arch%" == "" set Arch=x64
+if /I not "%Arch%"=="x64" (
+	echo ERROR: Unsupported architecture "%Arch%". FieldWorks installer builds are x64-only.
+	exit /b 1
+)
 
 REM ICE validation must be run with admin privileges. The jenkins user is not an admin. Suppress ICE validation so it doesn't fail.
 REM For some reason, ICE08 works without admin, and the quickest way to suppress everything else on the command line is to specify one ICE to run.
@@ -44,8 +48,13 @@ if "%WIX%"=="" if exist "%LOCALAPPDATA%\FieldWorksTools\Wix314\heat.exe" set WIX
 
 REM Ensure WiX tools are on the PATH
 where heat >nul 2>nul
-if not %errorlevel% == 0 if exist "%WIX%\bin\heat.exe" set PATH=%WIX%\bin;%PATH%
-if not %errorlevel% == 0 if not exist "%WIX%\bin\heat.exe" set PATH=%WIX%;%PATH%
+if %errorlevel% == 0 goto :WixPathReady
+if exist "%WIX%\bin\heat.exe" (
+	set PATH=%WIX%\bin;%PATH%
+) else (
+	if exist "%WIX%\heat.exe" set PATH=%WIX%;%PATH%
+)
+:WixPathReady
 
 REM single quotes, since we expect %msbuild% is already double giquoted
 if  '%msbuild%' == '' set msbuild=msbuild

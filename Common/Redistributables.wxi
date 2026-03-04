@@ -19,7 +19,7 @@
 	</Fragment>
 
 	<Fragment>
-		<PackageGroup Id="vcredists">
+		<PackageGroup Id="prerequisites">
 			<PackageGroupRef Id="redist_vc8" />
 			<PackageGroupRef Id="redist_vc10" />
 			<PackageGroupRef Id="redist_vc11" />

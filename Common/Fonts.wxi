@@ -38,18 +38,6 @@
 		<RegistrySearch Id="DoulosInstalled" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
 						Name="Doulos SIL (TrueType)" Type="raw"/>
 	</Property>
-	<Property Id="DOULOSBOLDINSTALLED">
-		<RegistrySearch Id="DoulosBoldInstalled" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
-						Name="Doulos SIL Bold (TrueType)" Type="raw"/>
-	</Property>
-	<Property Id="DOULOSITALICINSTALLED">
-		<RegistrySearch Id="DoulosItalicInstalled" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
-						Name="Doulos SIL Italic (TrueType)" Type="raw"/>
-	</Property>
-	<Property Id="DOULOSBOLDITALICINSTALLED">
-		<RegistrySearch Id="DoulosBoldItalicInstalled" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
-						Name="Doulos SIL Bold Italic (TrueType)" Type="raw"/>
-	</Property>
 
 	<Property Id="GENTIUMPLUSINSTALLED">
 		<RegistrySearch Id="GentiumPlusInstalled" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
@@ -97,7 +85,7 @@
 			<File Id="Charis" TrueType="yes" Source="!(wix.FONTDIR)\CharisSIL-Regular.ttf"/>
 		</Component>
 		<Component Id="DoulosFont" Guid="">
-			<Condition>NOT (DOULOSINSTALLED or DOULOSBOLDINSTALLED or DOULOSITALICINSTALLED or DOULOSBOLDITALICINSTALLED)</Condition>
+			<Condition>NOT DOULOSINSTALLED</Condition>
 			<File Id="Doulos" TrueType="yes" Source="!(wix.FONTDIR)\DoulosSIL-Regular.ttf"/>
 		</Component>
 		<Component Id="GentiumPlusFont" Guid="">
