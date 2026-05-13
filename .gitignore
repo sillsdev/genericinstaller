@@ -9,3 +9,6 @@ CreateUpdatePatch/Master/
 CreateUpdatePatch/Update/
 obj/
 .vs/
+
+# Generated from heat-exclude.xml.template by buildMsi.bat, or overwritten by product builds (e.g. FieldWorks).
+BaseInstallerBuild/heat-exclude.xml

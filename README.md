@@ -33,6 +33,20 @@ See https://github.com/sillsdev/genericinstaller-sample for a sample use.
 6)	In the `resources` folder there are several graphics files used by the installer. Customize these as you wish but do not change the names or dimensions of the images, nor check them in to the genericinstaller repository (see Working with Templates below).
 7)	Open a command prompt and run the Build*Base.bat file to build your installer. The installer will be created in the BuildDir folder in your repository if all goes well.
 
+### Heat harvest exclusions (`heat-exclude.xml`)
+
+Directory harvesting uses `BaseInstallerBuild/KeyPathFix.xsl`. That stylesheet loads **`heat-exclude.xml`** from the **same directory as the XSL** (via `document('heat-exclude.xml')`) and **drops** Heat-generated **single-`File`** components (`heat -gg`) when the harvested file’s **basename** matches an `<Exclude Name="Some.dll" />` entry. It also removes matching **`ComponentRef`** rows from **`HarvestedAppFiles`** so Light does not see dangling references (**LGHT0094**).
+
+**PatchableInstaller (generic template only)**
+
+- **`heat-exclude.xml.template`** is the only committed list file: an **empty** `<HeatHarvestExcludes>` with schema comments. **Do not** commit product-specific DLL names here.
+- **`heat-exclude.xml`** is **gitignored** (see `PatchableInstaller/.gitignore`). `buildMsi.bat` runs `copy /y heat-exclude.xml.template heat-exclude.xml` when `heat-exclude.xml` is missing so Heat always has a valid file.
+
+**Downstream products (e.g. FieldWorks in this monorepo)**
+
+- Ship a product-specific list and copy it over **`BaseInstallerBuild/heat-exclude.xml`** before **`buildBaseInstaller.bat`** / **`buildMsi.bat`**. WiX 6 products can keep a list next to that tree’s **`KeyPathFix.xsl`**.
+- If you exclude assemblies from Heat, author matching components (for example in **`CustomComponents.wxi`**) and add **`ComponentRef`** entries under **`Feature Complete`** in your overlaid **`Common/CustomFeatures.wxi`** (FieldWorks: **`FLExInstaller/CustomFeatures.wxi`** is copied with other **`*.wxi`** into **`PatchableInstaller/Common`**).
+
 ### Working with Templates:
 This installer template is designed to be customizable with your own logos, license, etc., but customizing templates in shared locations is inconsiderate. Instead, your options include:
  - creating your own fork or branch of this repository (depending on whether you belong to the sillsdev organization)
@@ -46,16 +60,11 @@ If you do not wish to use the build scripts from the sample project, simply:
 * (possible other steps)
 * Call `BaseInstallerBuild\buildBaseInstaller.bat` and `CreateUpdatePatch\buildPatch.bat` passing the arguments listed at the beginnig of the respective scripts (see the end of Sample.(build|targets) for sample usage)
 
-### Working with Templates:
-This installer template is designed to be customizable with your own logos, license, etc., but customizing templates in shared locations is inconsiderate. Instead, your options include:
- - creating your own fork or branch of this repository (depending on whether you belong to the sillsdev organization)
- - keeping the customized items in your product's main repository and copying them on top of the template items as a build step (remember not to check them in--TODO: after the generic installer is more stable, .gitignore popularly-replaced files)
-
 Popular Templates Include:
  - Icons under `resources`
  - `resources\License.htm`
  - `Common\Overrides.wxi` allows custom pre- and post-install actions as well as some custom paths
- - `Common\CustomFeatures.wxi` allows the inclusion of custom features for the user to be able to select
+ - `Common\CustomFeatures.wxi` allows the inclusion of custom features for the user to be able to select, including any extra `ComponentRef` entries needed for `Feature Complete` when assemblies are excluded from Heat (see README heat-exclude section).
 
 ### Work TODO:
  - Add a choose components window in MSI UI?
