@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Template: copy to heat-exclude.xml (same folder as KeyPathFix.xsl) before running Heat, or let your
+  product build copy its own file to BaseInstallerBuild/heat-exclude.xml. buildMsi.bat seeds from this
+  template when heat-exclude.xml is missing.
+
+  Schema: each <Exclude Name="Some.dll" /> drops single-File Heat components (-gg) for that basename so
+  authored WiX can own the file. See KeyPathFix.xsl (document('heat-exclude.xml')).
+-->
+<HeatHarvestExcludes xmlns="http://fieldworks.sil.org/heat-harvest-excludes/1">
+</HeatHarvestExcludes>
