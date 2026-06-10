@@ -123,6 +123,23 @@
 		<Custom Action='NoDowngrade' After='FindRelatedProducts'>NEWERFOUND</Custom>
 		<Custom Action="CheckPatchValue" Before="CheckUpgradeValue">PATCHNEWSUMMARYSUBJECT="Small Update Patch"</Custom>
 		<Custom Action="CheckUpgradeValue" After="InstallFinalize">PREVIOUSFOUND</Custom>
+		<!-- LT-20524: The InstallUISequence does not run for silent (/quiet, /qn) or basic (/qb) installs
+		     (UILevel &lt; 4), so the directory-resolution actions below must also run here; otherwise
+		     APPFOLDER/DATAFOLDER/HARVESTDATAFOLDER stay unset and files (including the ICU data that
+		     ICU_DATA points at) install to the wrong locations. Reduced (/passive, UILevel 4) and full
+		     UI installs continue to resolve these in the InstallUISequence, so the UILevel guard keeps
+		     this from overriding a user-chosen path. VerifyDataPath populates REGDATAFOLDER (used by the
+		     conditions below) and always returns Success, so it is safe in a silent install. -->
+		<Custom Action="SetDefDataFolder" After="FindRelatedProducts">UILevel &lt; 4</Custom>
+		<Custom Action="VerifyDataPath" After="SetDefDataFolder">UILevel &lt; 4</Custom>
+		<Custom Action="UseDefAppFolder" After="AppSearch">(UILevel &lt; 4) and (NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
+		<Custom Action="UseOvrAppFolder" After="AppSearch">(UILevel &lt; 4) and (NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
+		<Custom Action="UseRegAppFolder" After="AppSearch">(UILevel &lt; 4) and (REGAPPFOLDER)</Custom>
+		<Custom Action="UseDefDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
+		<Custom Action="UseOvrDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
+		<Custom Action="UseRegDataFolder" After="AppSearch">(UILevel &lt; 4) and (REGDATAFOLDER)</Custom>
+		<Custom Action="UseDefHarvestDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT OVRHARVESTDATAFOLDER)</Custom>
+		<Custom Action="UseOvrHarvestDataFolder" After="AppSearch">(UILevel &lt; 4) and (OVRHARVESTDATAFOLDER)</Custom>
 		<?include ../Common/CustomActionSteps.wxi?>
 	</InstallExecuteSequence>
 
