@@ -76,7 +76,11 @@ namespace ProcRunner
 			{
 				var logfile = Path.Combine(Environment.GetFolderPath(
 					Environment.SpecialFolder.LocalApplicationData), "Temp", "PtPatch.log");
-				options = $"/qb AUTOUPDATE=\"True\" /l*vx \"{logfile}\"";
+				// A silent patch install must name the features to reinstall and how to overwrite
+				// their files. Without REINSTALL and REINSTALLMODE msiexec updates only the cached
+				// package: it registers the patch and reports success while leaving every file on
+				// disk untouched. See the /p entry in the msiexec documentation.
+				options = $"/qb AUTOUPDATE=\"True\" REINSTALL=ALL REINSTALLMODE=ecmus /l*vx \"{logfile}\"";
 			}
 			else if (arg.Equals("/f"))
 			{
