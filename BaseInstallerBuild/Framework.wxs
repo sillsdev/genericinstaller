@@ -129,31 +129,45 @@
 		     ICU_DATA points at) install to the wrong locations. Reduced (/passive, UILevel 4) and full
 		     UI installs continue to resolve these in the InstallUISequence, so the UILevel guard keeps
 		     this from overriding a user-chosen path. VerifyDataPath populates REGDATAFOLDER (used by the
-		     conditions below) and always returns Success, so it is safe in a silent install. -->
-		<Custom Action="SetDefDataFolder" After="FindRelatedProducts">UILevel &lt; 4</Custom>
-		<Custom Action="VerifyDataPath" After="SetDefDataFolder">UILevel &lt; 4</Custom>
-		<Custom Action="UseDefAppFolder" After="AppSearch">(UILevel &lt; 4) and (NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
-		<Custom Action="UseOvrAppFolder" After="AppSearch">(UILevel &lt; 4) and (NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
-		<Custom Action="UseRegAppFolder" After="AppSearch">(UILevel &lt; 4) and (REGAPPFOLDER)</Custom>
-		<Custom Action="UseDefDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
-		<Custom Action="UseOvrDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
-		<Custom Action="UseRegDataFolder" After="AppSearch">(UILevel &lt; 4) and (REGDATAFOLDER)</Custom>
-		<Custom Action="UseDefHarvestDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT OVRHARVESTDATAFOLDER)</Custom>
-		<Custom Action="UseOvrHarvestDataFolder" After="AppSearch">(UILevel &lt; 4) and (OVRHARVESTDATAFOLDER)</Custom>
+		     conditions below) and always returns Success, so it is safe in a silent install.
+
+		     LT-22801: NOT PATCH keeps them out of patch transactions. A patch is applied with /qb, which
+		     is UILevel 3, so UILevel &lt; 4 alone also caught every patch. These actions are sequenced
+		     after AppSearch and FindRelatedProducts, which puts them before CostFinalize; reassigning
+		     the directory properties there leaves the installer unable to confirm the product's existing
+		     components are still local, so every feature costs out Advertised and every component
+		     Action: Null. The patch then reports success while installing only components that are
+		     absent, and no already-installed file is replaced. The directories a patch needs are
+		     already resolved from the installed product, so a patch has nothing to gain here anyway. -->
+		<Custom Action="SetDefDataFolder" After="FindRelatedProducts">(UILevel &lt; 4) and (NOT PATCH)</Custom>
+		<Custom Action="VerifyDataPath" After="SetDefDataFolder">(UILevel &lt; 4) and (NOT PATCH)</Custom>
+		<Custom Action="UseDefAppFolder" After="AppSearch">(UILevel &lt; 4) and (NOT PATCH) and (NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
+		<Custom Action="UseOvrAppFolder" After="AppSearch">(UILevel &lt; 4) and (NOT PATCH) and (NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
+		<Custom Action="UseRegAppFolder" After="AppSearch">(UILevel &lt; 4) and (NOT PATCH) and (REGAPPFOLDER)</Custom>
+		<Custom Action="UseDefDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT PATCH) and (NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
+		<Custom Action="UseOvrDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT PATCH) and (NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
+		<Custom Action="UseRegDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT PATCH) and (REGDATAFOLDER)</Custom>
+		<Custom Action="UseDefHarvestDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT PATCH) and (NOT OVRHARVESTDATAFOLDER)</Custom>
+		<Custom Action="UseOvrHarvestDataFolder" After="AppSearch">(UILevel &lt; 4) and (NOT PATCH) and (OVRHARVESTDATAFOLDER)</Custom>
 		<?include ../Common/CustomActionSteps.wxi?>
 	</InstallExecuteSequence>
 
 	<InstallUISequence>
-		<Custom Action="SetDefDataFolder" After="FindRelatedProducts"></Custom>
-		<Custom Action="VerifyDataPath" After="SetDefDataFolder"></Custom>
-		<Custom Action="UseDefAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
-		<Custom Action="UseOvrAppFolder" After="AppSearch">(NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
-		<Custom Action="UseRegAppFolder" After="AppSearch">REGAPPFOLDER</Custom>
-		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
-		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
-		<Custom Action="UseRegDataFolder" After="AppSearch">REGDATAFOLDER</Custom>
-		<Custom Action="UseDefHarvestDataFolder" After="AppSearch">NOT OVRHARVESTDATAFOLDER</Custom>
-		<Custom Action="UseOvrHarvestDataFolder" After="AppSearch">OVRHARVESTDATAFOLDER</Custom>
+		<!-- LT-22801: NOT PATCH for the same reason as in the InstallExecuteSequence above. This
+		     sequence runs for reduced (/passive) and full UI, so a patch applied with UI rather than
+		     through ProcRunner's /qb would otherwise reassign the directory properties before
+		     CostFinalize and cost every feature out Advertised. A patch shows no directory-selection
+		     dialogs, so there is nothing for these to resolve on that path. -->
+		<Custom Action="SetDefDataFolder" After="FindRelatedProducts">NOT PATCH</Custom>
+		<Custom Action="VerifyDataPath" After="SetDefDataFolder">NOT PATCH</Custom>
+		<Custom Action="UseDefAppFolder" After="AppSearch">(NOT PATCH) and (NOT REGAPPFOLDER) and (NOT OVRAPPFOLDER)</Custom>
+		<Custom Action="UseOvrAppFolder" After="AppSearch">(NOT PATCH) and (NOT REGAPPFOLDER) and (OVRAPPFOLDER)</Custom>
+		<Custom Action="UseRegAppFolder" After="AppSearch">(NOT PATCH) and (REGAPPFOLDER)</Custom>
+		<Custom Action="UseDefDataFolder" After="AppSearch">(NOT PATCH) and (NOT REGDATAFOLDER) and (NOT OVRDATAFOLDER)</Custom>
+		<Custom Action="UseOvrDataFolder" After="AppSearch">(NOT PATCH) and (NOT REGDATAFOLDER) and (OVRDATAFOLDER)</Custom>
+		<Custom Action="UseRegDataFolder" After="AppSearch">(NOT PATCH) and (REGDATAFOLDER)</Custom>
+		<Custom Action="UseDefHarvestDataFolder" After="AppSearch">(NOT PATCH) and (NOT OVRHARVESTDATAFOLDER)</Custom>
+		<Custom Action="UseOvrHarvestDataFolder" After="AppSearch">(NOT PATCH) and (OVRHARVESTDATAFOLDER)</Custom>
 	</InstallUISequence>
 
 	<Media Id='1' Cabinet='AppTemplate.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
