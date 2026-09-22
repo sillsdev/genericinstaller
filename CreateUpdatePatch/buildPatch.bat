@@ -94,12 +94,14 @@ if not %errorlevel% == 0 set PATH=%WIX%/bin;%PATH%
 	DEL *.wixpdb
 	DEL *.wixmst
 	DEL *.wixmsp
-	DEL .\Master\*.msi
+	if /I not "%KEEP_INTERMEDIATE_MSI%"=="true" (
+		DEL .\Master\*.msi
+		DEL .\Update\*.msi
+	)
 	DEL .\Master\*.wixobj
 	DEL .\Master\*.wixpdb
 	DEL .\Master\AppHarvest.wxs
 	DEL .\Master\DataHarvest.wxs
-	DEL .\Update\*.msi
 	DEL .\Update\*.wixobj
 	DEL .\Update\*.wixpdb
 	DEL .\Update\AppHarvest.wxs
